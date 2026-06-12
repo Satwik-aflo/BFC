@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BFC Design System — Styleguide</title>
+  <link rel="icon" type="image/png" href="assets/img/Rose.png" />
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/main.css" />
+  <style>
+    .sg { max-width: 72rem; margin: 0 auto; padding: 6rem var(--gutter); }
+    .sg h1 { font-family: var(--font-display); font-size: var(--text-2xl); letter-spacing: 0.08em; text-transform: uppercase; }
+    .sg section { margin-top: var(--space-6); }
+    .sg h2 { font-family: var(--font-display); font-size: var(--text-lg); letter-spacing: var(--tracking-caps); text-transform: uppercase; border-bottom: var(--line); padding-bottom: 0.6rem; margin-bottom: var(--space-3); }
+    .sg-swatches { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; }
+    .sg-swatch { border: var(--line); }
+    .sg-swatch__chip { height: 110px; }
+    .sg-swatch__meta { padding: 0.8rem; font-family: var(--font-display); font-size: var(--text-xs); letter-spacing: 0.08em; text-transform: uppercase; }
+    .sg-type-row { display: grid; grid-template-columns: 200px 1fr; gap: 2rem; align-items: baseline; padding: 1.2rem 0; border-bottom: var(--line-thin); }
+    .sg-type-row .label { font-family: var(--font-display); font-size: var(--text-xs); letter-spacing: var(--tracking-caps); text-transform: uppercase; opacity: 0.7; }
+    .sg-row { display: flex; gap: 2rem; flex-wrap: wrap; align-items: center; }
+    .sg-note { font-size: var(--text-sm); opacity: 0.75; margin-top: 0.8rem; max-width: var(--measure); }
+    @media (max-width: 700px) { .sg-type-row { grid-template-columns: 1fr; gap: 0.4rem; } }
+  </style>
+</head>
+<body>
+  <main class="sg">
+    <p class="kicker">The Boring Foods Company</p>
+    <h1>Design System</h1>
+    <p class="sg-note">Tokens and components extracted from the Boring Foods Brand Book. Source: <code>css/tokens.css</code>.</p>
+
+    <section>
+      <h2>Primary Palette</h2>
+      <div class="sg-swatches">
+        <div class="sg-swatch"><div class="sg-swatch__chip" style="background:var(--indian-blue)"></div><div class="sg-swatch__meta">Indian Blue · #5D57C5</div></div>
+        <div class="sg-swatch"><div class="sg-swatch__chip" style="background:var(--kulfi-malai)"></div><div class="sg-swatch__meta">Kulfi Malai · #FBF3CC</div></div>
+        <div class="sg-swatch"><div class="sg-swatch__chip" style="background:var(--ripe-orange)"></div><div class="sg-swatch__meta">Ripe Orange · #F84B21</div></div>
+        <div class="sg-swatch"><div class="sg-swatch__chip" style="background:var(--mango-yellow)"></div><div class="sg-swatch__meta">Mango Yellow · #F9BF29</div></div>
+        <div class="sg-swatch"><div class="sg-swatch__chip" style="background:var(--neem-green)"></div><div class="sg-swatch__meta">Neem Green · #244F24</div></div>
+        <div class="sg-swatch"><div class="sg-swatch__chip" style="background:var(--kohl-black)"></div><div class="sg-swatch__meta" style="color:#000">Kohl Black · #000000</div></div>
+      </div>
+      <p class="sg-note">Forbidden combinations (Brand Book p.39): blue-on-red, red-on-blue, green-on-blue, blue-on-green, black-on-green, green-on-black.</p>
+    </section>
+
+    <section>
+      <h2>Typography — 80 / 15 / 5</h2>
+      <div class="sg-type-row"><span class="label">Aesthet Nova · 80% · body</span><span style="font-size:var(--text-lg)">Our mission is to reconnect people with the power of traditional foods.</span></div>
+      <div class="sg-type-row"><span class="label">Copperplate · 15% · H1/H2/CTA</span><span class="caps" style="font-size:var(--text-xl)">What's Pepper Doing in My Turmeric?</span></div>
+      <div class="sg-type-row"><span class="label">Flagflies · charm headlines</span><span style="font-family:var(--font-charm); font-size:var(--text-2xl)">Why Pepper?</span></div>
+      <div class="sg-type-row"><span class="label">Musloner · 5% · accents</span><span class="script" style="font-size:var(--text-xl)">#proudlyboring</span></div>
+      <div class="sg-type-row"><span class="label">Mexicana Hollow · 5% · single words, filled + shadow</span><span class="hero__word" style="font-size:var(--text-2xl)">BORING</span></div>
+    </section>
+
+    <section>
+      <h2>Buttons</h2>
+      <div class="sg-row">
+        <a class="btn" href="#">Link <span class="hand">☞</span></a>
+        <a class="btn btn--ghost" href="#">Ghost Link <span class="hand">☞</span></a>
+      </div>
+    </section>
+
+    <section>
+      <h2>Frames</h2>
+      <div class="sg-row">
+        <div class="ticket" style="width:260px">Ticket frame — notched corners contain text and stats.</div>
+        <div class="ticket ticket--double" style="width:260px">Double ticket frame with Mango Yellow inner keyline.</div>
+      </div>
+      <div style="margin-top:2rem" class="rule"></div>
+      <p class="sg-note">Striped section rule, from Brand Book frames (p.48).</p>
+    </section>
+
+    <section>
+      <h2>Motifs &amp; Icons</h2>
+      <div class="sg-row">
+        <img src="assets/img/Rose.png" alt="Rose" style="height:64px" />
+        <img src="assets/img/Spark-1.png" alt="Spark" style="height:48px" />
+        <img src="assets/img/Stamp1.svg" alt="Stamp" style="height:80px" />
+        <img src="assets/img/Starburst1.svg" alt="Starburst" style="height:80px" />
+        <img src="assets/img/Sun1.svg" alt="Sun" style="height:64px" />
+        <img src="assets/img/Turmeric-Root.png" alt="Turmeric root" style="height:56px" />
+        <img src="assets/img/Check1.svg" alt="Check" style="height:48px" />
+        <img src="assets/img/Not-in-the-pack.svg" alt="No" style="height:48px" />
+        <img src="assets/img/Mountain1.svg" alt="Mountain" style="height:64px" />
+        <img src="assets/img/Trees1.svg" alt="Trees" style="height:64px" />
+      </div>
+    </section>
+  </main>
+</body>
+</html>

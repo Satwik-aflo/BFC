@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Boring Foods Company — The Future of Health is Ancient</title>
+  <meta name="description" content="Pure, transparently sourced traditional foods. Boring, powerful, time-tested nutrition — starting with Lakadong turmeric from Meghalaya. #proudlyboring" />
+  <link rel="icon" type="image/png" href="assets/img/Rose.png" />
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+
+  <!-- ===================== Navigation ===================== -->
+  <header class="nav" id="nav">
+    <a class="nav__logo" href="#top" aria-label="The Boring Foods Company — home">
+      <img src="assets/img/logo-web4.png" alt="The Boring Foods Company" />
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav__links">
+        <li><a href="#manifesto">Our Story</a></li>
+        <li><a href="#shop">Shop</a></li>
+        <li><a href="#product">The Turmeric</a></li>
+        <li><a href="#science">The Science</a></li>
+        <li><a href="#origin">The Origin</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="nav__cta">
+      <a class="nav__icon-link" href="#" aria-label="Search"><img class="nav__icon" src="assets/img/Search1.svg" alt="" /></a>
+      <a class="nav__icon-link" href="#" aria-label="Cart"><img class="nav__icon" src="assets/img/Cart1.svg" alt="" /></a>
+      <button class="nav__burger" id="burger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Full-screen overlay menu -->
+  <div class="menu-overlay" id="menu" aria-hidden="true">
+    <a href="#manifesto">Our Story</a>
+    <a href="#shop">Shop</a>
+    <a href="#product">The Turmeric</a>
+    <a href="#science">The Science</a>
+    <a href="#origin">The Origin</a>
+    <a href="#contact">Contact</a>
+    <span class="script">#proudlyboring</span>
+  </div>
+
+  <!-- ===================== Hero ===================== -->
+  <section class="hero" id="top">
+    <div class="hero__media" aria-hidden="true">
+      <img class="hero__photo" src="assets/img/photos/hero-powder.jpg" alt="" />
+      <div class="hero__scrim"></div>
+    </div>
+    <aside class="hero__meta hero__meta--left caps reveal" style="--reveal-delay: 0.9s">Single<br />Origin</aside>
+    <aside class="hero__meta hero__meta--right caps reveal" style="--reveal-delay: 0.9s">Est.<br />Meghalaya</aside>
+
+    <img class="hero__logo reveal" src="assets/img/logo-web4.png" alt="The Boring Foods Company" />
+    <p class="hero__tag split-lines">
+      In a world of synthetic, flashy health fads, we bring you back to the basics —
+      <span class="script">boring,</span> powerful, time-tested foods.
+    </p>
+    <div class="hero__cta reveal" style="--reveal-delay: 0.7s">
+      <a class="btn" href="#shop">Shop the Range <span class="hand">☞</span></a>
+      <a class="btn btn--light" href="#manifesto">Our Story <span class="hand">☞</span></a>
+    </div>
+    <h1 class="hero__word reveal" style="--reveal-delay: 0.35s">BORING</h1>
+  </section>
+
+  <!-- ===================== Manifesto ===================== -->
+  <section class="chapter chapter--green" id="manifesto">
+    <div class="chapter__inner">
+      <div class="chapter__head reveal">
+        <span class="kicker">Brand Positioning</span>
+        <h2 class="chapter__title split-lines">The Future of Health is Ancient</h2>
+      </div>
+      <p class="manifesto__body split-lines">
+        <span class="dropcap">O</span>ur mission is to reconnect people with the power of
+        traditional foods — transforming everyday meals into intentional acts of
+        self-care and nourishment. Pure, transparently sourced products that go beyond
+        flavor: they actively support wellness and preventive health.
+      </p>
+      <p class="manifesto__sign script reveal">#proudlyboring</p>
+    </div>
+  </section>
+
+  <!-- ===================== Shop ===================== -->
+  <section class="chapter" id="shop">
+    <div class="chapter__inner">
+      <div class="chapter__head">
+        <span class="kicker reveal">The Range</span>
+        <h2 class="chapter__title split-lines">Boring Foods, Your Way</h2>
+      </div>
+      <div class="shop__grid stagger">
+        <a class="card" href="#product">
+          <div class="card__media img-reveal"><img src="assets/img/products/turmeric.jpg" alt="Lakadong Turmeric Powder pack and tin" /></div>
+          <h3 class="card__name caps">Lakadong Turmeric Powder</h3>
+          <p class="card__meta">150 g · From Meghalaya</p>
+          <p class="card__price caps">₹ 289</p>
+        </a>
+        <a class="card" href="#product">
+          <div class="card__media img-reveal"><img src="assets/img/products/black-pepper.png" alt="Karimunda Black Pepper Powder pack" /></div>
+          <h3 class="card__name caps">Karimunda Black Pepper Powder</h3>
+          <p class="card__meta">100 g · From Kerala</p>
+          <p class="card__price caps">₹ 265</p>
+        </a>
+        <a class="card" href="#product">
+          <div class="card__media img-reveal"><img src="assets/img/products/moringa.png" alt="Moringa Powder pack" /></div>
+          <h3 class="card__name caps">Moringa Powder</h3>
+          <p class="card__meta">150 g · Leaf-only, shade dried</p>
+          <p class="card__price caps">₹ 305</p>
+        </a>
+        <a class="card" href="#product">
+          <div class="card__media img-reveal"><img src="assets/img/products/ashwagandha.png" alt="Ashwagandha Root Powder pack" /></div>
+          <h3 class="card__name caps">Ashwagandha Root Powder</h3>
+          <p class="card__meta">150 g · Root-only, KSM-grade</p>
+          <p class="card__price caps">₹ 355</p>
+        </a>
+      </div>
+      <ul class="shop__assurances reveal" aria-label="Quality assurances">
+        <li>No Fillers or Preservatives</li>
+        <li>Single, High-Quality Origin</li>
+        <li>GI-Tagged Spices</li>
+        <li>Third-Party Tested</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===================== Bundles ===================== -->
+  <section class="chapter chapter--green" id="bundles">
+    <div class="chapter__inner">
+      <div class="chapter__head">
+        <span class="kicker reveal">Shop by Benefits</span>
+        <h2 class="chapter__title split-lines">Blends With a Purpose</h2>
+      </div>
+      <div class="shop__grid shop__grid--bundles stagger">
+        <a class="card card--bundle" href="#contact">
+          <div class="card__media img-reveal"><img src="assets/img/products/inflammation-relief.jpg" alt="Inflammation Relief bundle" /></div>
+          <h3 class="card__name caps">Inflammation Relief</h3>
+          <p class="card__meta">Turmeric + Black Pepper · 250 g</p>
+          <p class="card__price caps">₹ 594</p>
+        </a>
+        <a class="card card--bundle" href="#contact">
+          <div class="card__media img-reveal"><img src="assets/img/products/immune-defense.jpg" alt="Immune Defense bundle" /></div>
+          <h3 class="card__name caps">Immune Defense</h3>
+          <p class="card__meta">Turmeric + Pepper + Moringa · 400 g</p>
+          <p class="card__price caps">₹ 859</p>
+        </a>
+        <a class="card card--bundle" href="#contact">
+          <div class="card__media img-reveal"><img src="assets/img/products/fitness-essentials.jpg" alt="Fitness Essentials bundle" /></div>
+          <h3 class="card__name caps">Fitness Essentials</h3>
+          <p class="card__meta">Ashwagandha + Moringa · 300 g</p>
+          <p class="card__price caps">₹ 660</p>
+        </a>
+        <a class="card card--bundle" href="#contact">
+          <div class="card__media img-reveal"><img src="assets/img/products/relaxation-support.jpg" alt="Relaxation Support bundle" /></div>
+          <h3 class="card__name caps">Relaxation Support</h3>
+          <p class="card__meta">Ashwagandha + Turmeric · 300 g</p>
+          <p class="card__price caps">View <span class="hand">☞</span></p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Product ===================== -->
+  <section class="chapter" id="product">
+    <div class="chapter__inner">
+      <div class="chapter__head reveal">
+        <span class="kicker">Chapter One</span>
+        <h2 class="chapter__title split-lines">Lakadong Turmeric</h2>
+      </div>
+      <div class="product__grid">
+        <div class="product__art">
+          <div class="product__photo img-reveal">
+            <img class="parallax" data-speed="0.12" src="assets/img/products/turmeric-2.png" alt="Lakadong Turmeric Powder pack and tin" />
+          </div>
+          <img class="product__spark product__spark--1" src="assets/img/Spark-1.png" alt="" />
+          <img class="product__spark product__spark--2" src="assets/img/Spark-2.png" alt="" />
+          <img class="product__rose" src="assets/img/Rose.png" alt="" />
+        </div>
+        <div>
+          <p class="product__label reveal">TURMERIC</p>
+          <p class="product__sub reveal">Powder · From Meghalaya · Net Wt. 100g</p>
+          <p class="product__copy reveal">
+            Carefully sourced, unadulterated, and actually backed by science. This is real
+            nutrition, rooted in tradition, built for a healthier India that deserves better.
+          </p>
+          <p class="product__copy reveal">
+            This product may cause: <strong>reduced inflammation</strong>, <strong>a happier
+            gut</strong>, and <strong>smoother joints</strong> — you might dance more.
+          </p>
+          <div class="stats">
+            <div class="stat ticket reveal">
+              <p class="stat__num">8.0%</p>
+              <p class="stat__label">Curcumin</p>
+              <p class="stat__note">3x stronger than regular turmeric</p>
+            </div>
+            <div class="stat ticket reveal" style="--reveal-delay: 0.12s">
+              <p class="stat__num">20x</p>
+              <p class="stat__label">Absorption</p>
+              <p class="stat__note">Powered by Malabar black pepper</p>
+            </div>
+          </div>
+          <p class="product__copy reveal" style="margin-top: var(--space-4)">
+            <a class="btn" href="#contact">Get the Tin <span class="hand">☞</span></a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Science ===================== -->
+  <section class="chapter chapter--blue" id="science">
+    <div class="chapter__inner">
+      <div class="chapter__head reveal">
+        <span class="kicker">Scan for Proof, Not Empty Promises</span>
+        <h2 class="chapter__title chapter__title--charm split-lines">Why Pepper?</h2>
+      </div>
+      <div class="pepper__grid">
+        <div class="pepper__copy reveal">
+          <p>
+            We've added <strong>1.5% black pepper</strong> from Kerala, because turmeric, on
+            its own, is hardly absorbed by the body. The pepper helps it do its job. To be
+            specific, the piperine compound in pepper enhances the absorption of curcumin
+            by <strong>2,000%</strong>.
+          </p>
+          <p style="margin-top: 1rem">
+            To verify this — and every other claim we make — scan the QR code on your package.
+          </p>
+          <a class="btn" href="#contact">More <span class="hand">☞</span></a>
+        </div>
+        <div class="compare ticket ticket--double reveal" style="--reveal-delay: 0.15s">
+          <div class="compare__row">
+            <div class="compare__cell">
+              <p class="caps">Us</p>
+              <img src="assets/img/Turmeric-Root.png" alt="Lakadong turmeric root" />
+              <p class="compare__pct">8–12%</p>
+              <p class="caps" style="font-size: var(--text-xs)">Curcumin</p>
+            </div>
+            <img class="compare__vs" src="assets/img/Sun1.svg" alt="versus" />
+            <div class="compare__cell">
+              <p class="caps">Others</p>
+              <img class="small" src="assets/img/Turmeric-Root.png" alt="Regular turmeric root" />
+              <p class="compare__pct">2–4%</p>
+              <p class="caps" style="font-size: var(--text-xs)">Curcumin</p>
+            </div>
+          </div>
+          <p class="compare__foot">
+            Independently lab-tested, batch by batch. <span class="script" style="font-size:1.15em">Boringly clean &amp; pure.</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== In the box ===================== -->
+  <section class="chapter chapter--orange" id="box">
+    <div class="chapter__inner">
+      <div class="chapter__head reveal">
+        <span class="kicker">Full Transparency</span>
+        <h2 class="chapter__title split-lines">What's in the Box</h2>
+      </div>
+      <div class="box__grid">
+        <div class="box__col box__col--yes ticket reveal">
+          <h3><img src="assets/img/Check1.svg" alt="" /> In the Box</h3>
+          <ul>
+            <li>98.5% Lakadong Turmeric <small>single origin, Meghalaya</small></li>
+            <li>1.5% Malabar Pepper <small>for 20x absorption</small></li>
+            <li>100% Pure <small>lab-verified, every batch</small></li>
+            <li>100% Benefits <small>nothing diluted, nothing faked</small></li>
+          </ul>
+        </div>
+        <div class="box__col box__col--no ticket reveal" style="--reveal-delay: 0.15s">
+          <h3>Not in the Box</h3>
+          <ul>
+            <li>NO Added Color</li>
+            <li>NO Fillers</li>
+            <li>NO Fumigants</li>
+            <li>NO Preservatives</li>
+            <li>NO Bakwaas</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Provenance ===================== -->
+  <section class="chapter provenance" id="origin">
+    <div class="chapter__inner">
+      <div class="chapter__head reveal">
+        <span class="kicker">Single Origin</span>
+        <h2 class="chapter__title split-lines">From the Hills of Meghalaya</h2>
+      </div>
+      <div class="provenance__scene reveal">
+        <img class="sun" src="assets/img/Sun1.svg" alt="" />
+        <img src="assets/img/Trees1.svg" alt="" />
+        <img src="assets/img/Mountain1.svg" alt="" />
+        <img src="assets/img/Trees2.svg" alt="" />
+      </div>
+      <div class="provenance__photo img-reveal reveal-late">
+        <img class="parallax" data-speed="0.16" src="assets/img/photos/farm.png" alt="Farmers walking through the turmeric fields" />
+        <span class="provenance__caption caps">Lakadong, Meghalaya — harvest, March 2025</span>
+      </div>
+      <p class="provenance__body split-lines">
+        Grown by women-led self-help groups in Lakadong, harvested in March, and packed at
+        source — pesticide-free, fumigant-free, and traceable down to the batch. We support
+        natural farming and North-East India farmers, because good food should do good
+        all the way down.
+      </p>
+      <div class="provenance__badges reveal">
+        <img src="assets/img/Single-Origin.svg" alt="Single Origin badge" />
+        <img src="assets/img/Microscope1.svg" alt="Lab tested badge" />
+        <img src="assets/img/Future-of-health.svg" alt="The future of health is ancient badge" />
+        <img src="assets/img/Glass1.svg" alt="Glass packaging badge" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Marquee ===================== -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track">
+      <span class="marquee__item"><span class="script">#proudlyboring</span></span>
+      <span class="marquee__item">Support Women SHGs</span>
+      <span class="marquee__item">Support Natural Farming</span>
+      <span class="marquee__item">Support NE India Farmers</span>
+      <span class="marquee__item"><span class="script">#proudlyboring</span></span>
+      <span class="marquee__item">Support Women SHGs</span>
+      <span class="marquee__item">Support Natural Farming</span>
+      <span class="marquee__item">Support NE India Farmers</span>
+    </div>
+  </div>
+
+  <!-- ===================== Footer ===================== -->
+  <footer class="footer" id="contact">
+    <div class="footer__inner">
+      <div class="footer__top">
+        <img class="footer__stamp" src="assets/img/Sun1.svg" alt="" />
+        <div class="footer__cta reveal">
+          <h2>Boring is the new <span class="script">super.</span></h2>
+          <p>
+            Questions, feedback, or proof requests —
+            <a href="mailto:team@boringfoodscompany.com">team@boringfoodscompany.com</a>
+          </p>
+          <p style="margin-top: 1.5rem">
+            <a class="btn" href="mailto:team@boringfoodscompany.com">Write to Us <span class="hand">☞</span></a>
+          </p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer">
+          <a href="#manifesto">Our Story</a>
+          <a href="#product">The Turmeric</a>
+          <a href="#science">The Science</a>
+          <a href="#origin">The Origin</a>
+        </nav>
+      </div>
+      <div class="footer__bottom">
+        <span>© 2026 The Boring Foods Company</span>
+        <span>Agsto Foods Pvt Ltd, Gurugram, Haryana</span>
+        <span>The Future of Health is Ancient</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

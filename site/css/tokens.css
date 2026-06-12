@@ -1,0 +1,121 @@
+/* ==========================================================================
+   The Boring Foods Company — Design System Tokens
+   Source of truth: Boring Foods Brand Book (2025)
+   ========================================================================== */
+
+/* ---- Fonts ------------------------------------------------------------- */
+/* Functional 01 — Aesthet Nova: body, long-form (~80% of all type) */
+@font-face {
+  font-family: 'Aesthet Nova';
+  src: url('../assets/fonts/AesthetNova-Light.otf') format('opentype');
+  font-weight: 300;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Aesthet Nova';
+  src: url('../assets/fonts/AesthetNova-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Aesthet Nova';
+  src: url('../assets/fonts/AesthetNova-Black.otf') format('opentype');
+  font-weight: 900;
+  font-display: swap;
+}
+/* Primary 02 — Copperplate: H1/H2, captions, CTAs, numbers (~15%) */
+@font-face {
+  font-family: 'Copperplate BFC';
+  src: url('../assets/fonts/Copperplate-Light.otf') format('opentype');
+  font-weight: 300;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Copperplate BFC';
+  src: url('../assets/fonts/Copperplate-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Copperplate BFC';
+  src: url('../assets/fonts/Copperplate-Heavy.otf') format('opentype');
+  font-weight: 700;
+  font-display: swap;
+}
+/* Functional 02 — Flagflies: charm headlines, short phrases only */
+@font-face {
+  font-family: 'Flagflies';
+  src: url('../assets/fonts/Flagflies.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+/* Primary 03 — Musloner: cursive accents, hashtags. Use sparingly (5%) */
+@font-face {
+  font-family: 'Musloner';
+  src: url('../assets/fonts/Musloner.otf') format('opentype');
+  font-weight: 400;
+  font-display: swap;
+}
+/* Primary 01 — Mexicana Hollow: single display words only, never body.
+   Brand rule: never use hollow — always filled + drop shadow. */
+@font-face {
+  font-family: 'Mexicana Hollow';
+  src: url('../assets/fonts/MexicanaHollow.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+
+:root {
+  /* ---- Primary palette (Brand Book p.38) ------------------------------ */
+  --indian-blue: #5D57C5;
+  --kulfi-malai: #FBF3CC;
+  --ripe-orange: #F84B21;
+  --mango-yellow: #F9BF29;
+  --neem-green: #244F24;
+  --kohl-black: #000000;
+
+  /* Derived, used only for atmosphere (never for brand marks) */
+  --kulfi-deep: #F6EBB4;
+  --ink-soft: rgba(0, 0, 0, 0.72);
+
+  /* ---- Type families ---------------------------------------------------- */
+  --font-body: 'Aesthet Nova', Georgia, serif;
+  --font-display: 'Copperplate BFC', 'Copperplate', serif;
+  --font-charm: 'Flagflies', Georgia, serif;
+  --font-script: 'Musloner', cursive;
+  --font-poster: 'Mexicana Hollow', 'Copperplate BFC', serif;
+
+  /* ---- Type scale -------------------------------------------------------- */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1.0625rem;
+  --text-lg: 1.3125rem;
+  --text-xl: clamp(1.5rem, 1.2rem + 1.4vw, 2.25rem);
+  --text-2xl: clamp(2rem, 1.4rem + 2.6vw, 3.5rem);
+  --text-3xl: clamp(2.75rem, 1.8rem + 4.5vw, 5.5rem);
+  --text-poster: clamp(3.5rem, 2rem + 9vw, 11rem);
+
+  --tracking-caps: 0.18em;
+  --tracking-wide: 0.32em;
+  --leading-body: 1.65;
+
+  /* ---- Space ------------------------------------------------------------- */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --space-6: 6.5rem;
+  --space-7: 10rem;
+  --gutter: clamp(1.25rem, 4vw, 4rem);
+  --measure: 38rem;
+
+  /* ---- Borders / frames --------------------------------------------------- */
+  --line: 1.5px solid var(--kohl-black);
+  --line-thin: 1px solid rgba(0, 0, 0, 0.35);
+  --notch: 14px; /* ticket-frame corner notch */
+
+  /* ---- Motion -------------------------------------------------------------- */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur: 0.9s;
+}
