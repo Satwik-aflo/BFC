@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lakadong Turmeric Powder — The Boring Foods Company</title>
+  <meta name="description" content="9% curcumin Lakadong turmeric from Meghalaya — single-origin, NABL lab-tested, boringly clean. #proudlyboring" />
+  <link rel="icon" type="image/png" href="assets/img/Rose.png" />
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/pages.css" />
+</head>
+<body class="interior">
+
+  <!-- ===================== Navigation ===================== -->
+  <header class="nav" id="nav">
+    <a class="nav__logo" href="index.html" aria-label="The Boring Foods Company — home">
+      <img src="assets/img/logo-web4.png" alt="The Boring Foods Company" />
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav__links">
+        <li><a href="about.html">Our Story</a></li>
+        <li><a href="index.html#shop">Shop</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="nav__cta">
+      <a class="nav__icon-link" href="https://boringfoodscompany.com/search" aria-label="Search"><img class="nav__icon" src="assets/img/Search1.svg" alt="" /></a>
+      <a class="nav__icon-link" href="https://boringfoodscompany.com/cart" aria-label="Cart"><img class="nav__icon" src="assets/img/Cart1.svg" alt="" /></a>
+      <button class="nav__burger" id="burger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Full-screen overlay menu -->
+  <div class="menu-overlay" id="menu" aria-hidden="true">
+    <a href="about.html">Our Story</a>
+    <a href="index.html#shop">Shop</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contact.html">Contact</a>
+    <span class="script">#proudlyboring</span>
+  </div>
+
+  <main>
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html">Home</a><span>/</span><a href="index.html#shop">Shop</a><span>/</span>Lakadong Turmeric
+    </nav>
+
+    <!-- Product hero -->
+    <section class="pdp">
+      <div class="pdp__gallery">
+        <div class="pdp__main img-reveal"><img id="pdpMain" src="assets/img/products/turmeric.jpg" alt="Lakadong Turmeric Powder pack and tin" /></div>
+        <div class="pdp__thumbs">
+          <button class="pdp__thumb" type="button" aria-current="true" data-full="assets/img/products/turmeric.jpg"><img src="assets/img/products/turmeric.jpg" alt="Turmeric pack front" /></button>
+          <button class="pdp__thumb" type="button" data-full="assets/img/products/turmeric-2.png"><img src="assets/img/products/turmeric-2.png" alt="Turmeric tin" /></button>
+          <button class="pdp__thumb" type="button" data-full="assets/img/products/alt-2.png"><img src="assets/img/products/alt-2.png" alt="Turmeric powder texture" /></button>
+          <button class="pdp__thumb" type="button" data-full="assets/img/products/alt-3.png"><img src="assets/img/products/alt-3.png" alt="Turmeric lifestyle" /></button>
+        </div>
+      </div>
+
+      <div class="pdp__summary reveal">
+        <span class="kicker">Single Origin · Meghalaya</span>
+        <h1 class="pdp__title">Lakadong Turmeric Powder</h1>
+        <p class="pdp__rating"><span class="stars" aria-hidden="true">★★★★★</span> 5.0 · 2 Reviews</p>
+        <p class="pdp__price">₹ 289 <small>150 g · Incl. of all taxes</small></p>
+        <p class="pdp__pitch">The Lakadong variety from the hills of Meghalaya — hand-sliced, sun-dried, and milled with 2% black pepper so your body actually absorbs it. One ingredient, done properly. Nothing flashy. Boringly powerful.</p>
+        <ul class="pdp__features">
+          <li><strong>9% Curcumin</strong> — about 250 mg per teaspoon</li>
+          <li><strong>Verified Purity</strong> — tested in NABL-accredited labs</li>
+          <li><strong>Boringly Clean</strong> — no added colour, heavy metals, or preservatives</li>
+          <li><strong>Single-Origin</strong> — naturally grown in Meghalaya</li>
+          <li><strong>Absorption Unlocked</strong> — black pepper improves curcumin uptake up to 20×</li>
+        </ul>
+        <div class="pdp__buy">
+          <a class="btn" href="https://boringfoodscompany.com/products/turmeric-powder" target="_blank" rel="noopener">Add to Cart <span class="hand">☞</span></a>
+          <a class="btn btn--ghost" href="#how">How to Use</a>
+        </div>
+        <p class="pdp__note">Ships from Gurugram · FSSAI No. 10825999000929 · Best before 13/11/2026</p>
+      </div>
+    </section>
+
+    <!-- What's in the box (reuses homepage box component) -->
+    <section class="chapter chapter--compact">
+      <div class="chapter__inner">
+        <div class="chapter__head reveal">
+          <span class="kicker">Full Transparency</span>
+          <h2 class="chapter__title">What's in the Box</h2>
+        </div>
+        <div class="box__grid">
+          <div class="box__col box__col--yes ticket reveal">
+            <h3><img src="assets/img/Check1.svg" alt="" /> In the Box</h3>
+            <ul>
+              <li>98% Lakadong Turmeric <small>single origin, Meghalaya</small></li>
+              <li>2% Malabar Black Pepper <small>for up to 20x absorption</small></li>
+              <li>100% Pure <small>NABL lab-verified, every batch</small></li>
+              <li>100% Benefits <small>nothing diluted, nothing faked</small></li>
+            </ul>
+          </div>
+          <div class="box__col box__col--no ticket reveal" style="--reveal-delay: 0.15s">
+            <h3>Not in the Box</h3>
+            <ul>
+              <li>NO Added Colour</li>
+              <li>NO Fillers</li>
+              <li>NO Heavy Metals</li>
+              <li>NO Preservatives</li>
+              <li>NO Bakwaas</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How to use -->
+    <section class="chapter chapter--green" id="how">
+      <div class="chapter__inner">
+        <div class="chapter__head reveal">
+          <span class="kicker">½–1 tsp · Once Daily</span>
+          <h2 class="chapter__title">How to Use</h2>
+        </div>
+        <div class="steps stagger">
+          <div class="step"><div class="step__n">01</div><h3>Warm Milk or Water</h3><p>Stir ½–1 teaspoon (1.5–3 g) into warm milk or water for a daily golden drink.</p></div>
+          <div class="step"><div class="step__n">02</div><h3>Cook With It</h3><p>Add to dals, curries, rice, and sabzis the way it's been done for generations.</p></div>
+          <div class="step"><div class="step__n">03</div><h3>Honey + Lemon</h3><p>Mix with honey and a squeeze of lemon for an easy immunity shot.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Provenance teaser (reuses homepage provenance pattern) -->
+    <section class="chapter provenance">
+      <div class="chapter__inner">
+        <div class="chapter__head reveal">
+          <span class="kicker">Single Origin</span>
+          <h2 class="chapter__title">From the Hills of Meghalaya</h2>
+        </div>
+        <div class="provenance__photo img-reveal reveal-late">
+          <img class="parallax" data-speed="0.16" src="assets/img/photos/farm.png" alt="Farmers walking through the turmeric fields" />
+          <span class="provenance__caption caps">Lakadong, Meghalaya — harvest, March 2025</span>
+        </div>
+        <p class="provenance__body split-lines">
+          Grown by women-led self-help groups in Lakadong, harvested in March, and packed at
+          source — pesticide-free, fumigant-free, and traceable down to the batch.
+          <a href="index.html#origin" style="color:inherit">Read the full origin story ☞</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- Reviews -->
+    <section class="chapter chapter--compact">
+      <div class="chapter__inner">
+        <div class="chapter__head reveal">
+          <span class="kicker">5.0 · 2 Reviews</span>
+          <h2 class="chapter__title">What People Say</h2>
+        </div>
+        <div class="reviews stagger">
+          <div class="review-card"><span class="stars" aria-hidden="true">★★★★★</span><p>"You can actually smell the difference — deep, earthy, real. My evening haldi milk is a ritual now."</p><cite>— Verified Buyer</cite></div>
+          <div class="review-card"><span class="stars" aria-hidden="true">★★★★★</span><p>"Finally a turmeric brand that shows its lab reports. No nonsense, just clean spice."</p><cite>— Verified Buyer</cite></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================== Marquee ===================== -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track">
+      <span class="marquee__item"><span class="script">#proudlyboring</span></span>
+      <span class="marquee__item">Support Women SHGs</span>
+      <span class="marquee__item">Support Natural Farming</span>
+      <span class="marquee__item">Support NE India Farmers</span>
+      <span class="marquee__item"><span class="script">#proudlyboring</span></span>
+      <span class="marquee__item">Support Women SHGs</span>
+      <span class="marquee__item">Support Natural Farming</span>
+      <span class="marquee__item">Support NE India Farmers</span>
+    </div>
+  </div>
+
+  <!-- ===================== Footer ===================== -->
+  <footer class="footer" id="contact">
+    <div class="footer__inner">
+      <div class="footer__top">
+        <img class="footer__stamp" src="assets/img/Sun1.svg" alt="" />
+        <div class="footer__cta reveal">
+          <h2>Boring is the new <span class="script">super.</span></h2>
+          <p>
+            Questions, feedback, or proof requests —
+            <a href="mailto:team@boringfoodscompany.com">team@boringfoodscompany.com</a>
+          </p>
+          <p style="margin-top: 1.5rem">
+            <a class="btn" href="contact.html">Write to Us <span class="hand">☞</span></a>
+          </p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer">
+          <a href="about.html">Our Story</a>
+          <a href="index.html#shop">Shop</a>
+          <a href="index.html#origin">The Origin</a>
+          <a href="faq.html">FAQ</a>
+        </nav>
+      </div>
+      <div class="footer__bottom">
+        <span>© 2026 The Boring Foods Company</span>
+        <span>Agsto Foods Pvt Ltd, Gurugram, Haryana</span>
+        <span>The Future of Health is Ancient</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    // Gallery thumbnail swap (page-local; main.js is untouched)
+    (function () {
+      var main = document.getElementById('pdpMain');
+      document.querySelectorAll('.pdp__thumb').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          main.src = btn.dataset.full;
+          document.querySelectorAll('.pdp__thumb').forEach(function (b) { b.removeAttribute('aria-current'); });
+          btn.setAttribute('aria-current', 'true');
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
