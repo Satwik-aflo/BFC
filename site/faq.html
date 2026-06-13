@@ -12,6 +12,7 @@
 </head>
 <body class="interior">
 
+  <!-- ===================== Navigation ===================== -->
   <header class="nav" id="nav">
     <a class="nav__logo" href="index.html" aria-label="The Boring Foods Company — home">
       <img src="assets/img/logo-web4.png" alt="The Boring Foods Company" />
@@ -33,6 +34,7 @@
     </div>
   </header>
 
+  <!-- Full-screen overlay menu -->
   <div class="menu-overlay" id="menu" aria-hidden="true">
     <a href="about.html">Our Story</a>
     <a href="index.html#shop">Shop</a>
@@ -42,9 +44,24 @@
   </div>
 
   <main>
-    <p>Coming soon.</p>
+    <header class="page-hero reveal">
+      <span class="kicker">The Boring Details</span>
+      <h1>Frequently Asked Questions</h1>
+      <p>Everything about how we source, test, and ship. If we missed something, <a href="contact.html" style="color:var(--ripe-orange)">write to us</a>.</p>
+    </header>
+
+    <section class="faq reveal">
+      <details class="faq__item" open><summary>What makes your turmeric different?</summary><p>We use the single-origin Lakadong variety from Meghalaya — about 9% curcumin (~250 mg per teaspoon), hand-sliced and sun-dried, milled with 2% black pepper so your body actually absorbs it. One named source, not a blended mystery lot.</p></details>
+      <details class="faq__item"><summary>Is it actually lab tested?</summary><p>Yes — every batch is tested in NABL-accredited labs (Equinox Labs) for purity, curcumin content, and heavy metals. No added colour, fillers, or preservatives. Want a report for your batch? Email us and we'll send it.</p></details>
+      <details class="faq__item"><summary>How much should I take daily?</summary><p>Turmeric: ½–1 teaspoon (1.5–3 g) once daily. Moringa: 1–2 teaspoons (3–6 g) once daily. Use them in warm milk or water, in cooking, in smoothies, or with honey and lemon.</p></details>
+      <details class="faq__item"><summary>Where do you source from, and who grows it?</summary><p>From women-led self-help groups in Lakadong, Meghalaya — harvested in March and packed at source. We support natural farming and North-East India farmers, pesticide- and fumigant-free, traceable down to the batch.</p></details>
+      <details class="faq__item"><summary>What's in the bundles?</summary><p>Each bundle pairs staples for a goal. Inflammation Relief, for example, combines Lakadong Turmeric with Moringa for inflammation support, joint comfort, and recovery. See the <a href="bundle.html" style="color:var(--ripe-orange)">Inflammation Relief page</a>.</p></details>
+      <details class="faq__item"><summary>How do I buy, and where do you ship from?</summary><p>Add to cart on any product page — checkout is handled securely on our store. We ship from Gurugram, Haryana. Agsto Foods Pvt Ltd, FSSAI No. 10825999000929.</p></details>
+      <details class="faq__item"><summary>Why "boring"?</summary><p>Because real nutrition isn't a flashy fad — it's ancient, simple, and proven. Boring is hard to fake. That's the whole point. <span class="script" style="color:var(--ripe-orange)">#proudlyboring</span></p></details>
+    </section>
   </main>
 
+  <!-- ===================== Marquee ===================== -->
   <div class="marquee" aria-hidden="true">
     <div class="marquee__track">
       <span class="marquee__item"><span class="script">#proudlyboring</span></span>
@@ -58,14 +75,20 @@
     </div>
   </div>
 
+  <!-- ===================== Footer ===================== -->
   <footer class="footer" id="contact">
     <div class="footer__inner">
       <div class="footer__top">
         <img class="footer__stamp" src="assets/img/Sun1.svg" alt="" />
         <div class="footer__cta reveal">
           <h2>Boring is the new <span class="script">super.</span></h2>
-          <p><a href="mailto:team@boringfoodscompany.com">team@boringfoodscompany.com</a></p>
-          <p style="margin-top: 1.5rem"><a class="btn" href="contact.html">Write to Us <span class="hand">☞</span></a></p>
+          <p>
+            Questions, feedback, or proof requests —
+            <a href="mailto:team@boringfoodscompany.com">team@boringfoodscompany.com</a>
+          </p>
+          <p style="margin-top: 1.5rem">
+            <a class="btn" href="contact.html">Write to Us <span class="hand">☞</span></a>
+          </p>
         </div>
         <nav class="footer__nav" aria-label="Footer">
           <a href="about.html">Our Story</a>
