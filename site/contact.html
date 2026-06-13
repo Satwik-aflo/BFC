@@ -12,6 +12,7 @@
 </head>
 <body class="interior">
 
+  <!-- ===================== Navigation ===================== -->
   <header class="nav" id="nav">
     <a class="nav__logo" href="index.html" aria-label="The Boring Foods Company — home">
       <img src="assets/img/logo-web4.png" alt="The Boring Foods Company" />
@@ -33,6 +34,7 @@
     </div>
   </header>
 
+  <!-- Full-screen overlay menu -->
   <div class="menu-overlay" id="menu" aria-hidden="true">
     <a href="about.html">Our Story</a>
     <a href="index.html#shop">Shop</a>
@@ -42,9 +44,42 @@
   </div>
 
   <main>
-    <p>Coming soon.</p>
+    <header class="page-hero reveal">
+      <span class="kicker">Say Hello</span>
+      <h1>Write to Us</h1>
+      <p>Questions, feedback, wholesale, or a lab-report request — we read every message. We're a small team, so expect a real human reply.</p>
+    </header>
+
+    <section class="contact">
+      <div class="contact__info reveal">
+        <div class="contact__detail">
+          <h3>Email</h3>
+          <a href="mailto:team@boringfoodscompany.com">team@boringfoodscompany.com</a>
+        </div>
+        <div class="contact__detail">
+          <h3>Company</h3>
+          <p>Agsto Foods Private Limited<br />Gurugram, Haryana, India</p>
+        </div>
+        <div class="contact__detail">
+          <h3>FSSAI</h3>
+          <p>License No. 10825999000929</p>
+        </div>
+        <div class="contact__detail">
+          <h3>Shop</h3>
+          <a href="index.html#shop">Browse the range ☞</a>
+        </div>
+      </div>
+
+      <form class="contact__form reveal" action="mailto:team@boringfoodscompany.com" method="post" enctype="text/plain">
+        <div><label for="cf-name">Name</label><input id="cf-name" name="name" type="text" required /></div>
+        <div><label for="cf-email">Email</label><input id="cf-email" name="email" type="email" required /></div>
+        <div><label for="cf-msg">Message</label><textarea id="cf-msg" name="message" required></textarea></div>
+        <div><button class="btn" type="submit">Send <span class="hand">☞</span></button></div>
+      </form>
+    </section>
   </main>
 
+  <!-- ===================== Marquee ===================== -->
   <div class="marquee" aria-hidden="true">
     <div class="marquee__track">
       <span class="marquee__item"><span class="script">#proudlyboring</span></span>
@@ -58,14 +93,20 @@
     </div>
   </div>
 
+  <!-- ===================== Footer ===================== -->
   <footer class="footer" id="contact">
     <div class="footer__inner">
       <div class="footer__top">
         <img class="footer__stamp" src="assets/img/Sun1.svg" alt="" />
         <div class="footer__cta reveal">
           <h2>Boring is the new <span class="script">super.</span></h2>
-          <p><a href="mailto:team@boringfoodscompany.com">team@boringfoodscompany.com</a></p>
-          <p style="margin-top: 1.5rem"><a class="btn" href="contact.html">Write to Us <span class="hand">☞</span></a></p>
+          <p>
+            Questions, feedback, or proof requests —
+            <a href="mailto:team@boringfoodscompany.com">team@boringfoodscompany.com</a>
+          </p>
+          <p style="margin-top: 1.5rem">
+            <a class="btn" href="contact.html">Write to Us <span class="hand">☞</span></a>
+          </p>
         </div>
         <nav class="footer__nav" aria-label="Footer">
           <a href="about.html">Our Story</a>
