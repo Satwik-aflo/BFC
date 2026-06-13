@@ -42,7 +42,91 @@
   </div>
 
   <main>
-    <p>Coming soon.</p>
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html">Home</a><span>/</span><a href="index.html#bundles">Bundles</a><span>/</span>Inflammation Relief
+    </nav>
+
+    <section class="pdp">
+      <div class="pdp__gallery">
+        <div class="pdp__main img-reveal"><img id="pdpMain" src="assets/img/products/inflammation-relief.jpg" alt="Inflammation Relief bundle — turmeric and moringa" /></div>
+        <div class="pdp__thumbs">
+          <button class="pdp__thumb" type="button" aria-current="true" data-full="assets/img/products/inflammation-relief.jpg"><img src="assets/img/products/inflammation-relief.jpg" alt="Bundle pack" /></button>
+          <button class="pdp__thumb" type="button" data-full="assets/img/products/turmeric.jpg"><img src="assets/img/products/turmeric.jpg" alt="Turmeric" /></button>
+          <button class="pdp__thumb" type="button" data-full="assets/img/products/moringa.png"><img src="assets/img/products/moringa.png" alt="Moringa" /></button>
+        </div>
+      </div>
+
+      <div class="pdp__summary reveal">
+        <span class="kicker">Shop by Benefit · Daily Duo</span>
+        <h1 class="pdp__title">Inflammation Relief</h1>
+        <p class="pdp__rating"><span class="stars" aria-hidden="true">★★★★★</span> New</p>
+        <p class="pdp__price">₹ 594 <small>Turmeric + Moringa · Incl. of all taxes</small></p>
+        <p class="pdp__pitch">Built for the body that takes a daily beating — workouts, desk posture, city life. High-curcumin Lakadong turmeric to calm everyday inflammation, paired with nutrient-dense moringa for antioxidant defence and recovery. Two boring staples, one intentional routine.</p>
+        <ul class="pdp__features">
+          <li><strong>Inflammation Support</strong> — and easier joint comfort day to day</li>
+          <li><strong>Daily Recovery</strong> — bounce back from physical stress and movement</li>
+          <li><strong>Long-Term Resilience</strong> — antioxidant defence against pollution and strain</li>
+          <li><strong>Lab-Tested</strong> — each ingredient tested in NABL-accredited labs</li>
+          <li><strong>Boringly Clean</strong> — no added colour, fillers, heavy metals, or preservatives</li>
+        </ul>
+        <div class="pdp__buy">
+          <a class="btn" href="https://boringfoodscompany.com/products/inflammation-relief" target="_blank" rel="noopener">Add to Cart <span class="hand">☞</span></a>
+          <a class="btn btn--ghost" href="#inside">What's Inside</a>
+        </div>
+        <p class="pdp__note">Ships from Gurugram · Each ingredient lab-tested · Best before 13/11/2026</p>
+      </div>
+    </section>
+
+    <!-- What's inside (two real product cards, reusing homepage .card) -->
+    <section class="chapter chapter--compact" id="inside">
+      <div class="chapter__inner">
+        <div class="chapter__head reveal">
+          <span class="kicker">Two Staples</span>
+          <h2 class="chapter__title">What's Inside the Bundle</h2>
+        </div>
+        <div class="bundle-includes stagger">
+          <a class="card" href="product.html">
+            <div class="card__media img-reveal"><img src="assets/img/products/turmeric.jpg" alt="Lakadong Turmeric Powder" /></div>
+            <h3 class="card__name caps">Lakadong Turmeric Powder</h3>
+            <p class="card__meta">9% curcumin · From Meghalaya</p>
+            <p class="card__price caps">View ☞</p>
+          </a>
+          <a class="card" href="https://boringfoodscompany.com/products/moringa-powder" target="_blank" rel="noopener">
+            <div class="card__media img-reveal"><img src="assets/img/products/moringa.png" alt="Moringa Powder" /></div>
+            <h3 class="card__name caps">Moringa Powder</h3>
+            <p class="card__meta">Leaf-only, shade dried</p>
+            <p class="card__price caps">View ☞</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- How to use -->
+    <section class="chapter chapter--green">
+      <div class="chapter__inner">
+        <div class="chapter__head reveal">
+          <span class="kicker">Once Daily</span>
+          <h2 class="chapter__title">How to Use the Duo</h2>
+        </div>
+        <div class="steps stagger">
+          <div class="step"><div class="step__n">01</div><h3>Turmeric</h3><p>½–1 teaspoon (1.5–3 g) once daily in warm milk, water, or your cooking.</p></div>
+          <div class="step"><div class="step__n">02</div><h3>Moringa</h3><p>1–2 teaspoons (3–6 g) once daily in smoothies, beverages, or warm water.</p></div>
+          <div class="step"><div class="step__n">03</div><h3>Stay Consistent</h3><p>Benefits compound with routine — small, boring, daily. That's the whole point.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Assurances (reuses homepage component) -->
+    <section class="chapter chapter--compact">
+      <div class="chapter__inner">
+        <ul class="shop__assurances reveal" aria-label="Quality assurances">
+          <li>No Fillers or Preservatives</li>
+          <li>Single, High-Quality Origin</li>
+          <li>Each Ingredient Lab-Tested</li>
+          <li>Backed by Research</li>
+        </ul>
+      </div>
+    </section>
   </main>
 
   <div class="marquee" aria-hidden="true">
@@ -83,5 +167,17 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script>
+    (function () {
+      var main = document.getElementById('pdpMain');
+      document.querySelectorAll('.pdp__thumb').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          main.src = btn.dataset.full;
+          document.querySelectorAll('.pdp__thumb').forEach(function (b) { b.removeAttribute('aria-current'); });
+          btn.setAttribute('aria-current', 'true');
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
