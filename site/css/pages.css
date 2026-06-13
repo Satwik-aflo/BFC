@@ -238,3 +238,134 @@ body.interior main { padding-top: var(--nav-h); }
   width: 100%;
 }
 .contact__form textarea { min-height: 8rem; resize: vertical; }
+
+/* ---- Reports / Lab Library ---------------------------------------------- */
+.report-pillars {
+  max-width: 60rem;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  padding: 0 var(--gutter);
+}
+@media (max-width: 620px) { .report-pillars { grid-template-columns: 1fr; gap: var(--space-3); } }
+.report-pillar { border: var(--line); background: var(--kulfi-malai); padding: var(--space-3); }
+.report-pillar h3 {
+  font-family: var(--font-display);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  font-size: var(--text-base);
+  color: var(--ripe-orange);
+  margin-bottom: 0.5rem;
+}
+.report-pillar p { font-family: var(--font-body); font-size: var(--text-sm); line-height: 1.6; color: var(--ink-soft); }
+
+.reports-wrap { max-width: 72rem; margin: 0 auto; padding: var(--space-4) var(--gutter) 0; }
+.reports-table { width: 100%; border-collapse: collapse; border: var(--line); background: var(--kulfi-malai); }
+.reports-table caption { text-align: left; padding-bottom: var(--space-2); font-family: var(--font-body); font-size: var(--text-sm); color: var(--ink-soft); }
+.reports-table th, .reports-table td {
+  text-align: left;
+  padding: 0.9rem 1rem;
+  border-bottom: var(--line-thin);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  vertical-align: top;
+}
+.reports-table thead th {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  font-size: var(--text-xs);
+  background: var(--neem-green);
+  color: var(--kulfi-malai);
+  border-bottom: var(--line);
+}
+.reports-table tbody tr:last-child td { border-bottom: none; }
+.reports-table .report-product { font-family: var(--font-display); font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--neem-green); }
+.reports-table .report-results { line-height: 1.55; }
+.reports-table .report-link {
+  display: inline-block;
+  font-family: var(--font-display);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  font-size: var(--text-xs);
+  color: var(--kohl-black);
+  border: var(--line);
+  padding: 0.4rem 0.8rem;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
+}
+.reports-table .report-link:hover { transform: translate(-2px, -2px); box-shadow: 3px 3px 0 var(--kohl-black); }
+/* Responsive: collapse table to stacked cards on small screens */
+@media (max-width: 720px) {
+  .reports-table, .reports-table thead, .reports-table tbody, .reports-table th, .reports-table td, .reports-table tr { display: block; }
+  .reports-table thead { display: none; }
+  .reports-table tr { border-bottom: var(--line); padding: 0.5rem 0; }
+  .reports-table td { border: none; padding: 0.35rem 1rem; }
+  .reports-table td::before { content: attr(data-label); display: block; font-family: var(--font-display); text-transform: uppercase; letter-spacing: var(--tracking-caps); font-size: 0.65rem; color: var(--ripe-orange); margin-bottom: 0.15rem; }
+}
+.report-lab {
+  max-width: 72rem;
+  margin: var(--space-4) auto 0;
+  padding: var(--space-3) var(--gutter);
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--ink-soft);
+}
+.report-lab strong { font-family: var(--font-display); letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--neem-green); }
+
+/* ---- Recipes ------------------------------------------------------------ */
+.recipe-group { padding: var(--space-6) var(--gutter); }
+.recipe-group--turmeric { background: var(--mango-yellow); color: var(--kohl-black); }
+.recipe-group--moringa { background: var(--neem-green); color: var(--kulfi-malai); }
+.recipe-group--ashwagandha { background: var(--kulfi-deep); color: var(--kohl-black); }
+.recipe-group__head { max-width: 72rem; margin: 0 auto var(--space-4); text-align: center; }
+.recipe-group__head h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-2xl);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.recipe-group__head p { font-family: var(--font-body); font-size: var(--text-base); line-height: 1.6; max-width: var(--measure); margin: var(--space-2) auto 0; opacity: 0.85; }
+.recipe-grid { max-width: 72rem; margin: 0 auto; display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-3); }
+@media (max-width: 720px) { .recipe-grid { grid-template-columns: 1fr; } }
+.recipe-card {
+  border: var(--line);
+  background: var(--kulfi-malai);
+  color: var(--kohl-black);
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+.recipe-card__badge {
+  align-self: flex-start;
+  font-family: var(--font-display);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  font-size: 0.62rem;
+  background: var(--ripe-orange);
+  color: var(--kulfi-malai);
+  padding: 0.25rem 0.6rem;
+}
+.recipe-card h3 { font-family: var(--font-display); font-weight: 700; font-size: var(--text-lg); letter-spacing: 0.02em; text-transform: uppercase; color: var(--neem-green); }
+.recipe-card h4 {
+  font-family: var(--font-display);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  font-size: var(--text-xs);
+  color: var(--ripe-orange);
+  margin-top: 0.3rem;
+}
+.recipe-card ul { list-style: none; display: grid; gap: 0.35rem; }
+.recipe-card ul li { font-family: var(--font-body); font-size: var(--text-sm); line-height: 1.5; padding-left: 1rem; position: relative; }
+.recipe-card ul li::before { content: "·"; position: absolute; left: 0.2rem; color: var(--ripe-orange); font-weight: 900; }
+.recipe-card p { font-family: var(--font-body); font-size: var(--text-sm); line-height: 1.55; }
+.recipe-card .recipe-hack { font-style: italic; color: var(--indian-blue); }
+.recipe-download { text-align: center; padding: var(--space-5) var(--gutter); }
+.recipe-signoff { text-align: center; font-family: var(--font-body); font-size: var(--text-base); line-height: 1.6; color: var(--ink-soft); margin-top: var(--space-3); }
+.recipe-signoff .script { font-size: 1.4em; color: var(--ripe-orange); }

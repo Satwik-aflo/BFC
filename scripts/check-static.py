@@ -15,7 +15,7 @@ import pathlib
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SITE = ROOT / "site"
-PAGES = ["product.html", "bundle.html", "about.html", "contact.html", "faq.html"]
+PAGES = ["product.html", "bundle.html", "about.html", "contact.html", "faq.html", "reports.html", "recipes.html"]
 REQUIRED_IDS = ['id="nav"', 'id="burger"', 'id="menu"']
 REQUIRED_LINKS = ["css/tokens.css", "css/main.css", "css/pages.css", "js/main.js"]
 
