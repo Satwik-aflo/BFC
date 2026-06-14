@@ -23,6 +23,27 @@
   font-weight: 900;
   font-display: swap;
 }
+/* Aliases for production-imported CSS that references the hyphenated family
+   names (e.g. the live comparison section, about-import.css). Map them to the
+   same Aesthet Nova files so copied-verbatim CSS renders correctly here. */
+@font-face {
+  font-family: 'Aesthet-Nova-Light';
+  src: url('../assets/fonts/AesthetNova-Light.otf') format('opentype');
+  font-weight: 300;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Aesthet-Nova';
+  src: url('../assets/fonts/AesthetNova-Medium.otf') format('opentype');
+  font-weight: 400 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Aesthet-Nova-Medium';
+  src: url('../assets/fonts/AesthetNova-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-display: swap;
+}
 /* Primary 02 — Copperplate: H1/H2, captions, CTAs, numbers (~15%) */
 @font-face {
   font-family: 'Copperplate BFC';

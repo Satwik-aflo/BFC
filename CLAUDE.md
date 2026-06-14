@@ -93,6 +93,14 @@ Files: `index.html`, `styleguide.html` (documents the design system), `css/token
 marquee, smooth anchors). `main.js` queries by class (no IDs), so removing/reordering
 sections in the HTML won't break it.
 
+### Verifying `site/` visually
+Content is **opacity-gated**: `js/main.js` sets `.reveal{opacity:0}` (IntersectionObserver) and
+reveals on scroll, so a plain headless full-page screenshot is **blank below the fold**. To capture a
+section: no `agent-browser`, but system Chrome + Playwright (`npx --no-install playwright`) are
+available — `scrollIntoViewIfNeeded()` + ~1.3s wait per section, or inject
+`.reveal{opacity:1!important;transform:none!important}` before shooting. Note: `js/main.js` injects a
+fixed **`sf-search`** bar (WIP) that overlaps section tops in screenshots — pre-existing, not a regression.
+
 ## Mobile UI/UX audit findings — checklist for the Shopify conversion
 
 Mobile-first audit of `site/` (2026-06-14, rendered at iPhone 390×844 / Android 360×640 +
