@@ -1,0 +1,465 @@
+{% comment %}
+  Custom "Vision & Sign-off" Section (Image-Based Signature)
+  - Fixed alignment for Header Text and Logo.
+{% endcomment %}
+
+<section class="vision-section vision-section-{{ section.id }}">
+  <div class="vision-container">
+    
+    <div class="vision-header">
+      <p class="vh-text-prefix">{{ section.settings.header_prefix }}</p>
+      
+      {% if section.settings.logo_image != blank %}
+        {{ section.settings.logo_image | image_url: width: 300 | image_tag: class: 'vh-logo', loading: 'lazy' }}
+      {% else %}
+        <span class="vh-placeholder">[LOGO]</span>
+      {% endif %}
+      
+      <p class="vh-text-suffix">{{ section.settings.header_suffix }}</p>
+    </div>
+
+    <div class="vision-content-grid">
+      
+      <div class="vision-col-left">
+        
+        <div class="vision-text-block">
+          {{ section.settings.vision_text }}
+        </div>
+
+        <div class="sig-box-wrapper">
+          
+          <div class="sig-bg-layer"></div>
+
+          <div class="sig-content-layer">
+            {{ section.settings.signature_text }}
+          </div>
+          
+        </div>
+
+      </div>
+
+      <div class="vision-col-right">
+        <div class="starburst-wrapper">
+          {% if section.settings.starburst_image != blank %}
+            {{ section.settings.starburst_image | image_url: width: 800 | image_tag: class: 'starburst-bg', loading: 'lazy' }}
+          {% endif %}
+          
+          <div class="starburst-content">
+            {{ section.settings.starburst_text }}
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<style>
+  /* --- SCOPED VARIABLES --- */
+  .vision-section-{{ section.id }} {
+    background-color: {{ section.settings.bg_color }};
+    padding: 0px;
+    font-family: sans-serif;
+    color: {{ section.settings.text_color }};
+    overflow: hidden;
+  }
+
+  .vision-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* --- HEADER FIXES --- */
+  .vision-header {
+    display: flex;
+    align-items: center; /* This forces vertical centering */
+    justify-content: center;
+    margin-bottom: 60px;
+    flex-wrap: wrap;
+    text-align: center;
+  }
+
+  .vh-text-prefix {
+    margin: 0; /* CRITICAL FIX: Removes default h4 spacing */
+    padding: 0;
+    font-size: 1.3rem; /* Adjusted size for balance */
+    font-weight: 900;
+    color: {{ section.settings.header_color }};
+    line-height: 1; /* Ensures text sits exactly in the center */
+    letter-spacing: 0em;
+    font-family: Aesthet-Nova-Medium !important;
+  }
+  .vh-text-suffix {
+    margin: 0; /* CRITICAL FIX: Removes default h4 spacing */
+    padding: 0;
+    font-size: 1.3rem; /* Adjusted size for balance */
+    font-weight: 900;
+    color: {{ section.settings.header_color }};
+    text-transform: lowercase; /* Matches the visual style of your image */
+    line-height: 1; /* Ensures text sits exactly in the center */
+    letter-spacing: 0em;
+    font-family: Aesthet-Nova-Medium !important;
+  }
+
+  .vh-logo {
+    width: 218.841px;
+    height: 123.038px;
+    transform: translate(0px, 0px) rotate(0deg);
+    display: block;
+    object-fit: contain;
+  }
+
+  /* --- GRID LAYOUT --- */
+  .vision-content-grid {
+    display: flex;
+    align-items: center; 
+    justify-content: space-between;
+    gap: 40px;
+  }
+
+  .vision-col-left {
+    flex: 1;
+    max-width: 530px;
+  }
+
+  .vision-col-right {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  /* --- LEFT: VISION TEXT --- */
+  .vision-text-block {
+    font-size: 20px;
+    line-height: 1.6;
+    margin-bottom: 40px;
+  }
+  
+  .vision-text-block strong {
+    color: {{ section.settings.highlight_color }};
+    font-weight: 800;
+  }
+  
+  .vision-text-block p {
+    margin-bottom: 20px;
+  }
+
+  /* --- LEFT: SIGNATURE STAMP (Image Based) --- */
+  .sig-box-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    max-width: 350px;
+    /* Margin for shadow offset */
+    margin-bottom: 10px; 
+    margin-right: 10px;
+  }
+
+  .sig-bg-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+
+    /* Background Image Logic */
+    {% if section.settings.signature_bg_image != blank %}
+      background-image: url({{ section.settings.signature_bg_image | image_url: width: 600 }});
+    {% else %}
+      background-color: {{ section.settings.sig_bg_color }};
+      border-radius: 4px;
+    {% endif %}
+
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    /* Smart Shadow */
+    filter: drop-shadow(15px 15px 0px {{ section.settings.sig_shadow_color }});
+  }
+
+  .sig-content-layer {
+    position: relative;
+    z-index: 2;
+    padding: 30px;
+    text-align: center;
+    color: {{ section.settings.sig_text_color }};
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 1.4;
+    text-shadow: none !important;
+  }
+
+  /* --- RIGHT: STARBURST --- */
+  .starburst-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    aspect-ratio: 4/3; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .starburst-bg {
+    position: absolute;
+    top: -110px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    z-index: 1;
+    filter: drop-shadow(0px 4px 0px rgba(0,0,0,0.1));
+  }
+
+  .starburst-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    font-size: 18.4px;
+    line-height: 1.5;
+    color: {{ section.settings.starburst_text_color }};
+    top: -100px;
+  }
+
+  .starburst-content strong {
+    font-weight: 800;
+    color: {{ section.settings.highlight_color }};
+  }
+
+  /* --- RESPONSIVE --- */
+  /* =====================================
+   FINAL MOBILE FIX — VISION & SIGN-OFF
+   ===================================== */
+@media (max-width: 768px) {
+
+  /* ---------- SECTION ---------- */
+  .vision-section-{{ section.id }} {
+    padding: 12px 12px;
+    padding-top: 0;
+  }
+
+  .vision-container {
+    max-width: 100%;
+  }
+
+  /* ---------- HEADER ---------- */
+  .vision-header {
+    flex-direction: row;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .vh-text-prefix,
+  .vh-text-suffix {
+    font-size: 1rem;
+    line-height: 1.2;
+  }
+
+  .vh-logo {
+    width: 140px;
+    height: auto;
+  }
+
+  /* ---------- GRID STACK ---------- */
+  .vision-content-grid {
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .vision-col-left,
+  .vision-col-right {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  /* ---------- LEFT: TEXT ---------- */
+  .vision-text-block {
+    font-size: 14px;
+    line-height: 1.3;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+
+  .vision-text-block p {
+    margin-bottom: 8px;
+  }
+
+  /* ---------- SIGNATURE ---------- */
+  .sig-box-wrapper {
+    max-width: 200px;
+    margin: 0 auto;
+    top: 210px;
+    height: 70px;
+  }
+
+  .sig-bg-layer {
+    filter: drop-shadow(8px 8px 0 {{ section.settings.sig_shadow_color }});
+  }
+
+  .sig-content-layer {
+    padding: 16px;
+    font-size: 13px;
+    line-height: 1.3;
+  }
+
+  /* ---------- RIGHT: STARBURST ---------- */
+  .starburst-wrapper {
+    max-width: 350px;
+    top: -100px;
+    margin: 0 auto;
+    aspect-ratio: auto;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+  }
+
+  .starburst-bg {
+    position: relative;
+    top: 0;
+    left: 0;
+    filter: none;
+  }
+
+  .starburst-content {
+    font-size: 13px;
+    line-height: 1.3;
+    margin-top: -10px;
+    text-align: center;
+    top: -110px;
+  }
+}
+
+</style>
+
+{% schema %}
+{
+  "name": "Vision & Sign-off",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#FBF3CC"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Main Text Color",
+      "default": "#6A6AF0"
+    },
+    {
+      "type": "color",
+      "id": "highlight_color",
+      "label": "Highlight (Purple) Color",
+      "default": "#5A56B3"
+    },
+    {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "text",
+      "id": "header_prefix",
+      "label": "Header Prefix",
+      "default": "That’s how"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_image",
+      "label": "Center Logo"
+    },
+    {
+      "type": "text",
+      "id": "header_suffix",
+      "label": "Header Suffix",
+      "default": "was built."
+    },
+    {
+      "type": "color",
+      "id": "header_color",
+      "label": "Header Text Color",
+      "default": "#6A6AF0"
+    },
+    {
+      "type": "header",
+      "content": "Left Column (Vision)"
+    },
+    {
+      "type": "richtext",
+      "id": "vision_text",
+      "label": "Vision Text",
+      "default": "<p>Our long-term <strong>vision</strong> is simple: to make preventative, foundational health a part of everyday life.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Signature Stamp Box"
+    },
+    {
+      "type": "richtext",
+      "id": "signature_text",
+      "label": "Signature Text",
+      "default": "<p>Keeping it boring (and better),<br>Anvi and Varuni</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "signature_bg_image",
+      "label": "Signature Background Image",
+      "info": "Upload the yellow stamp shape here (Transparent PNG)."
+    },
+    {
+      "type": "color",
+      "id": "sig_bg_color",
+      "label": "Fallback Background Color",
+      "default": "#FFC62F"
+    },
+    {
+      "type": "color",
+      "id": "sig_shadow_color",
+      "label": "Signature Shadow Color",
+      "default": "#EC4C22"
+    },
+    {
+      "type": "color",
+      "id": "sig_text_color",
+      "label": "Signature Text Color",
+      "default": "#5A56B3"
+    },
+    {
+      "type": "header",
+      "content": "Right Column (Starburst)"
+    },
+    {
+      "type": "image_picker",
+      "id": "starburst_image",
+      "label": "Starburst Background Image (PNG)"
+    },
+    {
+      "type": "richtext",
+      "id": "starburst_text",
+      "label": "Starburst Text",
+      "default": "<p>At the end of the day, our philosophy is boring on purpose. <strong>Clean, simple ingredients.</strong></p>"
+    },
+    {
+      "type": "color",
+      "id": "starburst_text_color",
+      "label": "Starburst Text Color",
+      "default": "#6A6AF0"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Vision & Sign-off"
+    }
+  ]
+}
+{% endschema %}

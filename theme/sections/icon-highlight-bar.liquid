@@ -1,0 +1,198 @@
+<style>
+  .icon-strip-section {
+    background-color: #fff7cf; /* outer pale band */
+    padding: 6px 0;
+  }
+
+  .icon-strip {
+    max-width: 1400px;
+    margin: 0 auto;
+    background-color: #ffc52b; /* inner yellow bar */
+    padding: 14px 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .icon-strip__item {
+    flex: 0 1 auto;
+    text-align: center;
+    position: relative;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  .icon-strip__icon {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 6px;
+  }
+
+  .icon-strip__icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  .icon-strip__text {
+    font-size: 0.95rem;
+    color: #21140a;
+    white-space: nowrap;
+  }
+
+  .icon-strip__separator {
+    flex: 0 0 auto;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .icon-strip__separator img {
+    max-width: 18px;
+    max-height: 18px;
+    object-fit: contain;
+    display: block;
+  }
+
+  @media screen and (max-width: 900px) {
+    .icon-strip {
+      gap: 24px;
+      padding-inline: 16px;
+    }
+
+    .icon-strip__text {
+      white-space: normal;
+    }
+
+    .icon-strip__separator {
+      width: 24px;
+    }
+  }
+
+  @media screen and (max-width: 640px) {
+    .icon-strip {
+      flex-direction: column;
+      gap: 12px;
+      padding: 14px 12px;
+    }
+
+    .icon-strip__item {
+      width: 100%;
+    }
+
+    .icon-strip__separator {
+      display: none;
+    }
+  }
+</style>
+
+<section class="icon-strip-section" data-section-id="{{ section.id }}">
+  {% if section.blocks.size > 0 %}
+    <div class="icon-strip">
+      {% for block in section.blocks %}
+        <div class="icon-strip__item" {{ block.shopify_attributes }}>
+          <div class="icon-strip__icon">
+            {% if block.settings.icon_image %}
+              {{ block.settings.icon_image 
+                | image_url: width: 96 
+                | image_tag: alt: block.settings.icon_alt, loading: 'lazy' 
+              }}
+            {% else %}
+              <div style="width:100%;height:100%;background:#fcd34d;border-radius:50%;"></div>
+            {% endif %}
+          </div>
+          <div class="icon-strip__text">
+            {{ block.settings.text }}
+          </div>
+        </div>
+
+        {% unless forloop.last %}
+          <div class="icon-strip__separator">
+            {% if section.settings.separator_image %}
+              {{ section.settings.separator_image
+                | image_url: width: 40
+                | image_tag: alt: section.settings.separator_alt, loading: 'lazy'
+              }}
+            {% else %}
+              <span style="font-size:0.9rem;color:#fffdf4;">✦</span>
+            {% endif %}
+          </div>
+        {% endunless %}
+      {% endfor %}
+    </div>
+  {% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "Icon highlight bar",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "separator_image",
+      "label": "Separator image (star)",
+      "info": "Small image shown between items. Leave empty to use a default star."
+    },
+    {
+      "type": "text",
+      "id": "separator_alt",
+      "label": "Separator alt text",
+      "default": "Separator"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Icon item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon_image",
+          "label": "Icon image"
+        },
+        {
+          "type": "text",
+          "id": "icon_alt",
+          "label": "Icon alt text",
+          "default": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Freshest Harvest"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Icon highlight bar",
+      "blocks": [
+        {
+          "type": "item",
+          "settings": {
+            "text": "Freshest Harvest"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "text": "Single, High-Quality Origin"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "text": "Free from Colour and Fillers"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

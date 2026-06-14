@@ -1,0 +1,388 @@
+{% comment %}
+  Section: Boringly Clean & Pure – Image + Text with SVG borders
+  - Add this file as: sections/boringly-clean-pure.liquid
+  - Then add the section in Theme Customizer.
+{% endcomment %}
+
+<section class="bc-section">
+  <div class="bc-section__inner page-width">
+
+    {%- comment -%} Top SVG border {%- endcomment -%}
+    <div class="bc-section__border bc-section__border--top">
+      {% if section.settings.top_border_svg != blank %}
+        {{ section.settings.top_border_svg }}
+      {% endif %}
+    </div>
+
+    <div class="bc-section__content-wrapper">
+      {%- comment -%} Left: Image with SVG frame {%- endcomment -%}
+      <div class="bc-section__image-wrap">
+        {% if section.settings.frame_svg != blank %}
+          <div class="bc-section__frame">
+            {{ section.settings.frame_svg }}
+          </div>
+        {% endif %}
+
+        {% if section.settings.main_image != blank %}
+          <div class="bc-section__image">
+            <img
+              src="{{ section.settings.main_image | image_url: width: 800 }}"
+              alt="{{ section.settings.main_image.alt | escape }}"
+              loading="lazy"
+            >
+          </div>
+        {% endif %}
+      </div>
+
+      {%- comment -%} Right: Text blob with badge {%- endcomment -%}
+      <div class="bc-section__right-col">
+        <div class="bc-section__text-blob">
+          
+          {%- comment -%} BACKGROUND SHAPE (Uploaded Image) {%- endcomment -%}
+          {% if section.settings.blob_image != blank %}
+            <img 
+              src="{{ section.settings.blob_image | image_url: width: 1000 }}" 
+              class="bc-section__blob-bg" 
+              alt="" 
+              loading="lazy">
+          {% endif %}
+          
+          {%- comment -%} Badge (Ribbon + Heading) {%- endcomment -%}
+          <div class="bc-section__badge-container">
+            {% if section.settings.badge_svg != blank %}
+              <div class="bc-section__badge-shape">
+                {{ section.settings.badge_svg }}
+              </div>
+            {% endif %}
+            {% if section.settings.badge_heading != blank %}
+              <h3 class="bc-section__badge-heading">
+                {{ section.settings.badge_heading }}
+              </h3>
+            {% endif %}
+          </div>
+
+          {%- comment -%} Text Content (Body + Link) {%- endcomment -%}
+          <div class="bc-section__text-content">
+            {% if section.settings.text != blank %}
+              <div class="bc-section__body">
+                {{ section.settings.text }}
+              </div>
+            {% endif %}
+
+            {% if section.settings.link_label != blank and section.settings.link_url != blank %}
+              <a href="{{ section.settings.link_url }}" class="bc-section__link">
+                {{ section.settings.link_label }}
+              </a>
+            {% endif %}
+          </div>
+          
+        </div>
+      </div>
+    </div>
+
+    {%- comment -%} Bottom SVG border {%- endcomment -%}
+    <div class="bc-section__border bc-section__border--bottom">
+      {% if section.settings.bottom_border_svg != blank %}
+        {{ section.settings.bottom_border_svg }}
+      {% endif %}
+    </div>
+
+  </div>
+
+  <style>
+    .bc-section {
+      background: #FBF3CC; /* match your yellow background */
+      padding: 40px 0 0px 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    }
+
+    .bc-section__inner {
+      position: relative;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .bc-section__border {
+      width: 100%;
+      text-align: center;
+      display: flex;
+    }
+
+    .bc-section__border svg {
+      max-width: 100%;
+      height: auto;
+      display: inline-block;
+    }
+
+    .bc-section__content-wrapper {
+      display: flex;
+      gap: 40px;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 24px 0;
+      padding: 0 20px;
+    }
+
+    /* --- Left Column (Image) --- */
+    .bc-section__image-wrap {
+      position: relative;
+      max-width: 700px;
+      flex: 1 1 400px;
+    }
+
+    .bc-section__frame svg {
+      width: auto;
+      height: 23rem;
+      display: block;
+    }
+
+    .bc-section__image {
+      position: absolute;
+      top: 8%;
+      left: 6%;
+      right: 6%;
+      bottom: 8%;
+      overflow: hidden;
+      border-radius: 16px;
+    }
+
+    .bc-section__image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* --- Right Column (Text Blob) --- */
+    .bc-section__right-col {
+      position: relative;
+      flex: 1 1 320px;
+      max-width: 480px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .bc-section__text-blob {
+      position: relative;
+      padding: 80px 50px 70px 50px; /* Padding keeps text inside the image shape */
+      width: 100%;
+      min-height: 300px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      /* REMOVED: Background color and border-radius */
+    }
+
+    /* New Class for the Uploaded Background Blob */
+    .bc-section__blob-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: fill; /* Stretches the SVG to fill the box area */
+      z-index: 0;
+    }
+
+    /* --- Badge (Ribbon + Heading) --- */
+    .bc-section__badge-container {
+      position: absolute;
+      top: -50px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 335px;
+      text-align: center;
+      z-index: 2; /* Sits on top */
+    }
+
+    .bc-section__badge-shape svg {
+      margin-top: 1.5rem;
+      width: 100%;
+      height: auto;
+      display: block;
+      filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.1));
+    }
+
+    .bc-section__badge-heading {
+      position: absolute;
+      top: 42%; /* Adjusted slightly for visual centering on ribbon */
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      margin: 0;
+      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #fff;
+      white-space: nowrap;
+      text-shadow: 0px 1px 2px rgba(0,0,0,0.2);
+    }
+
+    /* --- Text Content --- */
+    .bc-section__text-content {
+      text-align: left;
+      color: #000;
+      position: relative;
+      z-index: 1; /* Sits above the blob image */
+      margin-top: 10px;
+    }
+
+    .bc-section__body {
+      font-size: 20px;
+      line-height: 1.4;
+      margin-bottom: 24px;
+    }
+
+    .bc-section__body p {
+      margin: 0;
+    }
+
+    .bc-section__link {
+      font-weight: 700;
+      font-size: 18px;
+      text-decoration: none;
+      color: #5d57c5;
+      display: inline-block;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.3s ease;
+    }
+
+    .bc-section__link:hover {
+      border-bottom-color: #000;
+    }
+
+    /* --- Responsive --- */
+    @media (max-width: 768px) {
+      .bc-section__content-wrapper {
+        flex-direction: column;
+        gap: 60px;
+      }
+      
+    .bc-section__text-content {
+        text-align: center;
+      }
+
+      .bc-section__image-wrap,
+      .bc-section__right-col {
+        max-width: 100%;
+        flex: 1 1 auto;
+      }
+
+      .bc-section__text-blob {
+        padding: 70px 30px 50px 30px;
+        min-height: auto;
+      }
+      
+      .bc-section__badge-container {
+          top: -30px;
+          width: 90%;
+      }
+
+      .bc-section__badge-heading {
+        font-size: 14px;
+      }
+
+      .bc-section__body {
+        font-size: 18px;
+      }
+
+      .bc-section__link {
+        font-size: 16px;
+      }
+    }
+
+@media only screen 
+  and (min-width: 400px) 
+  and (max-width: 430px) {
+
+  .bc-section__badge-shape svg {
+    margin-top: 0rem;
+  }
+}
+  </style>
+</section>
+
+{% schema %}
+{
+  "name": "Boringly clean & pure",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "main_image",
+      "label": "Main image"
+    },
+    {
+      "type": "textarea",
+      "id": "frame_svg",
+      "label": "Image frame SVG",
+      "info": "Paste raw SVG markup for the purple rounded frame."
+    },
+    {
+      "type": "header",
+      "content": "Right Column Settings"
+    },
+    {
+      "type": "image_picker",
+      "id": "blob_image",
+      "label": "Background Shape Image",
+      "info": "Upload the yellow blob SVG here."
+    },
+    {
+      "type": "textarea",
+      "id": "badge_svg",
+      "label": "Badge SVG",
+      "info": "Paste raw SVG markup for the purple ribbon."
+    },
+    {
+      "type": "text",
+      "id": "badge_heading",
+      "label": "Badge heading",
+      "default": "BORINGLY CLEAN & PURE"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>We source directly from farmer groups, ensure controlled processing, and test each batch for safety and potency.</p>"
+    },
+    {
+      "type": "text",
+      "id": "link_label",
+      "label": "Link label",
+      "default": "Read more here"
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "Link URL"
+    },
+    {
+      "type": "header",
+      "content": "Borders"
+    },
+    {
+      "type": "textarea",
+      "id": "top_border_svg",
+      "label": "Top border SVG",
+      "info": "Paste raw SVG markup for the top decorative border."
+    },
+    {
+      "type": "textarea",
+      "id": "bottom_border_svg",
+      "label": "Bottom border SVG",
+      "info": "Paste raw SVG markup for the bottom decorative border."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Boringly clean & pure"
+    }
+  ]
+}
+{% endschema %}

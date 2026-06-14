@@ -1,0 +1,241 @@
+{% doc %}
+  @prompt
+    i want to collapse row
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-collapsible-row-{{ ai_gen_id }} {
+    border-top: {{ block.settings.border_width }}px solid {{ block.settings.border_color }};
+    border-bottom: {{ block.settings.border_width }}px solid {{ block.settings.border_color }};
+    background-color: {{ block.settings.background_color }};
+  }
+
+  .ai-collapsible-row-header-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: {{ block.settings.padding }}px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .ai-collapsible-row-header-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.hover_background_color }};
+  }
+
+  .ai-collapsible-row-title-{{ ai_gen_id }} {
+    margin: 0;
+    font-size: {{ block.settings.title_size }}px;
+    color: {{ block.settings.text_color }};
+    font-weight: 600;
+  }
+
+  .ai-collapsible-row-icon-{{ ai_gen_id }} {
+    width: 24px;
+    height: 24px;
+    transition: transform 0.3s ease;
+    color: {{ block.settings.icon_color }};
+    flex-shrink: 0;
+  }
+
+  .ai-collapsible-row-icon-{{ ai_gen_id }}.active {
+    transform: rotate(180deg);
+  }
+
+  .ai-collapsible-row-content-{{ ai_gen_id }} {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .ai-collapsible-row-content-{{ ai_gen_id }}.active {
+    max-height: 1000px;
+  }
+
+  .ai-collapsible-row-content-inner-{{ ai_gen_id }} {
+    padding: 0 {{ block.settings.padding }}px {{ block.settings.padding }}px;
+    color: {{ block.settings.text_color }};
+    font-size: {{ block.settings.content_size }}px;
+    line-height: 1.6;
+  }
+{% endstyle %}
+
+<collapsible-row-{{ ai_gen_id }}
+  class="ai-collapsible-row-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  <div
+    class="ai-collapsible-row-header-{{ ai_gen_id }}"
+    role="button"
+    aria-expanded="{% if block.settings.open_by_default %}true{% else %}false{% endif %}"
+    tabindex="0"
+  >
+    <h3 class="ai-collapsible-row-title-{{ ai_gen_id }}">{{ block.settings.title }}</h3>
+    <svg
+      class="ai-collapsible-row-icon-{{ ai_gen_id }} {% if block.settings.open_by_default %}active{% endif %}"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <polyline points="6 9 12 15 18 9"></polyline>
+    </svg>
+  </div>
+  <div class="ai-collapsible-row-content-{{ ai_gen_id }} {% if block.settings.open_by_default %}active{% endif %}">
+    <div class="ai-collapsible-row-content-inner-{{ ai_gen_id }}">
+      {{ block.settings.content }}
+    </div>
+  </div>
+</collapsible-row-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class CollapsibleRow{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.header = this.querySelector('.ai-collapsible-row-header-{{ ai_gen_id }}');
+        this.content = this.querySelector('.ai-collapsible-row-content-{{ ai_gen_id }}');
+        this.icon = this.querySelector('.ai-collapsible-row-icon-{{ ai_gen_id }}');
+
+        this.header.addEventListener('click', () => this.toggle());
+        this.header.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            this.toggle();
+          }
+        });
+      }
+
+      toggle() {
+        const isActive = this.content.classList.contains('active');
+        
+        this.content.classList.toggle('active');
+        this.icon.classList.toggle('active');
+        this.header.setAttribute('aria-expanded', !isActive);
+      }
+    }
+
+    customElements.define('collapsible-row-{{ ai_gen_id }}', CollapsibleRow{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Collapsible row",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Collapsible row"
+    },
+    {
+      "type": "richtext",
+      "id": "content",
+      "label": "Content",
+      "default": "<p>Add your content here. This section can be expanded or collapsed by clicking on the header.</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "open_by_default",
+      "label": "Open by default",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 12,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Title size",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "content_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Content size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "padding",
+      "min": 10,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "border_width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "label": "Border width",
+      "default": 1
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "hover_background_color",
+      "label": "Hover background",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border",
+      "default": "#e6e6e6"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collapsible row"
+    }
+  ]
+}
+{% endschema %}

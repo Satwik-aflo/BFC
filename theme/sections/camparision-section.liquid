@@ -1,0 +1,554 @@
+{% comment %}
+  Comparison Table Section (Master Version)
+  - 4 Columns (Feature | Brand | Standard | Mass)
+  - Single background image for Brand column (Absolute position)
+  - No outer borders (Internal grid lines only)
+  - Perfect centered Logo (Max 150px)
+  - Fully editable row icons (Image pickers)
+{% endcomment %}
+
+<section class="comparison-section comparison-section-{{ section.id }}">
+  <div class="comparison-inner">
+    {% if section.settings.heading != blank %}
+      <h2 class="comparison-heading">{{ section.settings.heading }}</h2>
+    {% endif %}
+
+    <div class="comparison-table-wrapper">
+      
+      {% if section.settings.brand_bg_image != blank %}
+          <div class="comparison-bg-grid">
+            <div class="comparison-bg-col-2"></div>
+          </div>
+      {% endif %}
+
+      <div class="comparison-table">
+        
+        <div class="cell cell--empty"></div>
+        
+        <div class="cell cell--brand-header">
+          <div class="brand-highlight">
+            {% if section.settings.brand_logo != blank %}
+              {{ section.settings.brand_logo | image_url: width: 300 | image_tag: class: 'brand-logo', alt: section.settings.brand_title }}
+            {% else %}
+              <span>{{ section.settings.brand_title }}</span>
+            {% endif %}
+          </div>
+        </div>
+        
+        <div class="cell cell--col-header">
+          {{ section.settings.standard_title }}
+        </div>
+        
+        <div class="cell cell--col-header">
+          {{ section.settings.mass_title }}
+        </div>
+
+        {% for block in section.blocks %}
+          
+          <div class="cell cell--feature" {{ block.shopify_attributes }}>
+            {{ block.settings.feature_text }}
+          </div>
+
+          <div class="cell cell--brand">
+            <span class="icon-wrapper">
+              {% if block.settings.brand_icon != blank %}
+                {{ block.settings.brand_icon | image_url: width: 40 | image_tag: class: 'icon-img' }}
+              {% endif %}
+              {{ block.settings.brand_text }}
+            </span>
+          </div>
+
+          <div class="cell">
+            <span class="icon-wrapper">
+              {% if block.settings.standard_icon != blank %}
+                {{ block.settings.standard_icon | image_url: width: 40 | image_tag: class: 'icon-img' }}
+              {% endif %}
+              {{ block.settings.standard_text }}
+            </span>
+          </div>
+
+          <div class="cell">
+            <span class="icon-wrapper">
+              {% if block.settings.mass_icon != blank %}
+                {{ block.settings.mass_icon | image_url: width: 40 | image_tag: class: 'icon-img' }}
+              {% endif %}
+              {{ block.settings.mass_text }}
+            </span>
+          </div>
+
+        {% endfor %}
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* ===============================
+     SECTION VARIABLES (Scoped)
+     =============================== */
+     
+  .comparison-section-{{ section.id }} {
+    --bg-cream: {{ section.settings.bg_color }};
+    --grid-purple: {{ section.settings.grid_color }};
+    --brand-yellow: {{ section.settings.brand_fallback_color }};
+    --text-orange: {{ section.settings.heading_color }};
+    --text-purple: {{ section.settings.feature_color }};
+    --text-dark: {{ section.settings.text_color }};
+    
+    background: var(--bg-cream);
+    padding: 40px 20px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  .comparison-section-{{ section.id }} .comparison-inner {
+    max-width: 1140px;
+    margin: auto;
+  }
+
+  .comparison-section-{{ section.id }} .comparison-heading {
+    font-size: 34px;
+    font-weight: 800;
+    color: var(--text-orange);
+    letter-spacing: .08em;
+    margin-bottom: 60px;
+  }
+
+  /* ===============================
+     LAYOUT & BACKGROUND
+     =============================== */
+.comparison-table-wrapper {
+  position: relative;
+  overflow-x: scroll;     /* 👈 always show scrollbar */
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+.comparison-table-wrapper::-webkit-scrollbar {
+  height: 10px;
+}
+
+.comparison-table-wrapper::-webkit-scrollbar-track {
+  background: #eee;
+  border-radius: 10px;
+}
+
+.comparison-table-wrapper::-webkit-scrollbar-thumb {
+  background-color: #6a6af0; /* grid purple */
+  border-radius: 10px;
+}
+
+
+  /* Overlay grid (mirrors table columns) */
+.comparison-bg-grid {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 1.2fr 1.6fr 1.4fr 1.4fr;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* SINGLE background for column 2 */
+.comparison-bg-col-2 {
+  grid-column: 2 / 3;
+
+  /* the color you want INSIDE the shape */
+  background-color: rgb(255, 198, 42);
+
+  /* MASK (this is what cuts the shape) */
+  -webkit-mask-image: url({{ section.settings.brand_bg_image | image_url }});
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+
+  mask-image: url({{ section.settings.brand_bg_image | image_url }});
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+}
+
+  /* Single background image positioned absolutely behind column 2 */
+  .brand-column-bg {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 30%; /* Align with the 1.6fr column roughly - fine tune if needed */
+    width: 30%; 
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%; /* Stretch to fill height */
+    pointer-events: none;
+    z-index: 0;
+  }
+  
+  /* Precision grid alignment */
+  .comparison-table {
+    display: grid;
+    /* 4 Columns: Feature | Brand | Standard | Mass */
+    grid-template-columns: 1.2fr 1.6fr 1.4fr 1.4fr;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ===============================
+     CELLS & BORDERS
+     =============================== */
+  .cell {
+    padding: 20px 15px;
+    font-size: 18px;
+    color: var(--text-dark);
+    line-height: 1.5;
+    font-family: Aesthet-Nova-Light !important;
+    
+    /* Internal borders only */
+    border-right: 2px solid var(--grid-purple);
+    border-bottom: 2px solid var(--grid-purple);
+  }
+
+  /* Remove right border on the last column (4th column) */
+  .cell:nth-child(4n) {
+    border-right: none;
+  }
+
+  /* Remove bottom border on the last row (last 4 cells) */
+  .comparison-table > .cell:nth-last-child(-n + 4) {
+    border-bottom: none;
+  }
+
+  /* ===============================
+     HEADER STYLES
+     =============================== */
+  .cell--col-header {
+    text-align: center;
+    font-weight: 700;
+    color: var(--text-orange);
+    text-transform: uppercase;
+    font-size: 18px;
+    font-family: Aesthet-Nova !important;
+    padding:25px 25px;
+  }
+
+  .cell--feature {
+    font-weight: 700;
+    color: var(--text-purple);
+    text-transform: uppercase;
+    font-size: 18px;
+    font-family: Aesthet-Nova !important;
+  }
+
+  .cell--brand {
+    /* Fallback color if image fails to load */
+    background: var(--brand-yellow); 
+    
+  }
+
+  /* ===============================
+     BRAND LOGO ALIGNMENT (FIXED)
+     =============================== */
+  .cell--brand-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .brand-highlight {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Enforce max width and prevent stretching */
+  .brand-logo {
+    max-width: 130px;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+  }
+
+  /* ===============================
+     ICON STYLES
+     =============================== */
+  .icon-wrapper {
+    display: inline-flex;
+    gap: 10px;
+    align-items: center;
+  }
+  
+  .icon-img {
+    width: 35px; 
+    height: 35px;
+    object-fit: contain;
+    display: block;
+  }
+
+
+  @media (max-width: 768px) {
+
+  /* Enable horizontal scroll */
+  .comparison-table {
+    min-width: 720px;
+  }
+  .cell.cell--empty {
+    position: sticky;
+    left: 0;
+    z-index: 3;
+    background: var(--bg-cream);
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.08);
+  }
+
+  /* Sticky feature column (like Product column) */
+  .cell--feature {
+    position: sticky;
+    left: 0;
+    z-index: 3;
+    background: var(--bg-cream);
+    box-shadow: 2px 0 5px rgba(0,0,0,0.08);
+  }
+
+  /* Header row sticky */
+  .cell--col-header,
+  .cell--brand-header {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+  }
+
+  /* Reduce padding & font sizes */
+  .cell {
+    padding: 12px 10px;
+    font-size: 13px;
+  }
+
+  .cell--feature {
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .cell--col-header {
+    font-size: 14px;
+    padding: 14px 10px;
+  }
+
+  /* Icon sizing */
+  .icon-img {
+    width: 22px;
+    height: 22px;
+  }
+
+.comparison-bg-grid {
+    display: grid;
+    min-width: 640px;
+  }
+
+  /* Make the cloud stretch vertically like desktop */
+  .comparison-bg-col-2 {
+    background-color: rgb(255, 198, 42);
+
+    /* Force full-height cloud */
+    -webkit-mask-size: 120% 100%;
+    mask-size: 120% 100%;
+
+    -webkit-mask-position: center top;
+    mask-position: center top;
+  }
+
+}
+@media (max-width: 500px) {
+
+  .comparison-table {
+    min-width: 640px;
+  }
+
+  .cell {
+    font-size: 12px;
+    padding: 10px 8px;
+  }
+
+  .cell--feature {
+    font-size: 13px;
+  }
+
+  .icon-img {
+    width: 18px;
+    height: 18px;
+  }
+
+  .brand-logo {
+    max-width: 90px;
+  }
+}
+
+
+</style>
+
+{% schema %}
+{
+  "name": "Comparison Table",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "HOW WE ARE DIFFERENT ✦"
+    },
+    {
+      "type": "header",
+      "content": "Brand Column"
+    },
+    {
+      "type": "image_picker",
+      "id": "brand_logo",
+      "label": "Brand logo"
+    },
+    {
+      "type": "text",
+      "id": "brand_title",
+      "label": "Brand title (Alt)",
+      "default": "Our Brand"
+    },
+    {
+      "type": "image_picker",
+      "id": "brand_bg_image",
+      "label": "Column Background Image (Silhouette)"
+    },
+    {
+      "type": "color",
+      "id": "brand_fallback_color",
+      "label": "Brand Column Color (Mobile/Fallback)",
+      "default": "#ffc62f"
+    },
+    {
+      "type": "header",
+      "content": "Table Labels"
+    },
+    {
+      "type": "text",
+      "id": "standard_title",
+      "label": "Standard column title",
+      "default": "STANDARD ‘HEALTHY’ BRANDS"
+    },
+    {
+      "type": "text",
+      "id": "mass_title",
+      "label": "Mass column title",
+      "default": "MASS MARKET BRANDS"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section background",
+      "default": "#fbf5cf"
+    },
+    {
+      "type": "color",
+      "id": "grid_color",
+      "label": "Grid line color",
+      "default": "#6a6af0"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#ff4d1c"
+    },
+    {
+      "type": "color",
+      "id": "feature_color",
+      "label": "Feature text color",
+      "default": "#6a6af0"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Body text color",
+      "default": "#1b1b1b"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Comparison row",
+      "settings": [
+        {
+          "type": "text",
+          "id": "feature_text",
+          "label": "Feature text",
+          "default": "Feature Name"
+        },
+        {
+          "type": "header",
+          "content": "Brand Column"
+        },
+        {
+          "type": "image_picker",
+          "id": "brand_icon",
+          "label": "Icon"
+        },
+        {
+          "type": "richtext",
+          "id": "brand_text",
+          "label": "Text"
+        },
+        {
+          "type": "header",
+          "content": "Standard Column"
+        },
+        {
+          "type": "image_picker",
+          "id": "standard_icon",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "standard_text",
+          "label": "Text"
+        },
+        {
+          "type": "header",
+          "content": "Mass Market Column"
+        },
+        {
+          "type": "image_picker",
+          "id": "mass_icon",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "mass_text",
+          "label": "Text"
+        }
+      ]
+    }
+  ],
+  
+    "presets": [
+    {
+      "name": "Comparison Table",
+      "blocks": [
+        {
+          "type": "row",
+          "settings": {
+            "feature_text": "Does it work?",
+            "brand_text": "<p>tested for evidence</p>"
+          }
+        },
+        {
+          "type": "row",
+          "settings": {
+            "feature_text": "Is it clean?",
+            "brand_text": "<p>every batch lab-tested</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

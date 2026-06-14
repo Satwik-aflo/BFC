@@ -1,0 +1,221 @@
+<section class="gg-newsletter gg-newsletter-{{ section.id }}">
+  <div class="gg-newsletter__inner">
+
+    <h2 class="gg-newsletter__heading">
+      {{ section.settings.heading }}
+    </h2>
+
+    <div class="gg-newsletter__text">
+      {{ section.settings.text }}
+    </div>
+
+    {% form 'customer', id: 'GGNewsletterForm', class: 'gg-newsletter__form' %}
+      <input type="hidden" name="contact[tags]" value="newsletter">
+
+      <div class="gg-newsletter__field">
+        <input
+          type="email"
+          name="contact[email]"
+          placeholder="{{ section.settings.placeholder }}"
+          required
+        >
+
+        <button type="submit" aria-label="Subscribe">
+          →
+        </button>
+      </div>
+
+      {% if form.posted_successfully? %}
+        <p class="gg-newsletter__success">
+          <span class="gg-check">✓</span>
+          Thanks for subscribing
+        </p>
+      {% endif %}
+
+      {% if form.errors %}
+        <p class="gg-newsletter__error">
+          {{ form.errors | first }}
+        </p>
+      {% endif %}
+    {% endform %}
+
+  </div>
+</section>
+
+<style>
+  /* ===== WRAPPER ===== */
+  .gg-newsletter-{{ section.id }} {
+    padding: 80px 20px;
+    text-align: center;
+    background: {{ section.settings.bg_color }};
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  .gg-newsletter__inner {
+    max-width: 820px;
+    margin: 0 auto;
+  }
+
+  /* ===== HEADING ===== */
+  .gg-newsletter__heading {
+    font-size: 42px;
+    font-weight: 800;
+    margin-bottom: 18px;
+  }
+
+  .gg-newsletter__text {
+    font-size: 17px;
+    line-height: 1.7;
+    max-width: 680px;
+    margin: 0 auto 40px;
+  }
+
+  /* ===== FORM ===== */
+  .gg-newsletter__form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* ===== INPUT PILL ===== */
+  .gg-newsletter__field {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 560px;
+    border: 2px solid #000;
+    border-radius: 999px;
+    padding: 6px 14px;
+    transition: transform 0.25s ease;
+  }
+
+  .gg-newsletter__field:focus-within {
+    transform: translateY(-1px);
+  }
+
+  /* INPUT */
+  .gg-newsletter__field input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 14px 16px;
+    font-size: 16px;
+  }
+
+  .gg-newsletter__field input::placeholder {
+    opacity: 0.7;
+  }
+
+  /* ARROW BUTTON */
+  .gg-newsletter__field button {
+    border: none;
+    background: transparent;
+    font-size: 22px;
+    cursor: pointer;
+    padding: 0 12px;
+    transition: transform 0.25s ease;
+  }
+
+  .gg-newsletter__field:hover button,
+  .gg-newsletter__field:focus-within button {
+    transform: translateX(6px);
+  }
+
+  /* ===== SUCCESS MESSAGE (SOURMILK STYLE) ===== */
+  .gg-newsletter__success {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 14px;
+    font-size: 15px;
+    color: #0b7a2c;
+    animation: ggFadeIn 0.35s ease;
+  }
+
+  .gg-check {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #0b7a2c;
+    color: #fff;
+    font-size: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .gg-newsletter__error {
+    margin-top: 12px;
+    font-size: 14px;
+    color: #c0392b;
+  }
+
+  @keyframes ggFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* ===== MOBILE ===== */
+  @media (max-width: 768px) {
+    .gg-newsletter__heading {
+      font-size: 32px;
+    }
+
+    .gg-newsletter__text {
+      font-size: 15px;
+    }
+
+    .gg-newsletter-{{ section.id }} {
+      padding: 20px;
+    }
+
+    .gg-newsletter__field input {
+      padding: 0;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "GG Newsletter",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Subscribe to Gut Check"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Description",
+      "default": "<p>Gut Check is our way of keeping family and friends in the loop, we'll share lessons from building a company, product updates, and latest research and insights about the microbiome. <strong>No spam, just gut stuff.</strong></p>"
+    },
+    {
+      "type": "text",
+      "id": "placeholder",
+      "label": "Placeholder",
+      "default": "Email"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "GG Newsletter",
+      "category": "Blog"
+    }
+  ]
+}
+{% endschema %}

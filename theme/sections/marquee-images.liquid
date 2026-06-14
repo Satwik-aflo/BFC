@@ -1,0 +1,304 @@
+<script
+  src="{{ 'marquee.js' | asset_url }}"
+  type="module"
+  fetchpriority="low"
+></script>
+
+{% assign gap_between_elements = section.settings.gap_between_elements %}
+
+<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+
+<marquee-component
+  class="section spacing-style gap-style color-{{ section.settings.color_scheme }}"
+  style="
+    {%- render 'spacing-style', settings: section.settings %};
+    {% render 'gap-style', value: gap_between_elements, name: 'marquee-gap' %}
+    --marquee-direction: {{ section.settings.movement_direction }};
+  "
+  data-speed-factor="25"
+  data-movement-direction="{{ section.settings.movement_direction }}"
+>
+  <div
+    class="marquee__wrapper"
+    ref="wrapper"
+  >
+    <div
+      class="marquee__content"
+      ref="content"
+    >
+      <div
+        class="marquee__repeated-items"
+        ref="marqueeItems[]"
+      >
+        {%- for block in section.blocks -%}
+          {% case block.type %}
+
+          {% when 'image_text' %}
+            <div class="marquee-item" {{ block.shopify_attributes }}>
+              {% if block.settings.link_url != blank %}
+                <a href="{{ block.settings.link_url }}" class="marquee-item__link">
+              {% endif %}
+
+                {% if block.settings.image != blank %}
+                  {{ block.settings.image | image_url: width: 300 | image_tag:
+                    loading: 'lazy',
+                    class: 'marquee-item__image',
+                    alt: block.settings.alt_text | escape
+                  }}
+                {% endif %}
+
+                {% if block.settings.text != blank %}
+                  <p class="marquee-item__text">
+                    {{ block.settings.text }}
+                  </p>
+                {% endif %}
+
+              {% if block.settings.link_url != blank %}
+                </a>
+              {% endif %}
+            </div>
+
+          {% when 'divider' %}
+            <span class="marquee__divider" aria-hidden="true">•</span>
+
+          {% endcase %}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</marquee-component>
+
+{% stylesheet %}
+  marquee-component {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .marquee__wrapper {
+    display: flex;
+    gap: var(--marquee-gap);
+    width: fit-content;
+    white-space: nowrap;
+  }
+
+  .marquee__content {
+    min-width: max-content;
+    display: flex;
+    gap: var(--marquee-gap);
+  }
+
+  .marquee__repeated-items {
+    min-width: max-content;
+    display: flex;
+    gap: var(--marquee-gap);
+    align-items: center;
+    justify-content: center;
+  }
+
+  .marquee__repeated-items > * {
+    align-content: center;
+  }
+
+  /* Image + text item */
+  .marquee-item {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 4px;
+  }
+
+  .marquee-item__link {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .marquee-item__image {
+    max-height: 90px;
+    width: auto;
+    display: block;
+  }
+
+  .marquee-item__text {
+    margin: 0;
+    padding-top:25px;
+    font-size: 0.85rem;
+    white-space: nowrap;
+  }
+
+  .marquee__divider {
+    font-size: 1rem;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    marquee-component:not([data-disabled]) .marquee__wrapper {
+      animation: marquee-motion var(--marquee-speed) linear infinite var(--marquee-direction);
+    }
+  }
+  /* =====================================
+   MARQUEE — MOBILE OPTIMIZATION
+   ===================================== */
+  @media (max-width: 768px) {
+
+    /* Reduce vertical padding of the section */
+    marquee-component.section {
+      padding-block-start: 12px !important;
+      padding-block-end: 12px !important;
+    }
+
+    /* Reduce spacing between marquee items */
+    marquee-component {
+      --marquee-gap: 12px !important;
+    }
+
+    /* Shrink image size */
+    .marquee-item__image {
+      max-height: 48px !important;
+    }
+
+    /* Reduce text spacing & size */
+    .marquee-item__text {
+      padding-top: 6px !important;
+      font-size: 0.7rem !important;
+      line-height: 1.2;
+    }
+
+    /* Reduce divider size */
+    .marquee__divider {
+      font-size: 0.8rem !important;
+    }
+
+    /* Tighten wrapper height */
+    .marquee__wrapper,
+    .marquee__content,
+    .marquee__repeated-items {
+      align-items: center;
+    }
+  }
+
+  @keyframes marquee-motion {
+    to {
+      transform: translate3d(calc(-50% - (var(--marquee-gap) / 2)), 0, 0);
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:names.marquee",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "blocks": [
+    {
+      "type": "image_text",
+      "name": "Image with text",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "alt_text",
+          "label": "Image alt text",
+          "default": "Logo"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Caption text",
+          "default": "Feature description"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "Link (optional)"
+        }
+      ]
+    },
+    {
+      "type": "divider",
+      "name": "Divider"
+    }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "movement_direction",
+      "label": "t:settings.motion_direction",
+      "options": [
+        {
+          "value": "reverse",
+          "label": "t:options.forward"
+        },
+        {
+          "value": "normal",
+          "label": "t:options.reverse"
+        }
+      ],
+      "default": "normal"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:settings.color_scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "gap_between_elements",
+      "label": "t:settings.gap",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.marquee_section",
+      "category": "t:categories.text",
+      "blocks": [
+        {
+          "type": "image_text",
+          "settings": {
+            "text": "Trusted by great brands",
+            "alt_text": "Brand logo"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -510,6 +510,129 @@ body.menu-open .menu-overlay .script { opacity: 1; }
   text-transform: uppercase;
   opacity: 0.85;
 }
+.footer__policies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.4rem;
+  padding-bottom: var(--space-2);
+}
+.footer__policies a {
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  text-decoration: none;
+  color: inherit;
+  opacity: 0.85;
+}
+.footer__policies a:hover { color: var(--mango-yellow); opacity: 1; }
+
+/* ==========================================================================
+   How We Are Different — comparison table
+   ========================================================================== */
+.chapter--different { background: var(--ripe-orange); color: var(--kulfi-malai); }
+.compare__title { color: var(--ripe-orange); display: inline-flex; align-items: center; gap: 0.35em; }
+.chapter--different .compare__title { color: var(--kulfi-malai); }
+.compare-card {
+  position: relative;
+  isolation: isolate;
+  max-width: 76rem;
+  margin: 0 auto;
+  background: var(--kulfi-malai);
+  color: var(--kohl-black);
+  border: var(--line);
+  border-radius: 18px;
+  box-shadow: 10px 10px 0 var(--kohl-black);
+  padding: clamp(1.25rem, 3vw, 2.75rem);
+}
+/* Brand silhouette + logo placed via the cloud-placer tool (percentages of the card). */
+.compare__shape {
+  position: absolute;
+  left: 24.01%;
+  top: 4.13%;
+  width: 24.34%;
+  height: 90.88%;
+  z-index: -1;
+  pointer-events: none;
+}
+.compare__shape img { width: 100%; height: 100%; display: block; }
+.compare__logo {
+  position: absolute;
+  left: 31.48%;
+  top: 8.26%;
+  width: 9.32%;
+  height: 9.29%;
+  z-index: 2;
+  pointer-events: none;
+}
+.compare__spark { height: 0.7em; width: auto; }
+.compare-wrap { max-width: 72rem; margin: var(--space-4) auto 0; overflow-x: auto; }
+.compare-card .compare-wrap { max-width: none; margin: 0; }
+.compare-card .compare__deco { max-width: none; margin: var(--space-3) auto 0; }
+.compare {
+  width: 100%;
+  min-width: 600px;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-family: var(--font-body);
+}
+.compare th,
+.compare td {
+  padding: 1.3rem 1.4rem;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1.5px solid rgba(93, 87, 197, 0.3);
+  font-size: var(--text-lg);
+  line-height: 1.5;
+}
+.compare thead th {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  font-size: var(--text-sm);
+  color: var(--ripe-orange);
+  vertical-align: middle;
+}
+.compare tbody th[scope="row"] {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  font-size: var(--text-base);
+  color: var(--indian-blue);
+  width: 22%;
+}
+.compare tbody tr:last-child th,
+.compare tbody tr:last-child td { border-bottom: none; }
+.compare__us {
+  color: var(--kohl-black);
+  border-left: 1.5px solid rgba(93, 87, 197, 0.3);
+  border-right: 1.5px solid rgba(93, 87, 197, 0.3);
+}
+.compare__us--head {
+  min-height: 130px;
+  padding: 0;
+}
+.compare__mark { font-family: var(--font-display); font-weight: 700; font-size: 1.2em; margin-right: 0.55rem; }
+.compare__mark--maybe,
+.compare__mark--no { color: var(--ripe-orange); }
+.compare__tick {
+  width: 1.85em;
+  height: 1.85em;
+  flex: 0 0 auto;
+  margin-right: 0.6rem;
+  vertical-align: -0.5em;
+}
+.compare a { color: var(--indian-blue); text-decoration: underline; text-underline-offset: 2px; }
+.compare__deco {
+  max-width: 72rem;
+  margin: var(--space-4) auto 0;
+  height: 9px;
+  border-top: 1.5px solid var(--indian-blue);
+  border-bottom: 1.5px solid var(--indian-blue);
+  background: repeating-linear-gradient(90deg, var(--indian-blue) 0 7px, transparent 7px 14px);
+}
 
 /* ==========================================================================
    Reveal animations

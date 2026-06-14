@@ -1,0 +1,92 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "lab_report_hero_qaGwTY": {
+      "type": "lab-report-hero",
+      "name": "Lab Report – Intro",
+      "settings": {
+        "section_bg": "#fbf3cc",
+        "stamp_bg": "shopify://shop_images/Stamp_50bc2e4c-ca4f-402f-bb41-d672d68b4a17.svg",
+        "corner_image": "shopify://shop_images/Future_of_health.svg",
+        "heading": "The Boring Foods Company Report Library",
+        "sparkle_image": "shopify://shop_images/stars_d2737678-f978-4977-8155-588e07dd3786.png",
+        "main_content": "<p>When we first looked for high-quality natural ingredients, we hit a wall. It was impossible to know if spices or herbs were actually clean or potent. The supply chain was messy, and honest information was hard to find.<br/>We started this brand to fix that.</p><p>Our commitment is simple: <strong>these ingredients are powerful, but only if they are sourced right + are genuinely clean.</strong></p><p>That’s why we test everything to answer <strong>two questions</strong>:</p><ul><li><strong>Is it Safe?</strong> We test for heavy metals and contaminants so you know what you’re putting in your body is pure.</li><li><strong>Does it Work?</strong> We verify the active components, like withanolides in ashwagandha, because you deserve to know if the product is effective<br/></li></ul>",
+        "text_color": "#fbf3cc",
+        "bottom_text": "You don’t just have to take our word for it:",
+        "bottom_text_color": "#000000"
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "blocks": {
+        "heading": {
+          "type": "text",
+          "name": "Title",
+          "settings": {
+            "text": "<h1>{{ closest.page.title }}</h1>",
+            "width": "100%",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "h2",
+            "font": "var(--font-primary--family)",
+            "font_size": "",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "page-content": {
+          "type": "page-content",
+          "settings": {},
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "heading",
+        "page-content"
+      ],
+      "disabled": true,
+      "settings": {
+        "content_direction": "column",
+        "gap": 32,
+        "color_scheme": "",
+        "padding-block-start": 40,
+        "padding-block-end": 80
+      }
+    },
+    "custom_liquid_LMhwHG": {
+      "type": "custom-liquid",
+      "name": "Lab Reports",
+      "settings": {
+        "custom_liquid": "<div class=\"container js-scroll-ref\" id=\"compare-table-section\" style=\"min-height: 520px; background-color: #FBF3CC;\">\n    <div class=\"section_header text-center mb-[12px] md:mb-[24px]\" style=\"display: flex; justify-content: center; margin: 0 auto 20px;\">\n        <p class=\"font-arpona text-accent text-[24px] md:text-[40px] font-normal text-[#080A5C]\" style=\"font-size: 24px; font-family: CopperplateCC-Bold !important; color: rgb(248, 75, 33); text-align: center;\">\n            here’s the proof. \n        </p>\n    </div>\n  \n    <div class=\"table-wrapper\" style=\"overflow-x: auto; width: 100%;\">\n        <table style=\"max-width: 900px; min-height: 450px; border-collapse: separate; border-spacing: 0; background-color:#5e5ca8;\">\n            <thead style=\"max-height: 68px;\">\n                <tr>\n           <th class=\"sticky-left\" style=\"width: 217.758px;\">\n                        <span class=\"header-title\"> Product </span></th>\n\n<th class=\"font-semibold-header text-center text-[12px] md:text-[16px]\" style=\"width: 167.758px;\">\n                        <span class=\"header-title\"> Batch No </span></th>\n\n                    <th class=\"font-semibold-header text-center text-[12px] md:text-[16px]\" style=\"width: 167.758px;\">\n                        <span class=\"header-title\">Test Date</span></th>\n                    <th class=\"font-semibold-header text-center text-[12px] md:text-[16px]\" style=\"width: 317.758px;\">\n                        <span class=\"header-title\">Key Results Summary</span>\n                    </th>\n                    <th class=\"font-semibold-header text-center text-[12px] md:text-[16px]\" style=\"width: 217.758px;\">\n                        <span class=\"header-title\">Lab Report</span>\n                    </th>\n\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <th class=\"sticky-left\"> Ashwagandha</th>\n                    <td><p class=\"font-semibold-column-one text-center\"> AWC25318P</p></td>\n                    <td><p class=\"font-semibold text-left\"> 25-Sep-2025</p></td>\n                    <td><p class=\"font-semibold text-center\">Withanolides: 3.16% </br> Moisture: 4.91 g/100g </br>Heavy Metals: All <0.5 mg/kg</p></td>\n                    <td class=\"report-button-cell\">\n                        <button class=\"btn download-report-btn\"><a href=\"https://drive.google.com/drive/u/0/folders/1RT8U3Fh0ZL-OhXId8jOyfuCC_leOu8Wg\" class=\"font-semibold-column-one text-center\" target=\"_blank\">Report Link</a></button>\n                    </td>\n                </tr>\n                <tr>\n                    <th class=\"sticky-left\"> Black Pepper</th>\n                    <td><p class=\"font-semibold-column-one text-center\"> KPI25318P</p></td>\n                    <td><p class=\"font-semibold text-left\"> 20-Sep-2025</p></td>\n                    <td><p class=\"font-semibold text-center\"> Piperine: 3.87 g/100g </br> Heavy Metals: All <0.5 mg/kg </br> Salmonella: Absent </p></td>\n                    <td class=\"report-button-cell\">\n                        <button class=\"btn download-report-btn\"><a href=\"https://drive.google.com/drive/u/0/folders/1S0Gp5Z3ecFJajd3auYyft_bjFAZTwgz5\" class=\"font-semibold-column-one text-center\" target=\"_blank\">Report Link</a></button>\n                    </td>\n                </tr>\n                <tr>\n                    <th class=\"sticky-left\"> Moringa</th>\n                    <td><p class=\"font-semibold-column-one text-center\"> MOC25318P</p></td>\n                    <td><p class=\"font-semibold text-left\"> 22-Sep-2025</p></td>\n                    <td><p class=\"font-semibold text-center\"> Protein: 26.56 g/100g </br> Polyphenols: 8497.67 mg/100g </br> Total Ash: 8.52 g/100g </p></td>\n                    <td class=\"report-button-cell\">\n                        <button class=\"btn download-report-btn\"><a href=\"https://drive.google.com/drive/u/0/folders/1W-r7_yKWp9WyTUv_DDPofLgKjdRCvmQA\" class=\"font-semibold-column-one text-center\" target=\"_blank\">Report  Link</a></button>\n                    </td>\n                </tr>\n                <tr>\n                    <th class=\"sticky-left\"> Turmeric</th>\n                    <td><p class=\"font-semibold-column-one text-center\"> LTM25318P</p></td>\n                    <td><p class=\"font-semibold text-left\"> 20-Sep-2025</p></td>\n                    <td><p class=\"font-semibold text-center\"> Curcumin: 8.93 g/100g </br> Heavy Metals: All <0.5 mg/kg </br> Metanil Yellow: Absent </p></td>\n                    <td class=\"report-button-cell\">\n                        <button class=\"btn download-report-btn\"><a href=\"https://drive.google.com/drive/u/0/folders/1F6XO63Rs0MikD0vNvV2eYpZkTGBt9J6n\" class=\"font-semibold-column-one text-center\" target=\"_blank\">Report Link</a></button>\n                    </td>\n                </tr>\n            </tbody>\n        </table>\n    </div>\n    <div class=\"lab-partner\">\n        <p class=\"lab-partner-text\">\n            Our NABL-accredited lab partner:\n        </p>\n\n        <img\n            class=\"lab-partner-image\"\n            src=\"https://cdn.shopify.com/s/files/1/0722/5042/5513/files/Eurofins.png?v=1767301014\"\n            alt=\"Eurofins Lab\"\n            width=\"180\"\n            height=\"36\"\n            loading=\"lazy\"\n        >\n    </div>\n</div>\n<style>\n    .lab-partner {\n        display: flex;\n        align-items: flex-end;\n        gap: 20px;\n        justify-content: center;\n        margin-top: 30px;\n    }\n\n    .lab-partner-text {\n        font-family: Aesthet-Nova !important;\n        font-size: 18px;\n        font-weight: 700;\n        color: #5d57c5;\n        line-height: 1.4;\n        margin: 0;\n    }\n\n    .lab-partner-image {\n        display: block;\n        height: 30px;\n        width: 160px;\n    }\n\n    .header-title {\n        font-weight: 700;\n        color:#fbf3cc;\n        font-family: 'Aesthet-Nova';\n        font-size: 18px;\n        display: flex;\n        justify-content: left;\n        align-items: center;\n        text-align: left;\n        line-height: 34px;\n        padding-left: 10px;\n    }\n\n    .sticky-left {\n        width: 217px;\n        font-size: 18px;\n        font-family: 'Aesthet-Nova';\n        background-color: #5e5ca8;\n        position: sticky;\n        text-align: left;\n        padding: 10px !important;\n        left: 0;\n        color:#fbf3cc;\n        border-right: 1px solid #ddd;\n        box-shadow: 2px 0 5px rgba(0,0,0,0.05);\n    }\n    \n    .font-semibold-column-one {\n        font-size: 16px;\n        font-family: Aesthet-Nova;\n        display: flex;\n        justify-content: left;\n        text-align: center;\n        margin: 10px;\n        color: #fbf3cc;\n    }\n    \n    .font-semibold {\n        font-size: 16px;\n        display: flex;\n        justify-content: left;\n        text-align: left;\n        margin: 10px;\n        color: #fbf3cc;\n    }\n    p.font-semibold.text-center {\n    font-size: 15px;\n    }\n    \n    .table-wrapper {\n        overflow-x: auto;\n        width: 100%;\n        display: flex;\n        justify-content: space-around;\n    }\n    \n    table:not([class]) td, table:not([class]) th {\n        padding: 0;\n        max-height: 68.95px;\n        border: .5px solid #ffc62a;\n        height: 68px;\n        max-height: 68px;\n    }\n\n    /* === NEW BUTTON STYLES === */\n\n    /* Table cell centering for the button */\n    .report-button-cell {\n        text-align: center;\n        vertical-align: middle;\n        padding: 10px !important;\n    }\n\n    /* Yellow button color and appearance */\n    .download-report-btn {\n        background-color: #F9BF29; \n        border: 1px solid #F9BF29;\n        \n        color: #000000; \n        font-weight: bold;\n        font-size: 15px;\n        \n        border-radius: 5px;\n        cursor: pointer;\n        transition: background-color 0.3s, opacity 0.3s;\n        display: inline-block; \n        text-decoration: none; /* In case you change it to an anchor tag later */\n    }\n\n    .download-report-btn:hover {\n        background-color: #E8B026; \n        border-color: #E8B026;\n    }\n    \n    /* Responsive tweaks */\n    @media (max-width: 900px) and (min-width:500px) {\n        .sticky-left {\n            z-index: 2;\n        }\n    \n        thead .sticky-left {\n            position: sticky;\n            left: 0;\n            z-index: 1;\n        }\n        .font-arpona {\n            font-size: 22px !important;\n        }\n\n        .lab-partner {\n            display: flex;\n            align-items: center;\n            gap: 10px;\n            justify-content: left;\n            margin-top: 30px;\n        }\n\n        .lab-partner-text {\n            font-size: 14px;\n            align-items: center;\n        }\n\n        .lab-partner-image {\n            height: 20px;\n            width: 100px;\n        }\n        .stamp-text ul {\n            text-align: left;\n            font-size: 16px;\n        }\n    \n    }\n    @media (max-width:500px) {\n        .lab-partner {\n            display: flex;\n            align-items: center;\n            gap: 10px;\n            justify-content: left;\n            margin-top: 30px;\n        }\n\n        .lab-partner-text {\n            font-size: 14px;\n            align-items: center;\n        }\n\n        .lab-partner-image {\n            height: 20px;\n            width: 100px;\n        }\n        .sticky-left {\n            z-index: 2;\n        }\n        .stamp-text ul {\n            text-align: left;\n            font-size: 16px;\n        }\n\n        .font-arpona {\n            font-size: 22px !important;\n        }\n    \n        thead .sticky-left {\n            position: sticky;\n            left: 0;\n            z-index: 1;\n        }\n        table:not([class]) {\n            min-width: 500px !important;\n            min-height: 0 !important;\n        }\n    \n        table:not([class]) td, table:not([class]) th {\n            height: 50px !important;\n            max-height: 60px !important;\n        }\n    \n        .sticky-left {\n            font-size: 12px !important;\n            font-family: OPTICopperplate-light !important;\n            text-align: center !important;\n        }\n    \n        .header-title {\n            font-weight: 700 !important;\n            font-size: 17px !important;\n            line-height: 28px !important;\n            width: 100px !important;\n            flex-wrap: wrap !important;\n        }\n    \n        .font-semibold-column-one {\n            font-size: 12px !important;\n        }\n        .font-semibold {\n            font-size: 12px !important;\n        }\n    \n        .font-semibold-header\n        {\n            width: auto !important;\n        }\n        div#compare-table-section\n        {\n            min-height: 650px !important;\n        }\n        \n        /* Mobile Button Styling */\n        .download-report-btn {\n            font-size: 10px !important;\n            padding: 6px 10px !important;\n        }\n\n    }\n</style>",
+        "color_scheme": "scheme-1",
+        "section_width": "full-width",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    }
+  },
+  "order": [
+    "lab_report_hero_qaGwTY",
+    "main",
+    "custom_liquid_LMhwHG"
+  ]
+}

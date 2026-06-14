@@ -1,0 +1,119 @@
+{% comment %}
+  Boring Foods brand layer.
+  Loads the custom brand fonts and overrides Horizon's four base font-family
+  variables so all type (h1-h6, paragraphs, subheadings, accents, buttons, cart)
+  inherits the brand typography. Rendered after 'color-schemes' in theme.liquid.
+  Purely additive - no core Horizon files are altered.
+{% endcomment %}
+{% style %}
+  @font-face {
+    font-family: "Aesthet Nova";
+    src: url({{ 'AesthetNova-Light.otf' | asset_url }}) format("opentype");
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Aesthet Nova";
+    src: url({{ 'AesthetNova-Medium.otf' | asset_url }}) format("opentype");
+    font-weight: 400 500;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Aesthet Nova";
+    src: url({{ 'AesthetNova-Black.otf' | asset_url }}) format("opentype");
+    font-weight: 600 900;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Copperplate BFC";
+    src: url({{ 'Copperplate-Light.otf' | asset_url }}) format("opentype");
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Copperplate BFC";
+    src: url({{ 'Copperplate-Regular.otf' | asset_url }}) format("opentype");
+    font-weight: 400 500;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Copperplate BFC";
+    src: url({{ 'Copperplate-Heavy.otf' | asset_url }}) format("opentype");
+    font-weight: 600 900;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Flagflies";
+    src: url({{ 'Flagflies.ttf' | asset_url }}) format("truetype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Musloner";
+    src: url({{ 'Musloner.otf' | asset_url }}) format("opentype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Mexicana Hollow";
+    src: url({{ 'MexicanaHollow.ttf' | asset_url }}) format("truetype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  :root {
+    --font-body--family: "Aesthet Nova", Georgia, serif;
+    --font-subheading--family: "Copperplate BFC", "Aesthet Nova", serif;
+    --font-heading--family: "Copperplate BFC", Georgia, serif;
+    --font-accent--family: "Flagflies", "Copperplate BFC", serif;
+  }
+
+  /* ── Navigation legibility ──────────────────────────────────────────
+     Copperplate is an engraved (airy) face, so the top-level nav needs a
+     heavier weight + letter-spacing to read well. Horizon also dims
+     non-hovered links via --opacity-subdued-text and, on hover, swaps the
+     header's --color-foreground to `inherit` (which makes the rgb()-based
+     link colour resolve to nothing -> the text vanishes). We pin explicit,
+     high-contrast colours and force full opacity in every state. */
+  .menu-list__link,
+  .menu-list__link:hover,
+  .menu-list__link:focus,
+  .menu-list:where(:has(.menu-list__list-item:hover)) .menu-list__link,
+  .menu-list:where(:has(.menu-list__list-item:focus-within)) .menu-list__link {
+    opacity: 1 !important;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+  }
+
+  /* Solid headers (sub-pages): always render nav in Kohl Black on the
+     cream/scheme background, regardless of Horizon's hover colour swap. */
+  header-component:not([transparent]) .menu-list__link,
+  header-component:not([transparent]) .menu-list__link:hover,
+  header-component:not([transparent]) .menu-list__link:focus,
+  header-component:not([transparent]) .menu-list:where(:has(.menu-list__list-item:hover)) .menu-list__link {
+    color: #000 !important;
+  }
+
+  /* Transparent header (over the hero photo): keep the scheme colour but add
+     a soft shadow so light nav text stays legible on the busy image. */
+  header-component[transparent] .menu-list__link {
+    text-shadow: 0 1px 10px rgb(0 0 0 / 0.5);
+  }
+
+  /* Submenu / overflow dropdown links: ensure they never inherit a dimmed
+     or transparent colour. */
+  .menu-list__submenu .menu-list__link,
+  .overflow-menu .menu-list__link {
+    opacity: 1 !important;
+    color: var(--color-foreground) !important;
+  }
+{% endstyle %}

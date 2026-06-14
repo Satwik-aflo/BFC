@@ -342,6 +342,16 @@ body.interior main { padding-top: var(--nav-h); }
   flex-direction: column;
   gap: 0.7rem;
 }
+.recipe-card__media {
+  margin: calc(-1 * var(--space-3)) calc(-1 * var(--space-3)) 0.2rem;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-bottom: var(--line);
+  background: var(--kulfi-deep);
+}
+.recipe-card__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.recipe-card__media--cutout { display: grid; place-items: center; }
+.recipe-card__media--cutout img { object-fit: contain; padding: 0.9rem; filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.22)); }
 .recipe-card__badge {
   align-self: flex-start;
   font-family: var(--font-display);

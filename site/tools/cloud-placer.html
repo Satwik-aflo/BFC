@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cloud + Logo Placer — Boring Foods (internal tool)</title>
+  <link rel="stylesheet" href="../css/tokens.css" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <style>
+    /* ---- tool-only overrides ---- */
+    body { margin: 0; background: var(--ripe-orange); }
+    .stage {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 7rem 1.5rem 5rem;
+      box-sizing: border-box;
+    }
+    /* In the tool we strip the mango fill off the highlighted column so the
+       cloud + logo overlays are easy to line up against the cells. */
+    .compare__us,
+    .compare__us--head {
+      background: transparent !important;
+    }
+    .compare__us--head {
+      min-height: 130px;
+      padding: 0 !important;
+    }
+    .compare-card { position: relative; overflow: visible; }
+
+    /* draggable wrappers (cloud + logo) */
+    .placeable {
+      position: absolute;
+      top: 0; left: 0;
+      width: 120px; height: 80px;
+      cursor: grab;
+      touch-action: none;
+      user-select: none;
+      z-index: 5;
+    }
+    .placeable.is-cloud { z-index: 4; }
+    .placeable.is-logo  { z-index: 6; }
+    .placeable .art {
+      width: 100%; height: 100%;
+      display: block;
+      pointer-events: none;
+      -webkit-user-drag: none;
+    }
+    .placeable.selected { outline: 1.5px dashed var(--indian-blue); cursor: move; }
+    .placeable .handle {
+      position: absolute;
+      width: 14px; height: 14px;
+      background: #fff;
+      border: 1.5px solid var(--indian-blue);
+      border-radius: 50%;
+      display: none;
+      z-index: 10;
+    }
+    .placeable.selected .handle { display: block; }
+    .handle--nw { top: -7px;  left: -7px;  cursor: nwse-resize; }
+    .handle--n  { top: -7px;  left: calc(50% - 7px); cursor: ns-resize; }
+    .handle--ne { top: -7px;  right: -7px; cursor: nesw-resize; }
+    .handle--e  { top: calc(50% - 7px); right: -7px; cursor: ew-resize; }
+    .handle--se { bottom: -7px; right: -7px; cursor: nwse-resize; }
+    .handle--s  { bottom: -7px; left: calc(50% - 7px); cursor: ns-resize; }
+    .handle--sw { bottom: -7px; left: -7px;  cursor: nesw-resize; }
+    .handle--w  { top: calc(50% - 7px); left: -7px; cursor: ew-resize; }
+
+    /* control panel */
+    .panel {
+      position: fixed;
+      top: 16px; right: 16px;
+      width: 320px;
+      max-height: calc(100vh - 32px);
+      overflow: auto;
+      background: var(--kulfi-malai);
+      border: 1.5px solid #000;
+      border-radius: 14px;
+      box-shadow: 6px 6px 0 #000;
+      padding: 16px;
+      font-family: var(--font-body, system-ui), sans-serif;
+      color: #000;
+      z-index: 1000;
+      font-size: 13px;
+    }
+    .panel h1 { font-size: 15px; margin: 0 0 4px; letter-spacing: .04em; text-transform: uppercase; }
+    .panel p.hint { margin: 0 0 12px; font-size: 11.5px; line-height: 1.45; opacity: .8; }
+    .panel .who {
+      display: flex; gap: 6px; margin-bottom: 10px;
+    }
+    .panel .who button {
+      flex: 1; padding: 7px 4px; border: 1.5px solid #000; border-radius: 8px;
+      background: #fff; cursor: pointer; font-weight: 600; font-size: 12px;
+    }
+    .panel .who button.active { background: var(--mango-yellow); }
+    .panel .readout {
+      background: #fff; border: 1px solid #000; border-radius: 8px;
+      padding: 8px; margin-bottom: 10px; font-family: ui-monospace, monospace; font-size: 11.5px;
+      white-space: pre; line-height: 1.5;
+    }
+    .panel textarea {
+      width: 100%; height: 150px; box-sizing: border-box;
+      font-family: ui-monospace, monospace; font-size: 11px;
+      border: 1px solid #000; border-radius: 8px; padding: 8px; resize: vertical;
+    }
+    .panel .btns { display: flex; gap: 6px; margin-top: 8px; }
+    .panel .btns button {
+      flex: 1; padding: 9px 4px; border: 1.5px solid #000; border-radius: 8px;
+      background: var(--indian-blue); color: #fff; font-weight: 700; cursor: pointer; font-size: 12px;
+    }
+    .panel .btns button.ghost { background: #fff; color: #000; }
+    .panel .ok { color: var(--neem-green); font-weight: 700; font-size: 11.5px; min-height: 14px; margin-top: 6px; }
+  </style>
+</head>
+<body>
+
+  <div class="stage">
+    <!-- ===== the real comparison card (matches the live section) ===== -->
+    <section class="chapter chapter--different" id="different" style="background:transparent;padding:0;width:100%;max-width:78rem;">
+      <div class="compare-card">
+        <div class="compare-wrap">
+        <table class="compare">
+          <thead>
+            <tr>
+              <td class="compare__corner"></td>
+              <th scope="col" class="compare__us compare__us--head"></th>
+              <th scope="col">Standard ‘Healthy’ Brands</th>
+              <th scope="col">Mass Market Brands</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Does it work?</th>
+              <td class="compare__us">tested for evidence-based health actives</td>
+              <td>rarely measured, hit or miss</td>
+              <td>not the goal</td>
+            </tr>
+            <tr>
+              <th scope="row">Is it clean?</th>
+              <td class="compare__us">every batch lab-tested</td>
+              <td>bare minimum checks</td>
+              <td>bulk compliance only</td>
+            </tr>
+            <tr>
+              <th scope="row">Can you verify it?</th>
+              <td class="compare__us">reports you can actually see here</td>
+              <td>trust-based</td>
+              <td>opaque</td>
+            </tr>
+            <tr>
+              <th scope="row">Where does it come from?</th>
+              <td class="compare__us">direct-from-farm, standardised quality</td>
+              <td>mixed sourcing, uneven quality</td>
+              <td>commodity sourcing, uneven quality</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+
+        <!-- draggable overlays (positioned by JS) -->
+        <div class="placeable is-cloud" id="cloud">
+          <img class="art" src="../assets/img/silhouette-mango.svg" alt="" />
+        </div>
+        <div class="placeable is-logo" id="logo">
+          <img class="art" src="../assets/img/logo-web4.png" alt="" />
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ===== control panel ===== -->
+  <aside class="panel">
+    <h1>Cloud &amp; Logo Placer</h1>
+    <p class="hint">Click an element to select it. Drag the body to move; drag the dots to resize/stretch. Arrow keys nudge (Shift = 10px). Everything auto-saves in this browser. When it looks right, hit <b>Copy</b> and paste the coordinates back to me.</p>
+
+    <div class="who">
+      <button id="pick-cloud" class="active">Cloud</button>
+      <button id="pick-logo">Logo</button>
+    </div>
+
+    <div class="readout" id="readout">—</div>
+
+    <textarea id="json" readonly></textarea>
+    <div class="btns">
+      <button id="copy">Copy</button>
+      <button id="reset" class="ghost">Reset</button>
+    </div>
+    <div class="ok" id="status"></div>
+  </aside>
+
+  <script>
+  (function () {
+    const STORAGE = 'bfc-cloud-placer-v2';
+    const card = document.querySelector('.compare-card');
+    const els = { cloud: document.getElementById('cloud'), logo: document.getElementById('logo') };
+    let selected = 'cloud';
+
+    // ---- build resize handles ----
+    const DIRS = ['nw','n','ne','e','se','s','sw','w'];
+    Object.keys(els).forEach(name => {
+      DIRS.forEach(dir => {
+        const h = document.createElement('div');
+        h.className = 'handle handle--' + dir;
+        h.dataset.dir = dir;
+        els[name].appendChild(h);
+        h.addEventListener('pointerdown', e => startResize(e, name, dir));
+      });
+      els[name].addEventListener('pointerdown', e => startDrag(e, name));
+    });
+
+    function select(name) {
+      selected = name;
+      els.cloud.classList.toggle('selected', name === 'cloud');
+      els.logo.classList.toggle('selected', name === 'logo');
+      document.getElementById('pick-cloud').classList.toggle('active', name === 'cloud');
+      document.getElementById('pick-logo').classList.toggle('active', name === 'logo');
+      sync();
+    }
+
+    function startDrag(e, name) {
+      if (e.target.classList.contains('handle')) return;
+      select(name);
+      e.preventDefault();
+      const el = els[name];
+      const sx = e.clientX, sy = e.clientY, oL = el.offsetLeft, oT = el.offsetTop;
+      el.setPointerCapture(e.pointerId);
+      const move = ev => { el.style.left = (oL + ev.clientX - sx) + 'px'; el.style.top = (oT + ev.clientY - sy) + 'px'; sync(); };
+      const up = () => { el.releasePointerCapture(e.pointerId); el.removeEventListener('pointermove', move); el.removeEventListener('pointerup', up); save(); };
+      el.addEventListener('pointermove', move);
+      el.addEventListener('pointerup', up);
+    }
+
+    function startResize(e, name, dir) {
+      e.stopPropagation(); e.preventDefault();
+      select(name);
+      const el = els[name], h = e.target;
+      const sx = e.clientX, sy = e.clientY;
+      const oL = el.offsetLeft, oT = el.offsetTop, oW = el.offsetWidth, oH = el.offsetHeight;
+      h.setPointerCapture(e.pointerId);
+      const move = ev => {
+        const dx = ev.clientX - sx, dy = ev.clientY - sy;
+        let L = oL, T = oT, W = oW, H = oH;
+        if (dir.includes('e')) W = Math.max(16, oW + dx);
+        if (dir.includes('s')) H = Math.max(16, oH + dy);
+        if (dir.includes('w')) { W = Math.max(16, oW - dx); L = oL + (oW - W); }
+        if (dir.includes('n')) { H = Math.max(16, oH - dy); T = oT + (oH - H); }
+        el.style.left = L + 'px'; el.style.top = T + 'px'; el.style.width = W + 'px'; el.style.height = H + 'px';
+        sync();
+      };
+      const up = () => { h.releasePointerCapture(e.pointerId); h.removeEventListener('pointermove', move); h.removeEventListener('pointerup', up); save(); };
+      h.addEventListener('pointermove', move);
+      h.addEventListener('pointerup', up);
+    }
+
+    // keyboard nudge
+    window.addEventListener('keydown', e => {
+      if (!['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.key)) return;
+      if (document.activeElement && document.activeElement.tagName === 'TEXTAREA') return;
+      e.preventDefault();
+      const el = els[selected], step = e.shiftKey ? 10 : 1;
+      if (e.key === 'ArrowLeft')  el.style.left = (el.offsetLeft - step) + 'px';
+      if (e.key === 'ArrowRight') el.style.left = (el.offsetLeft + step) + 'px';
+      if (e.key === 'ArrowUp')    el.style.top  = (el.offsetTop - step) + 'px';
+      if (e.key === 'ArrowDown')  el.style.top  = (el.offsetTop + step) + 'px';
+      sync(); save();
+    });
+
+    // ---- coordinate model (percentages relative to the card) ----
+    function pct(el) {
+      const cw = card.offsetWidth, ch = card.offsetHeight;
+      return {
+        leftPct: +(el.offsetLeft / cw * 100).toFixed(2),
+        topPct:  +(el.offsetTop  / ch * 100).toFixed(2),
+        widthPct:  +(el.offsetWidth  / cw * 100).toFixed(2),
+        heightPct: +(el.offsetHeight / ch * 100).toFixed(2),
+        leftPx: Math.round(el.offsetLeft), topPx: Math.round(el.offsetTop),
+        widthPx: Math.round(el.offsetWidth), heightPx: Math.round(el.offsetHeight)
+      };
+    }
+    function applyPct(name, p) {
+      const el = els[name], cw = card.offsetWidth, ch = card.offsetHeight;
+      el.style.left = (p.leftPct / 100 * cw) + 'px';
+      el.style.top = (p.topPct / 100 * ch) + 'px';
+      el.style.width = (p.widthPct / 100 * cw) + 'px';
+      el.style.height = (p.heightPct / 100 * ch) + 'px';
+    }
+
+    function model() {
+      return {
+        reference: 'percentages are relative to the .compare-card box',
+        card: { widthPx: Math.round(card.offsetWidth), heightPx: Math.round(card.offsetHeight) },
+        cloud: pct(els.cloud),
+        logo: pct(els.logo)
+      };
+    }
+
+    function sync() {
+      const m = model();
+      const s = pct(els[selected]);
+      document.getElementById('readout').textContent =
+        selected.toUpperCase() + '\n' +
+        'left   ' + s.leftPct + '%   (' + s.leftPx + 'px)\n' +
+        'top    ' + s.topPct + '%   (' + s.topPx + 'px)\n' +
+        'width  ' + s.widthPct + '%   (' + s.widthPx + 'px)\n' +
+        'height ' + s.heightPct + '%   (' + s.heightPx + 'px)';
+      document.getElementById('json').value = JSON.stringify(m, null, 2);
+    }
+
+    function save() { try { localStorage.setItem(STORAGE, document.getElementById('json').value); } catch (e) {} }
+
+    function loadOrDefault() {
+      let saved = null;
+      try { saved = JSON.parse(localStorage.getItem(STORAGE)); } catch (e) {}
+      if (saved && saved.cloud && saved.logo) {
+        applyPct('cloud', saved.cloud);
+        applyPct('logo', saved.logo);
+      } else {
+        // sensible starting point: the tall column shape spanning the
+        // highlighted "us" column, dome poking above the header, logo on top.
+        const head = document.querySelector('.compare__us--head').getBoundingClientRect();
+        const usCells = document.querySelectorAll('td.compare__us');
+        const lastUs = usCells[usCells.length - 1].getBoundingClientRect();
+        const c = card.getBoundingClientRect();
+        const L = head.left - c.left, W = head.width;
+        const top = (head.top - c.top) - head.height * 0.45;
+        const bottom = lastUs.bottom - c.top;
+        setPx('cloud', L, top, W, bottom - top);
+        setPx('logo',  L + W * 0.18, (head.top - c.top) - head.height * 0.1, W * 0.64, head.height * 0.7);
+      }
+    }
+    function setPx(name, l, t, w, h) {
+      const el = els[name];
+      el.style.left = l + 'px'; el.style.top = t + 'px'; el.style.width = w + 'px'; el.style.height = h + 'px';
+    }
+
+    // reapply on resize so percentages stay honoured
+    let raf;
+    window.addEventListener('resize', () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const m = JSON.parse(document.getElementById('json').value);
+        applyPct('cloud', m.cloud); applyPct('logo', m.logo); sync();
+      });
+    });
+
+    // panel buttons
+    document.getElementById('pick-cloud').addEventListener('click', () => select('cloud'));
+    document.getElementById('pick-logo').addEventListener('click', () => select('logo'));
+    document.getElementById('copy').addEventListener('click', async () => {
+      const txt = document.getElementById('json').value;
+      try { await navigator.clipboard.writeText(txt); flash('Copied! Paste it back to me.'); }
+      catch (e) { const ta = document.getElementById('json'); ta.removeAttribute('readonly'); ta.select(); document.execCommand('copy'); ta.setAttribute('readonly',''); flash('Copied! Paste it back to me.'); }
+    });
+    document.getElementById('reset').addEventListener('click', () => {
+      try { localStorage.removeItem(STORAGE); } catch (e) {}
+      loadOrDefault(); sync(); flash('Reset to default.');
+    });
+    function flash(msg) { const s = document.getElementById('status'); s.textContent = msg; setTimeout(() => s.textContent = '', 2500); }
+
+    // boot
+    window.addEventListener('load', () => { loadOrDefault(); select('cloud'); });
+    loadOrDefault(); select('cloud');
+  })();
+  </script>
+</body>
+</html>

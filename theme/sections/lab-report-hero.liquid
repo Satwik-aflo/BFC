@@ -1,0 +1,270 @@
+{% comment %}
+  Lab Report – Intro Section
+  - Heading inside stamp
+  - Two sparkles after heading
+  - Top-right decorative image
+  - Mobile: clean text-only
+  - CLS-safe images (width + height)
+{% endcomment %}
+
+<section class="lab-report-intro lab-report-intro-{{ section.id }}">
+  <div class="lab-report-container">
+
+    <div class="lab-report-stamp">
+
+      {% if section.settings.stamp_bg != blank %}
+        <div class="stamp-bg">
+          <img
+            src="{{ section.settings.stamp_bg | image_url: width: 1400 }}"
+            alt=""
+            loading="lazy"
+            width="{{ section.settings.stamp_bg.width }}"
+            height="{{ section.settings.stamp_bg.height }}"
+          >
+        </div>
+      {% endif %}
+
+      {% if section.settings.corner_image != blank %}
+        <div class="stamp-corner-image">
+          <img
+            src="{{ section.settings.corner_image | image_url: width: 300 }}"
+            alt=""
+            loading="lazy"
+            width="{{ section.settings.corner_image.width }}"
+            height="{{ section.settings.corner_image.height }}"
+          >
+        </div>
+      {% endif %}
+
+      <div class="stamp-content">
+
+        {% if section.settings.heading != blank %}
+          <h2 class="stamp-heading">
+            {{ section.settings.heading }}
+
+            {% if section.settings.sparkle_image != blank %}
+              <span class="stamp-sparkles">
+                <img
+                  src="{{ section.settings.sparkle_image | image_url: width: 40 }}"
+                  alt=""
+                  loading="lazy"
+                  width="{{ section.settings.sparkle_image.width }}"
+                  height="{{ section.settings.sparkle_image.height }}"
+                >
+              </span>
+            {% endif %}
+          </h2>
+        {% endif %}
+
+        <div class="stamp-text">
+          {{ section.settings.main_content }}
+        </div>
+
+      </div>
+    </div>
+
+    {% if section.settings.bottom_text != blank %}
+      <p class="lab-report-bottom-text">
+        {{ section.settings.bottom_text }}
+      </p>
+    {% endif %}
+
+  </div>
+</section>
+
+<style>
+.lab-report-intro-{{ section.id }} {
+  background-color: {{ section.settings.section_bg }};
+  padding: 80px 20px;
+  padding-bottom: 5px;
+}
+
+.lab-report-container {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* STAMP */
+.lab-report-stamp {
+  position: relative;
+  margin: 0 auto 20px;
+}
+
+.stamp-bg img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(-3px 3px 0px #f84b21);
+}
+
+/* TOP RIGHT IMAGE */
+.stamp-corner-image {
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  z-index: 3;
+}
+
+.stamp-corner-image img {
+  width: 160px;
+  height: auto;
+  transform: rotate(15deg);
+}
+
+/* CONTENT */
+.stamp-content {
+  position: absolute;
+  inset: 0;
+  padding: 30px 40px;
+  color: {{ section.settings.text_color }};
+  text-align: left;
+  z-index: 2;
+}
+
+/* HEADING */
+.stamp-heading {
+  font-family: flagfies-regular !important;
+  font-size: 32px;
+  font-weight: 400;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.stamp-sparkles img {
+  width: 70px;
+  height: auto;
+}
+
+/* BODY */
+.stamp-text {
+    font-family: Aesthet-Nova !important;
+    font-size: 16px;
+    line-height: 1.2;
+}
+
+.stamp-text p {
+    margin-bottom: 0px;
+    line-height: 1.2;
+}
+
+.stamp-text ul {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding-left: 20px;
+}
+
+
+/* BOTTOM TEXT */
+.lab-report-bottom-text {
+  font-size: 26px;
+  font-family: CopperplateCC-Bold !important;
+  color: {{ section.settings.bottom_text_color }};
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .stamp-bg,
+  .stamp-corner-image {
+    display: none;
+  }
+
+  .lab-report-intro-{{ section.id }} {
+  background-color: {{ section.settings.section_bg }};
+  padding: 20px 20px;
+}
+  .stamp-sparkles img {
+    display: none;
+  }
+
+  .lab-report-bottom-text {
+    font-size: 22px;
+  }
+  
+  .font-arpona {
+      font-size: 22px !important;
+  }
+
+  .stamp-content {
+    position: static;
+    padding: 0;
+    color: #6A6AF0;
+    text-align: center;
+  }
+
+  .stamp-heading {
+    justify-content: center;
+    font-size: 22px;
+  }
+
+  .stamp-text ul {
+    text-align: left;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Lab Report – Intro",
+  "settings": [
+    {
+      "type": "color",
+      "id": "section_bg",
+      "label": "Section Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "image_picker",
+      "id": "stamp_bg",
+      "label": "Stamp Background (Purple PNG)"
+    },
+    {
+      "type": "image_picker",
+      "id": "corner_image",
+      "label": "Top Right Decorative Image"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading (Inside Stamp)",
+      "default": "The Boring Foods Company Report Library"
+    },
+    {
+      "type": "image_picker",
+      "id": "sparkle_image",
+      "label": "Sparkle Icon (Used Twice)"
+    },
+    {
+      "type": "richtext",
+      "id": "main_content",
+      "label": "Main Content",
+      "default": "<p>When we first looked for high-quality natural ingredients, we hit a wall.</p><p><strong>Our commitment is simple:</strong> these ingredients are powerful, but only if they are sourced right + are genuinely clean.</p><p>That’s why we test everything to answer <strong>two questions</strong>:</p><ul><li><strong>Is it Safe?</strong> We test for heavy metals and contaminants.</li><li><strong>Does it Work?</strong> We verify active components.</li></ul>"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color (Desktop)",
+      "default": "#FBF3CC"
+    },
+    {
+      "type": "text",
+      "id": "bottom_text",
+      "label": "Bottom Text",
+      "default": "You don’t just have to take our word for it:"
+    },
+    {
+      "type": "color",
+      "id": "bottom_text_color",
+      "label": "Bottom Text Color",
+      "default": "#000000"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Lab Report – Intro"
+    }
+  ]
+}
+{% endschema %}
