@@ -587,6 +587,7 @@
   }
   .story-list-wrapper p {
     font-size: 16px;
+    line-height: 1.4; /* override desktop's 0.4 — was crushing the intro line on mobile */
   }
 }
 
@@ -1135,6 +1136,10 @@
     margin-top: -10px;
     text-align: center;
     top: -110px;
+    max-width: 78%;          /* keep text inside the burst, off the spikes */
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 6%;
   }
 }
 

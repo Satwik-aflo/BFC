@@ -8,6 +8,9 @@
 
 html { scroll-behavior: smooth; }
 
+/* Keep the fixed nav from covering anchor-jump targets */
+[id] { scroll-margin-top: 6rem; }
+
 body {
   font-family: var(--font-body);
   font-weight: 300;
@@ -117,7 +120,7 @@ a { color: inherit; }
 .nav {
   position: fixed;
   top: 0; left: 0; right: 0;
-  z-index: 100;
+  z-index: 120; /* sits ABOVE the overlay so the burger/close + cart stay tappable */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -170,28 +173,29 @@ a { color: inherit; }
   background: none;
   border: none;
   cursor: pointer;
-  width: 34px; height: 26px;
+  width: 44px; height: 44px; /* ≥44px touch target (WCAG 2.5.5) */
   position: relative;
   z-index: 130;
 }
 .nav__burger span {
   position: absolute;
-  left: 0; width: 100%; height: 2px;
+  left: 50%; width: 26px; height: 2px;
   background: var(--kohl-black);
+  transform: translateX(-50%);
   transition: transform 0.35s var(--ease-out), opacity 0.25s, top 0.35s var(--ease-out);
 }
-.nav__burger span:nth-child(1) { top: 2px; }
-.nav__burger span:nth-child(2) { top: 12px; }
-.nav__burger span:nth-child(3) { top: 22px; }
-body.menu-open .nav__burger span:nth-child(1) { top: 12px; transform: rotate(45deg); }
+.nav__burger span:nth-child(1) { top: 15px; }
+.nav__burger span:nth-child(2) { top: 21px; }
+.nav__burger span:nth-child(3) { top: 27px; }
+body.menu-open .nav__burger span:nth-child(1) { top: 21px; transform: translateX(-50%) rotate(45deg); }
 body.menu-open .nav__burger span:nth-child(2) { opacity: 0; }
-body.menu-open .nav__burger span:nth-child(3) { top: 12px; transform: rotate(-45deg); }
+body.menu-open .nav__burger span:nth-child(3) { top: 21px; transform: translateX(-50%) rotate(-45deg); }
 
 /* Full-screen overlay menu (Imperiale-style) */
 .menu-overlay {
   position: fixed;
   inset: 0;
-  z-index: 120;
+  z-index: 110;
   background: var(--neem-green);
   color: var(--kulfi-malai);
   display: flex;
@@ -203,6 +207,7 @@ body.menu-open .nav__burger span:nth-child(3) { top: 12px; transform: rotate(-45
   transition: clip-path 0.6s var(--ease-out);
 }
 body.menu-open .menu-overlay { clip-path: inset(0 0 0 0); }
+body.menu-open { overflow: hidden; } /* lock background scroll while menu is open */
 .menu-overlay a {
   font-family: var(--font-display);
   font-weight: 700;
@@ -633,6 +638,50 @@ body.menu-open .menu-overlay .script { opacity: 1; }
   border-bottom: 1.5px solid var(--indian-blue);
   background: repeating-linear-gradient(90deg, var(--indian-blue) 0 7px, transparent 7px 14px);
 }
+/* Mobile: the 4-column table can't fit — restack each row as a labelled card */
+@media (max-width: 640px) {
+  .compare-wrap { overflow-x: visible; }
+  .compare { min-width: 0; width: 100%; }
+  .compare thead { display: none; }
+  .compare, .compare tbody, .compare tr, .compare th, .compare td { display: block; width: auto; }
+  .compare tbody tr {
+    border: var(--line);
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    padding: 0.2rem 1rem 0.7rem;
+    background: rgba(255, 255, 255, 0.35);
+  }
+  .compare tbody tr:last-child { margin-bottom: 0; }
+  .compare tbody th[scope="row"] {
+    width: auto;
+    font-size: var(--text-lg);
+    color: var(--neem-green);
+    padding: 0.7rem 0 0.6rem;
+    border-bottom: 1.5px solid rgba(93, 87, 197, 0.3);
+  }
+  .compare td {
+    border: none;
+    font-size: var(--text-base);
+    padding: 0.6rem 0 0;
+    display: flex;
+    gap: 0.6rem;
+    align-items: baseline;
+  }
+  .compare__us { border-left: none; border-right: none; }
+  .compare td::before {
+    flex: 0 0 7.5rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+    font-size: var(--text-xs);
+    color: var(--ripe-orange);
+    line-height: 1.3;
+  }
+  .compare td.compare__us::before { content: "The Boring Foods Co"; color: var(--neem-green); }
+  .compare td:nth-of-type(2)::before { content: "Standard ‘Healthy’ Brands"; }
+  .compare td:nth-of-type(3)::before { content: "Mass Market Brands"; }
+}
 
 /* ==========================================================================
    Reveal animations
@@ -654,12 +703,17 @@ body.menu-open .menu-overlay .script { opacity: 1; }
    Responsive
    ========================================================================== */
 @media (max-width: 900px) {
-  .nav__links, .nav__cta .nav__icon-link { display: none; }
+  .nav__links { display: none; }
+  .nav__cta .nav__icon-link { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; }
   .nav__burger { display: block; }
   .box__grid { grid-template-columns: 1fr; }
   .footer__top { grid-template-columns: 1fr; justify-items: center; text-align: center; }
   .footer__nav { justify-items: center; }
   .chapter { padding: var(--space-6) var(--gutter); }
+  /* Touch targets ≥44px for stacked inline link clusters */
+  .footer__nav a, .footer__policies a {
+    display: inline-flex; align-items: center; min-height: 44px;
+  }
 }
 @media (max-width: 540px) {
   .hero__rose { display: none; }
@@ -825,6 +879,10 @@ body.menu-open .menu-overlay .script { opacity: 1; }
 @media (max-width: 540px) {
   .shop__grid { grid-template-columns: 1fr; }
   .hero__meta { display: none; }
+  /* Mobile legibility: lift product names off the 12px floor */
+  .card__name { font-size: var(--text-sm); }
+  /* Footer meta: tighter tracking + centered so it stops breaking mid-phrase at ~360px */
+  .footer__bottom { letter-spacing: 0.08em; justify-content: center; text-align: center; }
 }
 
 /* ==========================================================================

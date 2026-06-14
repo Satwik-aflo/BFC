@@ -31,9 +31,44 @@ body.interior main { padding-top: var(--nav-h); }
   letter-spacing: var(--tracking-caps);
   text-transform: uppercase;
 }
-.breadcrumb a { color: inherit; opacity: 0.6; text-decoration: none; }
+.breadcrumb a { color: inherit; opacity: 0.6; text-decoration: none; display: inline-block; padding: 0.5rem 0; }
 .breadcrumb a:hover { opacity: 1; }
 .breadcrumb span { opacity: 0.4; margin: 0 0.4rem; }
+
+/* ---- Sticky mobile buy bar (PDP) ---------------------------------------- */
+.pdp-stickybar {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 115;
+  display: none; /* shown on mobile via media query + JS .is-active */
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.6rem var(--gutter);
+  background: var(--kulfi-malai);
+  border-top: var(--line);
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.12);
+  transform: translateY(110%);
+  transition: transform 0.3s var(--ease-out);
+}
+.pdp-stickybar.is-active { transform: translateY(0); }
+.pdp-stickybar__info { display: flex; flex-direction: column; line-height: 1.15; min-width: 0; }
+.pdp-stickybar__name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: var(--text-xs);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.pdp-stickybar__price { font-family: var(--font-display); font-weight: 700; font-size: var(--text-base); }
+.pdp-stickybar .btn { margin-left: auto; white-space: nowrap; padding: 0.8em 1.3em; }
+@media (max-width: 820px) {
+  .pdp-stickybar { display: flex; }
+  body.interior { padding-bottom: 4.5rem; } /* room so the bar never hides the footer */
+}
+@media (prefers-reduced-motion: reduce) {
+  .pdp-stickybar { transition: none; }
+}
 
 /* ---- Page-hero band (about/contact/faq headers) ------------------------- */
 .page-hero {
@@ -50,6 +85,9 @@ body.interior main { padding-top: var(--nav-h); }
   line-height: 1.02;
   margin-top: var(--space-2);
   color: var(--neem-green);
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
 }
 .page-hero p {
   font-family: var(--font-body);
@@ -73,7 +111,12 @@ body.interior main { padding-top: var(--nav-h); }
 @media (max-width: 820px) { .pdp { grid-template-columns: 1fr; gap: var(--space-4); } }
 
 .pdp__gallery { position: sticky; top: calc(var(--nav-h) + 1rem); }
-@media (max-width: 820px) { .pdp__gallery { position: static; } }
+@media (max-width: 820px) {
+  .pdp__gallery { position: static; }
+  /* Don't let the square hero image swallow the whole fold — keep title/price closer up */
+  .pdp__main { aspect-ratio: auto; max-height: 46vh; }
+  .pdp__main img { height: 46vh; }
+}
 .pdp__main {
   border: var(--line);
   background: #fff;
@@ -304,7 +347,9 @@ body.interior main { padding-top: var(--nav-h); }
   .reports-table thead { display: none; }
   .reports-table tr { border-bottom: var(--line); padding: 0.5rem 0; }
   .reports-table td { border: none; padding: 0.35rem 1rem; }
-  .reports-table td::before { content: attr(data-label); display: block; font-family: var(--font-display); text-transform: uppercase; letter-spacing: var(--tracking-caps); font-size: 0.65rem; color: var(--ripe-orange); margin-bottom: 0.15rem; }
+  .reports-table td::before { content: attr(data-label); display: block; font-family: var(--font-display); text-transform: uppercase; letter-spacing: var(--tracking-caps); font-size: 0.72rem; color: var(--ripe-orange); margin-bottom: 0.15rem; }
+  /* "View Report" → ≥44px touch target */
+  .reports-table .report-link { padding: 0.7rem 1rem; }
 }
 .report-lab {
   max-width: 72rem;
@@ -329,6 +374,9 @@ body.interior main { padding-top: var(--nav-h); }
   font-size: var(--text-2xl);
   letter-spacing: 0.03em;
   text-transform: uppercase;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
 }
 .recipe-group__head p { font-family: var(--font-body); font-size: var(--text-base); line-height: 1.6; max-width: var(--measure); margin: var(--space-2) auto 0; opacity: 0.85; }
 .recipe-grid { max-width: 72rem; margin: 0 auto; display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-3); }
@@ -357,10 +405,10 @@ body.interior main { padding-top: var(--nav-h); }
   font-family: var(--font-display);
   letter-spacing: var(--tracking-caps);
   text-transform: uppercase;
-  font-size: 0.62rem;
+  font-size: 0.75rem; /* was 0.62rem (~9.9px) — below mobile legibility floor */
   background: var(--ripe-orange);
   color: var(--kulfi-malai);
-  padding: 0.25rem 0.6rem;
+  padding: 0.3rem 0.65rem;
 }
 .recipe-card h3 { font-family: var(--font-display); font-weight: 700; font-size: var(--text-lg); letter-spacing: 0.02em; text-transform: uppercase; color: var(--neem-green); }
 .recipe-card h4 {

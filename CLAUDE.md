@@ -93,6 +93,67 @@ Files: `index.html`, `styleguide.html` (documents the design system), `css/token
 marquee, smooth anchors). `main.js` queries by class (no IDs), so removing/reordering
 sections in the HTML won't break it.
 
+## Mobile UI/UX audit findings — checklist for the Shopify conversion
+
+Mobile-first audit of `site/` (2026-06-14, rendered at iPhone 390×844 / Android 360×640 +
+axe-core). Mobile is the primary purchase device, so treat these as the QA checklist for the
+`theme/` reskin. Tagged by where they live:
+
+- **[BRAND]** = rooted in our brand tokens/type/assets → **will recur in `theme/`** unless
+  fixed at the source (`settings_data.json`, `theme-styles-variables.liquid`, `brand.liquid`).
+- **[STATIC]** = artifact of the hand-built `site/` (custom reveal JS, custom nav, mailto
+  form) → Horizon handles natively, so **don't port the bug**; just verify the Horizon
+  equivalent is clean.
+
+### Must-fix (conversion blockers on mobile)
+1. **[BRAND] Orange-on-cream text fails WCAG AA contrast (3.12:1).** Ripe Orange `#F84B21` on
+   Kulfi Malai `#FBF3CC` — used for prices, kickers, small headings, links. Indian-Blue intro
+   text on cream is also borderline (~3.81:1). Fix at the token level: darker orange
+   (~`#C2390F`) or Neem Green for small text; reserve `#F84B21` for ≥24px display or as a bg.
+   In `theme/`, audit every scheme in `settings_data.json` for the same pairing.
+2. **[BRAND] Hamburger / icon tap targets < 44×44px** (was 34×26). Ensure Horizon's header
+   controls keep ≥44px hit areas after the reskin; don't shrink them via brand CSS.
+3. **[BRAND] Nav controls barely visible over the hero photo** (cream glyph on mid-tone photo,
+   <3:1 non-text contrast). Keep Horizon's header scrim/contrast treatment; verify over the
+   brand hero image.
+4. **[BRAND] Widespread sub-16px text** — recipe badges 9.9px, nav/footer/breadcrumb/card-name
+   12px, body at Aesthet Nova Light 300. Set mobile minimums in `theme-styles-variables.liquid`
+   / type-size settings; bump shopping-critical labels (prices, product names) to ≥14px.
+5. **[STATIC] No-JS blank page** — `site/` hides all content behind `.reveal{opacity:0}` with
+   no `<noscript>`. Horizon degrades gracefully; just don't reintroduce opacity-gated reveals
+   in `brand.liquid` for price/CTA. If we port scroll animations, guard with a `.no-js` class.
+6. **[STATIC] Mobile menu can't be closed; no Cart/Search in mobile menu.** Horizon's drawer
+   menu + persistent cart icon solve this natively — verify they survive the reskin (the
+   `_header-menu` block / header group), don't rebuild a custom overlay.
+
+### High / Medium (verify in theme)
+7. **[BRAND] Heading hierarchy** — `site/` index has no `<h1>` and skips H1→H3 on contact/
+   reports. Horizon templates are structured, but check any custom brand sections we add use
+   one `<h1>` and sequential headings.
+8. **[BRAND] No visible `:focus-visible` indicator** — add a global high-contrast focus ring in
+   `brand.liquid` (don't let brand styling suppress Horizon's focus outlines).
+9. **[BRAND] PDP: price/CTA pushed far below the fold; no sticky buy bar.** When styling the
+   Horizon product template, keep title+price high and consider Horizon's sticky add-to-cart.
+10. **[BRAND] Long display headings (Copperplate/Mexicana) overflow & clip at 360px.** Add
+    `overflow-wrap:break-word; hyphens:auto` to brand heading styles; test at 360px.
+11. **[STATIC] Comparison table cut off** (`min-width:600px`, no scroll affordance), **contact
+    form is `mailto:` with no feedback**, **dead `href="#"` search/cart on homepage**,
+    **closed overlay keeps focusable links / no scroll-lock / no focus trap**, **fixed nav
+    overlaps anchored content (no `scroll-margin-top`)**. All are hand-built `site/` issues;
+    rebuild these as Horizon sections/blocks rather than porting the markup.
+
+### Low (cosmetic / polish)
+About `.story-list-wrapper` crushed `line-height:6.4px`; "View Report" button 35px tall;
+About signature-stamp gap/overflow; empty `<th>` in compare table; decorative glyphs
+(`★ ☞ ✦`) not `aria-hidden`; footer meta wraps mid-phrase at 360px.
+
+### Verified GOOD in `site/` — keep these properties in `theme/`
+No horizontal page overflow at any viewport · no JS console/network errors · `prefers-reduced-
+motion` fully supported · pinch-zoom NOT blocked (no `user-scalable=no`/`maximum-scale`) · all
+`<img>` have alt · contact inputs 44px tall with `type="email"` + associated labels (no iOS
+zoom-on-focus) · FAQ accordions (native `<details>`) work · reports table → stacked-card
+pattern is the model responsive transform · index hero CTA prominent above the fold.
+
 ## Git
 
 Remote `origin` = `https://github.com/Satwik-aflo/BFC.git` (private). Default branch `main`.

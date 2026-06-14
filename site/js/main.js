@@ -20,7 +20,25 @@ const setMenu = (open) => {
 };
 burger.addEventListener('click', () => setMenu(!document.body.classList.contains('menu-open')));
 menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+// Tap the empty overlay background (not a link) to dismiss
+menu.addEventListener('click', (e) => { if (e.target === menu) setMenu(false); });
 window.addEventListener('keydown', (e) => { if (e.key === 'Escape') setMenu(false); });
+
+// ---------------------------------------------------------------------------
+// PDP sticky buy bar: reveal once the inline Add-to-Cart scrolls out of view
+const stickybar = document.querySelector('.pdp-stickybar');
+const inlineBuy = document.querySelector('.pdp__buy');
+if (stickybar && inlineBuy) {
+  const buyObserver = new IntersectionObserver(
+    ([entry]) => {
+      const show = !entry.isIntersecting && entry.boundingClientRect.top < 0;
+      stickybar.classList.toggle('is-active', show);
+      stickybar.setAttribute('aria-hidden', String(!show));
+    },
+    { threshold: 0 }
+  );
+  buyObserver.observe(inlineBuy);
+}
 
 // ---------------------------------------------------------------------------
 // Line splitter (Imperiale-style o-text-reveal-lines)
