@@ -638,49 +638,15 @@ body.menu-open .menu-overlay .script { opacity: 1; }
   border-bottom: 1.5px solid var(--indian-blue);
   background: repeating-linear-gradient(90deg, var(--indian-blue) 0 7px, transparent 7px 14px);
 }
-/* Mobile: the 4-column table can't fit — restack each row as a labelled card */
+/* Mobile: keep the table as a single horizontally-scrollable unit (matches the
+   production site). The question + "us" column stay in view; competitor columns
+   swipe into view. Smooth momentum scroll + a thin visible scrollbar as the cue. */
+.compare-wrap { -webkit-overflow-scrolling: touch; scrollbar-width: thin; }
 @media (max-width: 640px) {
-  .compare-wrap { overflow-x: visible; }
-  .compare { min-width: 0; width: 100%; }
-  .compare thead { display: none; }
-  .compare, .compare tbody, .compare tr, .compare th, .compare td { display: block; width: auto; }
-  .compare tbody tr {
-    border: var(--line);
-    border-radius: 12px;
-    margin-bottom: 1rem;
-    padding: 0.2rem 1rem 0.7rem;
-    background: rgba(255, 255, 255, 0.35);
-  }
-  .compare tbody tr:last-child { margin-bottom: 0; }
-  .compare tbody th[scope="row"] {
-    width: auto;
-    font-size: var(--text-lg);
-    color: var(--neem-green);
-    padding: 0.7rem 0 0.6rem;
-    border-bottom: 1.5px solid rgba(93, 87, 197, 0.3);
-  }
-  .compare td {
-    border: none;
-    font-size: var(--text-base);
-    padding: 0.6rem 0 0;
-    display: flex;
-    gap: 0.6rem;
-    align-items: baseline;
-  }
-  .compare__us { border-left: none; border-right: none; }
-  .compare td::before {
-    flex: 0 0 7.5rem;
-    font-family: var(--font-display);
-    font-weight: 700;
-    letter-spacing: var(--tracking-caps);
-    text-transform: uppercase;
-    font-size: var(--text-xs);
-    color: var(--ripe-orange);
-    line-height: 1.3;
-  }
-  .compare td.compare__us::before { content: "The Boring Foods Co"; color: var(--neem-green); }
-  .compare td:nth-of-type(2)::before { content: "Standard ‘Healthy’ Brands"; }
-  .compare td:nth-of-type(3)::before { content: "Mass Market Brands"; }
+  .compare-card { padding: 1rem 0.85rem; }
+  .compare th, .compare td { padding: 1rem 1rem; font-size: var(--text-base); }
+  .compare thead th { font-size: var(--text-xs); }
+  .compare tbody th[scope="row"] { font-size: var(--text-sm); }
 }
 
 /* ==========================================================================
@@ -877,7 +843,9 @@ body.menu-open .menu-overlay .script { opacity: 1; }
   .shop__grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 540px) {
-  .shop__grid { grid-template-columns: 1fr; }
+  /* Keep products & bundles 2-up at 375px so the whole range is visible without long scrolling */
+  .shop__grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+  .card { padding: 0.6rem 0.6rem 1rem; }
   .hero__meta { display: none; }
   /* Mobile legibility: lift product names off the 12px floor */
   .card__name { font-size: var(--text-sm); }
@@ -1111,4 +1079,309 @@ body.menu-open .menu-overlay .script { opacity: 1; }
 .review-card__product:hover { text-decoration: underline; }
 @media (max-width: 480px) {
   .review-card { flex-basis: 80vw; }
+}
+
+/* ==========================================================================
+   Storefront UI — Search overlay + Cart drawer  (HOLLOW / design reference)
+   --------------------------------------------------------------------------
+   Self-contained, brand-styled, NON-FUNCTIONAL shells. Injected by main.js on
+   every page. Intended to be replaced by Horizon's native search + cart drawer
+   when the static design is ported into the Shopify theme — so nothing here
+   talks to a backend. Namespaced `.sf-` to stay isolated from page styles.
+   ========================================================================== */
+
+/* Shared backdrop behind whichever panel is open */
+.sf-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 140;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.45s var(--ease-out), visibility 0s linear 0.45s;
+}
+body.sf-open .sf-scrim { opacity: 1; visibility: visible; transition-delay: 0s; }
+body.sf-open { overflow: hidden; } /* lock background scroll while a panel is open */
+
+/* Cart count badge on the nav cart icon */
+.sf-badge {
+  position: absolute;
+  top: -7px; right: -9px;
+  min-width: 18px; height: 18px;
+  padding: 0 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 10px;
+  line-height: 1;
+  color: var(--kulfi-malai);
+  background: var(--ripe-orange);
+  border: 1.5px solid var(--kohl-black);
+  border-radius: 999px;
+  pointer-events: none;
+}
+.sf-badge[hidden] { display: none; }
+/* nav icon links become positioning contexts for the badge */
+.nav__cta .nav__icon-link { position: relative; }
+
+/* Generic close button shared by both panels (≥44px touch target) */
+.sf-close {
+  appearance: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 44px; height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--kohl-black);
+  border-radius: 50%;
+  transition: background 0.2s, transform 0.2s var(--ease-out);
+}
+.sf-close::before { content: '\00d7'; font-size: 1.9rem; line-height: 1; }
+.sf-close:hover { background: rgba(0, 0, 0, 0.07); transform: rotate(90deg); }
+
+/* --------------------------------------------------------------------------
+   Search — full-width sheet that slides down from the top
+   -------------------------------------------------------------------------- */
+.sf-search {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 150;
+  background: var(--kulfi-malai);
+  color: var(--kohl-black);
+  border-bottom: var(--line);
+  padding: clamp(1.25rem, 4vw, 2.25rem) var(--gutter) clamp(2rem, 5vw, 3rem);
+  transform: translateY(-100%);
+  transition: transform 0.5s var(--ease-out);
+}
+body.sf-search-open .sf-search { transform: translateY(0); }
+.sf-search__inner { max-width: 64rem; margin: 0 auto; }
+.sf-search__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: clamp(1.25rem, 4vw, 2rem);
+}
+.sf-search__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  margin: 0;
+}
+.sf-search__field {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  border-bottom: var(--line);
+  padding-bottom: 0.65rem;
+}
+.sf-search__field img { width: 24px; height: 24px; opacity: 0.75; flex: none; }
+.sf-search__input {
+  flex: 1 1 auto;
+  min-width: 0;
+  border: none;
+  background: none;
+  outline: none;
+  font-family: var(--font-body);
+  font-weight: 500;
+  /* ≥16px input prevents iOS zoom-on-focus */
+  font-size: clamp(1.25rem, 1rem + 2vw, 2rem);
+  color: var(--kohl-black);
+  padding: 0.1em 0;
+}
+.sf-search__input::placeholder { color: rgba(0, 0, 0, 0.4); }
+.sf-search__hint {
+  margin: clamp(1.5rem, 4vw, 2.25rem) 0 0.9rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--neem-green);
+}
+.sf-search__chips { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.sf-chip {
+  appearance: none;
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--kohl-black);
+  background: transparent;
+  border: var(--line-thin);
+  border-radius: 999px;
+  padding: 0.55em 1.1em;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.sf-chip:hover { background: var(--neem-green); color: var(--kulfi-malai); border-color: var(--neem-green); }
+.sf-search__empty {
+  margin-top: clamp(1.5rem, 4vw, 2.25rem);
+  font-family: var(--font-charm);
+  font-size: var(--text-lg);
+  color: var(--ink-soft);
+}
+.sf-search__empty .hand { font-style: normal; }
+
+/* --------------------------------------------------------------------------
+   Cart — drawer that slides in from the right
+   -------------------------------------------------------------------------- */
+.sf-cart {
+  position: fixed;
+  top: 0; right: 0; bottom: 0;
+  z-index: 150;
+  width: min(420px, 100%);
+  background: var(--kulfi-malai);
+  color: var(--kohl-black);
+  border-left: var(--line);
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.5s var(--ease-out);
+}
+body.sf-cart-open .sf-cart { transform: translateX(0); }
+.sf-cart__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1rem 1rem 1.5rem;
+  border-bottom: var(--line);
+}
+.sf-cart__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  margin: 0;
+}
+.sf-cart__count { color: var(--ripe-orange); }
+
+.sf-cart__items {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 0.5rem 1.5rem;
+}
+.sf-line {
+  display: grid;
+  grid-template-columns: 64px 1fr auto;
+  gap: 1rem;
+  align-items: start;
+  padding: 1.25rem 0;
+  border-bottom: var(--line-thin);
+}
+.sf-line__thumb {
+  width: 64px; height: 64px;
+  object-fit: cover;
+  border: var(--line);
+  background: var(--kulfi-deep);
+}
+.sf-line__name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-sm);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin: 0 0 0.2rem;
+}
+.sf-line__variant { font-size: var(--text-xs); color: var(--ink-soft); margin: 0 0 0.6rem; }
+.sf-stepper {
+  display: inline-flex;
+  align-items: center;
+  border: var(--line-thin);
+  border-radius: 999px;
+}
+.sf-stepper button {
+  appearance: none;
+  cursor: pointer;
+  width: 30px; height: 30px;
+  background: none;
+  border: none;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  line-height: 1;
+  color: var(--kohl-black);
+}
+.sf-stepper button:hover { color: var(--ripe-orange); }
+.sf-stepper span {
+  min-width: 24px;
+  text-align: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-xs);
+}
+.sf-line__right { text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 0.6rem; height: 100%; }
+.sf-line__price {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-sm);
+}
+.sf-line__remove {
+  appearance: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-size: 10px;
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  padding: 0;
+}
+.sf-line__remove:hover { color: var(--ripe-orange); }
+
+/* Empty state */
+.sf-cart__empty {
+  flex: 1 1 auto;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 1.25rem;
+  padding: 2rem 1.5rem;
+}
+body.sf-cart-empty .sf-cart__empty { display: flex; }
+body.sf-cart-empty .sf-cart__items,
+body.sf-cart-empty .sf-cart__foot { display: none; }
+.sf-cart__empty-mark { font-family: var(--font-charm); font-size: var(--text-2xl); color: var(--neem-green); line-height: 1; }
+.sf-cart__empty-text { font-family: var(--font-charm); font-size: var(--text-lg); color: var(--ink-soft); margin: 0; max-width: 22rem; }
+
+/* Footer / checkout */
+.sf-cart__foot {
+  border-top: var(--line);
+  padding: 1.25rem 1.5rem calc(1.25rem + env(safe-area-inset-bottom));
+  background: var(--kulfi-deep);
+}
+.sf-cart__subtotal {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 0.4rem;
+}
+.sf-cart__subtotal dt {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+}
+.sf-cart__subtotal dd { font-family: var(--font-display); font-weight: 700; font-size: var(--text-lg); margin: 0; }
+.sf-cart__note { font-size: var(--text-xs); color: var(--ink-soft); margin: 0 0 1rem; }
+.sf-cart__foot .btn { width: 100%; justify-content: center; }
+
+@media (prefers-reduced-motion: reduce) {
+  .sf-scrim, .sf-search, .sf-cart, .sf-close { transition: none; }
+  .sf-close:hover { transform: none; }
 }

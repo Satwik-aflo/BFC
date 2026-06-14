@@ -16,7 +16,10 @@ body.interior .nav.is-scrolled {
   border-bottom: var(--line);
 }
 body.interior .nav__links a { color: var(--kohl-black); }
-body.interior .nav__burger span { background: var(--kohl-black); }
+/* Burger bars must stay dark on the cream interior bar — even at the top of scroll.
+   (Overrides main.css's homepage rule that makes them cream over the hero photo.) */
+body.interior .nav__burger span,
+body.interior .nav:not(.is-scrolled) .nav__burger span { background: var(--kohl-black); }
 body.interior .nav .nav__icon { filter: none; }
 /* push content below the fixed bar */
 body.interior main { padding-top: var(--nav-h); }
