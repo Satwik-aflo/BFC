@@ -985,3 +985,72 @@ body.menu-open .menu-overlay .script { opacity: 1; }
 @media (max-width: 480px) {
   .socials__grid { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* ==========================================================================
+   Reviews — Let customers speak for us  (#reviews)
+   ========================================================================== */
+.reviews { padding: 4rem 0; text-align: center; }
+.reviews__head { margin-bottom: 2rem; }
+.reviews__title {
+  font-family: var(--font-display);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  margin: 0 0 0.5rem;
+  color: var(--kohl-black);
+}
+.reviews__stars { color: var(--ripe-orange); font-size: 1.1rem; letter-spacing: 2px; }
+.reviews__count {
+  display: block;
+  font-family: var(--font-display);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  font-size: var(--text-sm);
+  margin-top: 0.35rem;
+  color: var(--kohl-black);
+}
+.reviews__track {
+  display: flex;
+  gap: 1.25rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 0.5rem var(--gutter) 1.5rem;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+.review-card {
+  scroll-snap-align: start;
+  flex: 0 0 300px;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  background: var(--kulfi-deep);
+  border: var(--line);
+  border-radius: 14px;
+  padding: 1.5rem;
+}
+.review-card__stars { color: var(--ripe-orange); letter-spacing: 2px; margin-bottom: 0.75rem; }
+.review-card__body {
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 0 0 1.25rem;
+  flex: 1 1 auto;
+  color: var(--kohl-black);
+}
+.review-card__name {
+  font-family: var(--font-display);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  font-size: var(--text-sm);
+  margin: 0;
+}
+.review-card__product {
+  font-size: 0.85rem;
+  color: var(--indian-blue);
+  text-decoration: none;
+  margin-top: 0.25rem;
+}
+.review-card__product:hover { text-decoration: underline; }
+@media (max-width: 480px) {
+  .review-card { flex-basis: 80vw; }
+}
