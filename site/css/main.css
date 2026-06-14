@@ -826,3 +826,103 @@ body.menu-open .menu-overlay .script { opacity: 1; }
   .shop__grid { grid-template-columns: 1fr; }
   .hero__meta { display: none; }
 }
+
+/* ==========================================================================
+   Boringly Clean & Pure  (#boringly-clean)
+   ========================================================================== */
+.bc {
+  padding: 3.5rem 0 1rem;
+}
+.bc__rules-top { margin-bottom: 3rem; }
+.bc__rules-bottom { margin-top: 3rem; }
+.bc__wrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+  padding: 0 var(--gutter);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.bc__media {
+  position: relative;
+  flex: 1 1 420px;
+  max-width: 620px;
+}
+.bc__media img.bc__photo {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border: 3px solid var(--indian-blue);
+  border-radius: 16px;
+  display: block;
+}
+.bc__rose {
+  position: absolute;
+  top: 50%;
+  width: 46px;
+  height: auto;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+.bc__rose--left  { left: -22px; }
+.bc__rose--right { right: -22px; }
+.bc__blob {
+  position: relative;
+  flex: 1 1 320px;
+  max-width: 460px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+  padding: 4.5rem 3rem 3rem;
+  box-sizing: border-box;
+}
+.bc__blob-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  z-index: 0;
+}
+.bc__badge {
+  position: absolute;
+  top: -34px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 88%;
+  max-width: 330px;
+  z-index: 2;
+  filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.12));
+}
+.bc__badge img { width: 100%; height: auto; display: block; }
+.bc__content {
+  position: relative;
+  z-index: 1;
+  text-align: left;
+}
+.bc__body {
+  font-size: 1.25rem;
+  line-height: 1.45;
+  margin: 0 0 1.25rem;
+  color: var(--kohl-black);
+}
+.bc__link {
+  font-family: var(--font-display);
+  letter-spacing: var(--tracking-wide);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: var(--text-sm);
+  color: var(--indian-blue);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.25s var(--ease-out);
+}
+.bc__link:hover { border-bottom-color: var(--kohl-black); }
+@media (max-width: 768px) {
+  .bc__wrap { gap: 3.5rem; }
+  .bc__content { text-align: center; }
+  .bc__body { font-size: 1.1rem; }
+}
