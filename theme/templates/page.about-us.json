@@ -48,17 +48,281 @@
         "heading",
         "page-content"
       ],
-      "disabled": true,
+      "disabled": false,
       "settings": {
         "content_direction": "column",
         "gap": 32,
         "color_scheme": "",
         "padding-block-start": 40,
-        "padding-block-end": 80
+        "padding-block-end": 40
+      }
+    },
+    "hero_XXK6KU": {
+      "type": "hero",
+      "disabled": true,
+      "name": "t:names.hero",
+      "settings": {
+        "media_type_1": "image",
+        "image_1": "shopify://shop_images/About_Us_banner.png",
+        "media_type_2": "image",
+        "stack_media_on_mobile": false,
+        "custom_mobile_media": false,
+        "media_type_1_mobile": "image",
+        "media_type_2_mobile": "image",
+        "link": "",
+        "open_in_new_tab": false,
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "center",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 16,
+        "section_width": "page-width",
+        "section_height": "large",
+        "section_height_custom": 50,
+        "color_scheme": "scheme-5",
+        "toggle_overlay": true,
+        "overlay_color": "#00000026",
+        "overlay_style": "gradient",
+        "gradient_direction": "to top",
+        "blurred_reflection": false,
+        "reflection_opacity": 75,
+        "padding-block-start": 40,
+        "padding-block-end": 40
+      }
+    },
+    "about_us_custom1_84x84r": {
+      "type": "about-us-custom1",
+      "name": "About Us (Custom)",
+      "settings": {
+        "bg_color": "#fbf3cc",
+        "heading_color": "#ff4d1c",
+        "blob_bg_color": "#5d57c5",
+        "blob_text_color": "#fbf3cc",
+        "bottom_text_color": "#5d57c5",
+        "heading": "ABOUT US",
+        "blob_image": "shopify://shop_images/Frame_1.png",
+        "blob_text": "<p>We started The Boring Foods Company because we were deeply confused about health and wellness ourselves. Everywhere we looked, there was <strong>noise, misinformation</strong> and too many <strong>trends</strong> built on fear. </p><p>The only tools we knew how to trust were the ones we’d built our lives around: asking the kind of questions that most people skip, going beyond the surface, and getting deep, rich insights. </p>",
+        "sparkle_image": "shopify://shop_images/Spark_1.png",
+        "sign_image": "shopify://shop_images/Gemini_Generated_Image_wa45bdwa45bdwa45-removebg-preview.png",
+        "bottom_text": "<p>It’s how we met in 2019: two newly graduated 22-year-olds, freshly back from the US, working as economic development researchers in Bihar. That year taught us something important: i<strong>f you want the real story, you have to go to the source. </strong></p>"
+      }
+    },
+    "story_with_image_7MKR8x": {
+      "type": "story-with-image",
+      "name": "Story with Image",
+      "settings": {
+        "bg_color": "#fbf3cc",
+        "text_color": "#5d57c5",
+        "highlight_color": "#5d57c5",
+        "main_text": "<p>Years later, that same instinct pulled us back into the field in 2025, We travelled across the country armed with notebooks, questions, and a very stubborn <strong>belief</strong> that <strong>Indian ingredients deserved more respect than they were getting.</strong></p><p></p><p>We met farmers who treated their crops not as commodities but as an extension of their own identity. We also saw the parts no one talks about: sacks stored in damp godowns, produce mixed across grades, and adulterants added to pure ingredients. <br/></p>",
+        "bullet_list": "<p>Slowly, a clear picture emerged:</p><ul><li>farmers were growing high-quality produce</li><li>trader and wholesaler mismanagement was letting contamination enter the supply chain</li><li>consumers who wanted to eat better couldn’t do so </li></ul>",
+        "main_image": "shopify://shop_images/width_1600.webp",
+        "sticker_image": "shopify://shop_images/Sun_8cabb70d-ba01-470c-9334-5a948663e3a3.png",
+        "image_caption": "(somewhere in the Western Ghats)"
+      }
+    },
+    "stamp_next_box_7cJNMT": {
+      "type": "stamp-next-box",
+      "name": "Stamp Text Box",
+      "settings": {
+        "bg_color": "#fbf3cc",
+        "heading_color": "#f84b21",
+        "shadow_color": "#ffc62f",
+        "text_color": "#fbf3cc",
+        "box_color": "#5a56b3",
+        "heading": "SO WE DECIDED TO FIX IT",
+        "icon_image": "shopify://shop_images/Rose.png",
+        "stamp_bg_image": "shopify://shop_images/Stamp_50bc2e4c-ca4f-402f-bb41-d672d68b4a17.svg",
+        "text_padding_vertical": 20,
+        "text_padding_horizontal": 20,
+        "text_content": "<p>We researched, tested, rejected, re-tested, and built a sourcing model that could preserve quality from soil to spoon.</p><p><strong>We didn’t want nostalgia. We wanted function.</strong></p><p>So we studied each ingredient for what it actually does, what makes it effective, and how people can use it in a way that genuinely supports their health: without drama or fear. <br/></p><p></p><p></p>"
+      }
+    },
+    "vision_and_sigh_off_QEwPBM": {
+      "type": "visionAndSighOff",
+      "name": "Vision & Sign-off",
+      "settings": {
+        "bg_color": "#fbf3cc",
+        "text_color": "#5d57c5",
+        "highlight_color": "#5d57c5",
+        "header_prefix": "That’s how",
+        "logo_image": "shopify://shop_images/logo-web.png",
+        "header_suffix": "was built.",
+        "header_color": "#5d57c5",
+        "vision_text": "<p>Our long-term<strong> vision</strong> is simple: <br/><strong>to make preventative, foundational health a part of everyday life. </strong></p><p>We want to build a community of people who feel informed, not overwhelmed; who read labels, ask questions, and choose what’s right for their bodies with confidence instead of fear.</p>",
+        "signature_text": "<p>Keeping it boring (and better),<br/>Anvi and Varuni</p>",
+        "signature_bg_image": "shopify://shop_images/Stamp_b468f9ac-d4a8-4013-bedd-7f6a94fe25cb.svg",
+        "sig_bg_color": "#ffc62f",
+        "sig_shadow_color": "#ec4c22",
+        "sig_text_color": "#5d57c5",
+        "starburst_image": "shopify://shop_images/Starburst_b12d13ae-875c-4690-b570-548a96b3924f.svg",
+        "starburst_text": "<p>At the end of the day, our philosophy is boring on purpose.<br/><strong>Clean, simple ingredients.</strong> <strong>Transparent sourcing.<br/>Third-party testing</strong>. <strong>Evidence</strong> <strong>you can actually see.</strong> </p>",
+        "starburst_text_color": "#5d57c5"
+      }
+    },
+    "section_CqRPcc": {
+      "type": "section",
+      "blocks": {
+        "text_jGGNFn": {
+          "type": "text",
+          "name": "t:names.heading",
+          "settings": {
+            "text": "<h3><strong>About The Boring Foods Company</strong></h3>",
+            "width": "fit-content",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "rte",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "var(--color-foreground)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 40,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "text_Xeh8E7": {
+          "type": "text",
+          "name": "t:names.text",
+          "settings": {
+            "text": "<p>We met in Bihar while working on economic development research. What began as a shared interest in systems change slowly grew into something more personal. Long conversations about food, health, farmers, and the quiet gaps between what is grown and what finally reaches our plates led to the birth of <strong>The Boring Foods Company</strong>.</p><p>As we travelled across the country, meeting smallholder farmers, traders, and wholesalers, a pattern became impossible to ignore. Farmers doing careful, honest work were often being shortchanged. On the other side, customers were rarely getting access to truly high-quality, clean products.</p><p>We went deeper into food systems, health research, supply chains, and traditional knowledge. What we found was surprisingly simple. Good health does not need to be complicated. It does not need constant trends, loud claims, or confusing ingredients.</p><p>With backgrounds in impact evaluation, agri-tech, and digital inclusion, we bring a data-driven lens to deeply human problems. We believe in transparent supply chains, the power of indigenous knowledge, and that simple, honest food builds lasting trust.</p><p>Our long-term vision is to help build strong, preventative, foundational health. We believe that small, sustainable changes made every day create lasting impact, not fads or shortcuts. We want to grow a community of people who feel empowered about what goes into their bodies, who ask questions, read labels, and make informed decisions with confidence, not fear.</p><p>The Boring Foods Company is our way of cutting through the noise and misinformation around health, and coming back to what truly matters. Clean ingredients, real science, and food you can trust.</p>",
+            "width": "fit-content",
+            "max_width": "none",
+            "alignment": "left",
+            "type_preset": "rte",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "var(--color-foreground)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 80,
+            "padding-inline-end": 80
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "text_jGGNFn",
+        "text_Xeh8E7"
+      ],
+      "disabled": true,
+      "name": "t:names.rich_text_section",
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "center",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 25,
+        "section_width": "page-width",
+        "section_height": "small",
+        "section_height_custom": 50,
+        "color_scheme": "",
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 48,
+        "padding-block-end": 48
+      }
+    },
+    "section_cBVqhF": {
+      "type": "section",
+      "blocks": {
+        "text_Bq9m8b": {
+          "type": "text",
+          "settings": {
+            "text": "<p>The Boring Foods Company is operated by Agsto Foods Private Limited, an FSSAI-licensed food business based in Gurugram, India. All our products are manufactured, stored, and distributed in accordance with applicable food safety regulations.</p><p><em>Our products are food items intended for general wellness and nutrition. They are not intended to diagnose, treat, cure, or prevent any disease.</em></p>",
+            "width": "100%",
+            "max_width": "none",
+            "alignment": "center",
+            "type_preset": "custom",
+            "font": "var(--font-body--family)",
+            "font_size": "0.75rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "var(--color-foreground)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "text_Bq9m8b"
+      ],
+      "name": "t:names.pull_quote",
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "center",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 16,
+        "section_width": "page-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "color_scheme": "",
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 64,
+        "padding-block-end": 1
       }
     }
   },
   "order": [
-    "main"
+    "main",
+    "hero_XXK6KU",
+    "about_us_custom1_84x84r",
+    "story_with_image_7MKR8x",
+    "stamp_next_box_7cJNMT",
+    "vision_and_sigh_off_QEwPBM",
+    "section_CqRPcc",
+    "section_cBVqhF"
   ]
 }
