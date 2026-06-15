@@ -1,0 +1,271 @@
+{% comment %}
+  About / Our Story — Field section (text + bullet list on the left, founders
+  photo with sun sticker on the right). Self-contained literal copy + assets.
+{% endcomment %}
+
+<section class="about-field about-field-{{ section.id }} color-{{ section.settings.color_scheme }}">
+  <div class="about-field__container">
+
+    <div class="about-field__text-col">
+      <div class="about-field__body">
+        <p>Years later, that same instinct pulled us back into the field in 2025. We travelled across the country armed with notebooks, questions, and a very stubborn <strong>belief</strong> that <strong>Indian ingredients deserved more respect than they were getting.</strong></p>
+        <p>We met farmers who treated their crops not as commodities but as an extension of their own identity. We also saw the parts no one talks about: sacks stored in damp godowns, produce mixed across grades, and adulterants added to pure ingredients.</p>
+      </div>
+
+      <div class="about-field__list-wrapper">
+        <p>Slowly, a clear picture emerged:</p>
+        <ul>
+          <li>farmers were growing high-quality produce</li>
+          <li>trader and wholesaler mismanagement was letting contamination enter the supply chain</li>
+          <li>consumers who wanted to eat better couldn&rsquo;t do so</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="about-field__image-col">
+      <div class="about-field__image-wrapper">
+        <img
+          src="{{ 'about-founders.jpg' | asset_url }}"
+          alt="The founders in the field, somewhere in the Western Ghats"
+          width="800"
+          height="548"
+          loading="lazy"
+          class="about-field__main-img"
+        >
+
+        <div class="about-field__sticker" aria-hidden="true">
+          <img src="{{ 'about-sun.png' | asset_url }}" alt="" width="120" height="117" loading="lazy">
+        </div>
+      </div>
+
+      <p class="about-field__caption">(somewhere in the Western Ghats)</p>
+    </div>
+
+  </div>
+</section>
+
+{% stylesheet %}
+  .about-field {
+    background-color: #fbf3cc;
+    padding: 10px 20px;
+  }
+
+  .about-field__container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 60px;
+    padding-top: 30px;
+  }
+
+  .about-field__text-col {
+    flex: 1;
+    color: #5d57c5;
+    font-family: var(--font-body--family, "Aesthet Nova", Georgia, serif);
+  }
+
+  .about-field__body {
+    font-size: 20px;
+    line-height: 1.4;
+    margin-bottom: 24px;
+  }
+
+  .about-field__body p {
+    margin: 0 0 1em;
+  }
+
+  .about-field__body p:last-child {
+    margin-bottom: 0;
+  }
+
+  .about-field__body strong {
+    color: #5d57c5;
+    font-weight: 800;
+  }
+
+  .about-field__list-wrapper p {
+    font-size: 20px;
+    line-height: 1.4;
+    margin: 0 0 0.4em;
+  }
+
+  .about-field__list-wrapper ul {
+    list-style: none;
+    padding-left: 10px;
+    margin: 0;
+  }
+
+  .about-field__list-wrapper li {
+    font-size: 20px;
+    line-height: 1.4;
+    position: relative;
+    padding-left: 20px;
+    color: #5d57c5;
+  }
+
+  .about-field__list-wrapper li::before {
+    content: "\2022";
+    color: #5d57c5;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+  }
+
+  .about-field__image-col {
+    flex: 0 0 45%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .about-field__image-wrapper {
+    position: relative;
+    display: inline-block;
+  }
+
+  .about-field__main-img {
+    width: 80%;
+    margin-top: -80px;
+    height: auto;
+    border-radius: 4px;
+    display: block;
+    box-shadow: 4px 4px 0 rgb(0 0 0 / 0.1);
+  }
+
+  .about-field__sticker {
+    position: absolute;
+    top: -118px;
+    right: 64px;
+    width: 80px;
+    height: auto;
+    z-index: 2;
+    transform: rotate(15deg);
+  }
+
+  .about-field__sticker img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .about-field__caption {
+    margin-top: 15px;
+    margin-right: 85px;
+    font-family: var(--font-body--family, "Aesthet Nova", Georgia, serif);
+    font-weight: 700;
+    color: #5d57c5;
+    font-size: 16px;
+  }
+
+  @media (max-width: 900px) {
+    .about-field__container {
+      flex-direction: column-reverse;
+      gap: 40px;
+    }
+
+    .about-field__image-col {
+      width: 100%;
+      flex: auto;
+    }
+
+    .about-field__sticker {
+      width: 60px;
+      top: -20px;
+      right: -10px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .about-field {
+      padding: 20px 12px;
+    }
+
+    .about-field__container {
+      flex-direction: column;
+      gap: 10px;
+      padding-top: 0;
+    }
+
+    .about-field__image-col {
+      width: 100%;
+      align-items: center;
+    }
+
+    .about-field__image-wrapper {
+      width: 100%;
+      text-align: center;
+      display: flex;
+      justify-content: space-evenly;
+    }
+
+    .about-field__main-img {
+      width: 90%;
+      margin-top: 0;
+      box-shadow: 2px 2px 0 rgb(0 0 0 / 0.08);
+    }
+
+    .about-field__sticker {
+      width: 48px;
+      top: -10px;
+      right: 10px;
+      transform: rotate(10deg);
+    }
+
+    .about-field__caption {
+      margin-right: 0;
+      margin-top: 10px;
+      font-size: 13px;
+      text-align: center;
+    }
+
+    .about-field__text-col {
+      width: 100%;
+      text-align: center;
+    }
+
+    .about-field__body {
+      font-size: 14px;
+      line-height: 1.3;
+      margin-bottom: 16px;
+    }
+
+    .about-field__list-wrapper {
+      width: 100%;
+      text-align: left;
+    }
+
+    .about-field__list-wrapper ul {
+      padding-left: 0;
+    }
+
+    .about-field__list-wrapper li {
+      font-size: 14px;
+      line-height: 1.3;
+      padding-left: 16px;
+    }
+
+    .about-field__list-wrapper p {
+      font-size: 16px;
+      line-height: 1.4;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "About Story Field",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    }
+  ],
+  "presets": [
+    { "name": "About Story Field" }
+  ]
+}
+{% endschema %}

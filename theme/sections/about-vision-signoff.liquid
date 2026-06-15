@@ -1,0 +1,333 @@
+{% comment %}
+  About / Our Story — Vision & sign-off.
+  "That's how [logo] was built." + vision copy + signature stamp (left) and
+  the "boring on purpose" starburst (right). Signature stamp background SVG is
+  set inline (asset_url unavailable inside {% stylesheet %}).
+{% endcomment %}
+
+<section class="about-vision about-vision-{{ section.id }} color-{{ section.settings.color_scheme }}">
+  <div class="about-vision__container">
+
+    <div class="about-vision__header">
+      <p class="about-vision__prefix">That&rsquo;s how</p>
+      <img
+        src="{{ 'about-logo-web.png' | asset_url }}"
+        alt="The Boring Foods Company"
+        width="300"
+        height="169"
+        loading="lazy"
+        class="about-vision__logo"
+      >
+      <p class="about-vision__suffix">was built.</p>
+    </div>
+
+    <div class="about-vision__grid">
+
+      <div class="about-vision__col-left">
+        <div class="about-vision__text-block">
+          <p>Our long-term <strong>vision</strong> is simple:<br><strong>to make preventative, foundational health a part of everyday life.</strong></p>
+          <p>We want to build a community of people who feel informed, not overwhelmed; who read labels, ask questions, and choose what&rsquo;s right for their bodies with confidence instead of fear.</p>
+        </div>
+
+        <div class="about-vision__sig-wrapper">
+          <div
+            class="about-vision__sig-bg"
+            style="background-image: url('{{ 'about-stamp-2.svg' | asset_url }}');"
+          ></div>
+
+          <div class="about-vision__sig-content">
+            <p>Keeping it boring (and better),<br>Anvi and Varuni</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-vision__col-right">
+        <div class="about-vision__starburst-wrapper">
+          <img
+            src="{{ 'about-starburst.svg' | asset_url }}"
+            alt=""
+            width="800"
+            height="431"
+            loading="lazy"
+            class="about-vision__starburst-bg"
+            aria-hidden="true"
+          >
+          <div class="about-vision__starburst-content">
+            <p>At the end of the day, our philosophy is boring on purpose.<br><strong>Clean, simple ingredients.</strong> <strong>Transparent sourcing.<br>Third-party testing</strong>. <strong>Evidence you can actually see.</strong></p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+{% stylesheet %}
+  .about-vision {
+    background-color: #fbf3cc;
+    padding: 0 0 48px;
+    color: #5d57c5;
+    overflow: hidden;
+  }
+
+  .about-vision__container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .about-vision__header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 60px;
+    flex-wrap: wrap;
+    text-align: center;
+    gap: 8px;
+  }
+
+  .about-vision__prefix,
+  .about-vision__suffix {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-body--family, "Aesthet Nova", Georgia, serif);
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: #5d57c5;
+    line-height: 1;
+  }
+
+  .about-vision__suffix {
+    text-transform: lowercase;
+  }
+
+  .about-vision__logo {
+    width: 218px;
+    height: auto;
+    display: block;
+    object-fit: contain;
+  }
+
+  .about-vision__grid {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    width: 100%;
+  }
+
+  .about-vision__col-left {
+    flex: 1;
+    max-width: 530px;
+  }
+
+  .about-vision__col-right {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .about-vision__text-block {
+    font-family: var(--font-body--family, "Aesthet Nova", Georgia, serif);
+    font-size: 20px;
+    line-height: 1.6;
+    margin-bottom: 40px;
+  }
+
+  .about-vision__text-block p {
+    margin: 0 0 20px;
+  }
+
+  .about-vision__text-block strong {
+    color: #5d57c5;
+    font-weight: 800;
+  }
+
+  .about-vision__sig-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    max-width: 350px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+  }
+
+  .about-vision__sig-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    filter: drop-shadow(15px 15px 0 #ec4c22);
+  }
+
+  .about-vision__sig-content {
+    position: relative;
+    z-index: 2;
+    padding: 30px;
+    text-align: center;
+    color: #5d57c5;
+    font-family: var(--font-body--family, "Aesthet Nova", Georgia, serif);
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 1.4;
+  }
+
+  .about-vision__sig-content p {
+    margin: 0;
+  }
+
+  .about-vision__starburst-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    aspect-ratio: 4 / 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .about-vision__starburst-bg {
+    position: absolute;
+    top: -110px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    z-index: 1;
+    filter: drop-shadow(0 4px 0 rgb(0 0 0 / 0.1));
+  }
+
+  .about-vision__starburst-content {
+    position: relative;
+    z-index: 2;
+    top: -100px;
+    text-align: center;
+    font-family: var(--font-body--family, "Aesthet Nova", Georgia, serif);
+    font-size: 18px;
+    line-height: 1.5;
+    color: #5d57c5;
+  }
+
+  .about-vision__starburst-content p {
+    margin: 0;
+  }
+
+  .about-vision__starburst-content strong {
+    font-weight: 800;
+    color: #5d57c5;
+  }
+
+  @media (max-width: 768px) {
+    .about-vision {
+      padding: 0 12px 12px;
+    }
+
+    .about-vision__container {
+      max-width: 100%;
+    }
+
+    .about-vision__header {
+      flex-direction: row;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .about-vision__prefix,
+    .about-vision__suffix {
+      font-size: 1rem;
+      line-height: 1.2;
+    }
+
+    .about-vision__logo {
+      width: 140px;
+      height: auto;
+    }
+
+    .about-vision__grid {
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .about-vision__col-left,
+    .about-vision__col-right {
+      max-width: 100%;
+      width: 100%;
+    }
+
+    .about-vision__text-block {
+      font-size: 14px;
+      line-height: 1.4;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .about-vision__text-block p {
+      margin-bottom: 8px;
+    }
+
+    .about-vision__sig-wrapper {
+      max-width: 240px;
+      margin: 0 auto;
+    }
+
+    .about-vision__sig-bg {
+      filter: drop-shadow(8px 8px 0 #ec4c22);
+    }
+
+    .about-vision__sig-content {
+      padding: 18px;
+      font-size: 13px;
+      line-height: 1.3;
+    }
+
+    .about-vision__starburst-wrapper {
+      max-width: 350px;
+      margin: 0 auto;
+      aspect-ratio: auto;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .about-vision__starburst-bg {
+      position: relative;
+      top: 0;
+      left: 0;
+      filter: none;
+    }
+
+    .about-vision__starburst-content {
+      top: 0;
+      margin-top: -90px;
+      font-size: 13px;
+      line-height: 1.4;
+      max-width: 78%;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 0 6%;
+      text-align: center;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "About Vision Signoff",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    }
+  ],
+  "presets": [
+    { "name": "About Vision Signoff" }
+  ]
+}
+{% endschema %}
