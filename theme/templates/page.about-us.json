@@ -19,8 +19,8 @@
             "text": "<h1>{{ closest.page.title }}</h1>",
             "width": "100%",
             "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "h2",
+            "alignment": "center",
+            "type_preset": "h1",
             "font": "var(--font-primary--family)",
             "font_size": "",
             "line_height": "normal",
@@ -37,28 +37,49 @@
             "padding-inline-end": 0
           },
           "blocks": {}
-        },
-        "page-content": {
-          "type": "page-content",
-          "settings": {},
-          "blocks": {}
         }
       },
       "block_order": [
-        "heading",
-        "page-content"
+        "heading"
       ],
-      "disabled": true,
       "settings": {
         "content_direction": "column",
-        "gap": 32,
-        "color_scheme": "",
-        "padding-block-start": 40,
-        "padding-block-end": 80
+        "gap": 0,
+        "color_scheme": "scheme-1",
+        "padding-block-start": 48,
+        "padding-block-end": 0
+      }
+    },
+    "about_intro": {
+      "type": "about-story-intro",
+      "settings": {
+        "color_scheme": "scheme-1"
+      }
+    },
+    "about_field": {
+      "type": "about-story-field",
+      "settings": {
+        "color_scheme": "scheme-1"
+      }
+    },
+    "about_fix": {
+      "type": "about-fix-stamp",
+      "settings": {
+        "color_scheme": "scheme-1"
+      }
+    },
+    "about_vision": {
+      "type": "about-vision-signoff",
+      "settings": {
+        "color_scheme": "scheme-1"
       }
     }
   },
   "order": [
-    "main"
+    "main",
+    "about_intro",
+    "about_field",
+    "about_fix",
+    "about_vision"
   ]
 }
