@@ -1147,6 +1147,63 @@
         "padding-block-start": 16,
         "padding-block-end": 16
       }
+    },
+    "bundles_brand": {
+      "type": "bundles",
+      "blocks": {
+        "bundle_1": {
+          "type": "bundle",
+          "settings": {
+            "title": "Inflammation Relief",
+            "subtitle": "Turmeric + Moringa",
+            "link": "/collections/all"
+          }
+        },
+        "bundle_2": {
+          "type": "bundle",
+          "settings": {
+            "title": "Immune Defense",
+            "subtitle": "Turmeric + Pepper + Moringa · 400 g",
+            "link": "/products/immune-defense"
+          }
+        },
+        "bundle_3": {
+          "type": "bundle",
+          "settings": {
+            "title": "Fitness Essentials",
+            "subtitle": "Ashwagandha + Moringa · 300 g",
+            "link": "/products/fitness-essentials"
+          }
+        },
+        "bundle_4": {
+          "type": "bundle",
+          "settings": {
+            "title": "Relaxation Support",
+            "subtitle": "Ashwagandha + Turmeric · 300 g",
+            "link": "/products/relaxation-support"
+          }
+        }
+      },
+      "block_order": [
+        "bundle_1",
+        "bundle_2",
+        "bundle_3",
+        "bundle_4"
+      ],
+      "settings": {
+        "color_scheme": "scheme-neem",
+        "kicker": "Shop by Benefits",
+        "heading": "Blends With a Purpose"
+      }
+    },
+    "manifesto_brand": {
+      "type": "manifesto",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "heading": "The Future of Health is Ancient",
+        "body": "<p>Our mission is to reconnect people with the power of traditional foods — transforming everyday meals into intentional acts of self-care and nourishment. Pure, transparently sourced products that go beyond flavor: they actively support wellness and preventive health.</p>",
+        "signoff": "#proudlyboring"
+      }
     }
   },
   "order": [
@@ -1154,6 +1211,8 @@
     "section_pemmFU",
     "product_list_wE8meU",
     "marquee_images_zXx6fE",
+    "bundles_brand",
+    "manifesto_brand",
     "product_list_fa6P9H",
     "section_4D73dE",
     "section_PWFkyK",

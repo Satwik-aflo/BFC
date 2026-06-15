@@ -1,0 +1,84 @@
+{% comment %}
+  Boring Foods — Manifesto ("The Future of Health is Ancient").
+  Neem-Green copy on cream, with the #proudlyboring sign-off in Musloner.
+  Anchored #manifesto so the hero "Our Story" CTA scrolls here (with
+  scroll-margin to clear the sticky header).
+{% endcomment %}
+<section class="bfc-manifesto color-{{ section.settings.color_scheme }}" id="manifesto">
+  <div class="bfc-manifesto__inner">
+    {% if section.settings.heading != blank %}
+      <h2 class="bfc-manifesto__title">{{ section.settings.heading }}</h2>
+    {% endif %}
+    {% if section.settings.body != blank %}
+      <div class="bfc-manifesto__body">{{ section.settings.body }}</div>
+    {% endif %}
+    {% if section.settings.signoff != blank %}
+      <p class="bfc-manifesto__sign">{{ section.settings.signoff }}</p>
+    {% endif %}
+  </div>
+</section>
+
+{% stylesheet %}
+  .bfc-manifesto {
+    background: var(--color-background);
+    color: var(--neem-green);
+    padding: var(--space-5) var(--gutter);
+    text-align: center;
+    scroll-margin-top: 6rem;
+  }
+  .bfc-manifesto__inner { max-width: var(--measure); margin: 0 auto; }
+  .bfc-manifesto__title {
+    font-family: var(--font-display);
+    font-weight: 400;
+    text-transform: uppercase;
+    font-size: var(--text-xl);
+    line-height: 1.15;
+    margin: 0 0 var(--space-3);
+  }
+  .bfc-manifesto__body {
+    font-size: var(--text-lg);
+    font-weight: 300;
+    line-height: 1.6;
+  }
+  .bfc-manifesto__body p { margin: 0; }
+  .bfc-manifesto__sign {
+    margin-top: var(--space-3);
+    font-family: var(--font-script);
+    font-size: var(--text-xl);
+    color: var(--ripe-orange);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Manifesto",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The Future of Health is Ancient"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Body",
+      "default": "<p>Our mission is to reconnect people with the power of traditional foods — transforming everyday meals into intentional acts of self-care and nourishment. Pure, transparently sourced products that go beyond flavor: they actively support wellness and preventive health.</p>"
+    },
+    {
+      "type": "text",
+      "id": "signoff",
+      "label": "Sign-off",
+      "default": "#proudlyboring"
+    }
+  ],
+  "presets": [{ "name": "Manifesto" }]
+}
+{% endschema %}
