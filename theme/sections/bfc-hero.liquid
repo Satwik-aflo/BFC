@@ -21,6 +21,13 @@
     <div class="bfc-hero__scrim"></div>
   </div>
 
+  {%- if section.settings.badge_left != blank -%}
+    <aside class="bfc-hero__meta bfc-hero__meta--left">{{ section.settings.badge_left | escape }}</aside>
+  {%- endif -%}
+  {%- if section.settings.badge_right != blank -%}
+    <aside class="bfc-hero__meta bfc-hero__meta--right">{{ section.settings.badge_right | escape }}</aside>
+  {%- endif -%}
+
   {%- if section.settings.logo -%}
     <img class="bfc-hero__logo" src="{{ section.settings.logo | image_url: width: 680 }}"
          alt="{{ shop.name | escape }}" width="340" height="190">
@@ -46,7 +53,11 @@
   .bfc-hero__media { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
   .bfc-hero__photo { width: 100%; height: 100%; object-fit: cover; transform: scale(1.12); animation: bfc-kenburns 14s var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)) forwards; }
   .bfc-hero__scrim { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.42) 35%, rgba(0, 0, 0, 0.4) 60%, rgba(0, 0, 0, 0.62) 100%); }
-  .bfc-hero > :not(.bfc-hero__media) { position: relative; z-index: 1; }
+  .bfc-hero > :not(.bfc-hero__media, .bfc-hero__meta) { position: relative; z-index: 1; }
+  .bfc-hero__meta { position: absolute; top: 50%; transform: translateY(-50%); z-index: 1; width: min-content; font-family: var(--font-heading--family); font-size: var(--text-xs, 0.75rem); font-weight: 700; letter-spacing: 0.18em; line-height: 1.7; text-transform: uppercase; color: var(--kohl-black); background: var(--mango-yellow); border: 2px solid var(--kohl-black); outline: 1px solid var(--kohl-black); outline-offset: 3px; padding: 0.8em 1.2em; opacity: 0; animation: bfc-rise 1s var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)) 0.9s both; }
+  .bfc-hero__meta--left { left: var(--gutter); text-align: left; }
+  .bfc-hero__meta--right { right: var(--gutter); text-align: right; }
+  @media (max-width: 749px) { .bfc-hero__meta { display: none; } }
   .bfc-hero__logo { width: clamp(200px, 26vw, 340px); height: auto; margin-bottom: var(--space-4); opacity: 0; animation: bfc-rise 1s var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)) 0.15s both; }
   .bfc-hero__tag { margin-top: var(--space-2); font-size: var(--text-xl); font-weight: 500; line-height: 1.45; max-width: 44rem; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55), 0 4px 22px rgba(0, 0, 0, 0.5); }
   .bfc-hero__tag .bfc-script { font-size: 1.25em; }
@@ -58,7 +69,7 @@
   @keyframes bfc-rise { from { opacity: 0; transform: translateY(36px); } to { opacity: 1; transform: none; } }
   @media (prefers-reduced-motion: reduce) {
     .bfc-hero__photo { animation: none; transform: none; }
-    .bfc-hero__logo, .bfc-hero__cta { animation: none; opacity: 1; }
+    .bfc-hero__logo, .bfc-hero__cta, .bfc-hero__meta { animation: none; opacity: 1; }
     .bfc-hero__tag .line-inner { transform: none; transition: none; }
   }
 {% endstylesheet %}
@@ -131,7 +142,10 @@
     { "type": "text", "id": "cta1_label", "label": "Primary button label", "default": "Shop the Range" },
     { "type": "url", "id": "cta1_link", "label": "Primary button link", "info": "Defaults to the all-products collection" },
     { "type": "text", "id": "cta2_label", "label": "Secondary button label", "default": "Our Story" },
-    { "type": "url", "id": "cta2_link", "label": "Secondary button link", "info": "Defaults to #manifesto" }
+    { "type": "url", "id": "cta2_link", "label": "Secondary button link", "info": "Defaults to #manifesto" },
+    { "type": "header", "content": "Floating badges" },
+    { "type": "text", "id": "badge_left", "label": "Left badge", "default": "Single Origin", "info": "Leave blank to hide. Hidden on mobile." },
+    { "type": "text", "id": "badge_right", "label": "Right badge", "default": "Lab Tested", "info": "Leave blank to hide. Hidden on mobile." }
   ],
   "presets": [{ "name": "BFC Hero" }]
 }
