@@ -17,7 +17,7 @@
         "announcement_BxgCk9": {
           "type": "_announcement",
           "settings": {
-            "text": "<strong>Free shipping on orders with 2+ products • Use code BORING10 for 10% off your first order</strong>",
+            "text": "<strong>Free shipping on orders with 2+ products • Use code <em>BORING10</em> for 10% off your first order</strong>",
             "link": "",
             "font": "var(--font-subheading--family)",
             "font_size": "1rem",

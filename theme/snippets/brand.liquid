@@ -206,17 +206,21 @@
   .menu-list:where(:has(.menu-list__list-item:focus-within)) .menu-list__link {
     opacity: 1 !important;
     font-weight: 700;
-    letter-spacing: 0.12em;
+    /* Static site: nav links are 12px / 0.18em tracking (--text-xs). Horizon
+       defaults this far larger; pin it small so the bar reads quiet + premium
+       and sits into the photo rather than shouting over it. */
+    font-size: 0.75rem !important;
+    letter-spacing: 0.18em;
   }
 
-  /* Static-site header parity: larger logo + roomier nav. The logo is an SVG
-     so it scales crisply; Horizon renders it at 36px by default. */
+  /* Static-site header parity: 58px logo + roomier nav (static gap = 2.4rem).
+     The logo is an SVG so it scales crisply; Horizon renders it at 36px. */
   .header-logo__image {
-    height: clamp(46px, 4vw, 56px) !important;
+    height: clamp(48px, 4vw, 58px) !important;
     width: auto !important;
     max-width: none;
   }
-  .header__column--center .menu-list { gap: clamp(1rem, 2vw, 2.2rem); }
+  .header__column--center .menu-list { gap: clamp(1.4rem, 2.4vw, 2.4rem); }
 
   /* Solid headers (sub-pages): always render nav in Kohl Black on the
      cream/scheme background, regardless of Horizon's hover colour swap. */
@@ -227,10 +231,14 @@
     color: #000 !important;
   }
 
-  /* Transparent header (over the hero photo): keep the scheme colour but add
-     a soft shadow so light nav text stays legible on the busy image. */
-  header-component[transparent] .menu-list__link {
-    text-shadow: 0 1px 10px rgb(0 0 0 / 0.5);
+  /* Transparent header (over the hero photo): render nav in Kulfi cream (not
+     the scheme's cold near-white) with a TIGHT offset shadow so the type sits
+     INTO the photo like the static site, instead of a wide blur that haloes. */
+  header-component[transparent] .menu-list__link,
+  header-component[transparent] .menu-list__link:hover,
+  header-component[transparent] .menu-list__link:focus {
+    color: var(--kulfi-malai) !important;
+    text-shadow: 0 1px 2px rgb(0 0 0 / 0.6), 0 1px 4px rgb(0 0 0 / 0.35);
   }
 
   /* Submenu / overflow dropdown links: ensure they never inherit a dimmed
@@ -239,6 +247,39 @@
   .overflow-menu .menu-list__link {
     opacity: 1 !important;
     color: var(--color-foreground) !important;
+  }
+
+  /* ── Announcement bar (promo / discount-code attention bar) ─────────
+     Keep the Indian-Blue scheme-4 bar but tune it to the brand: tighter
+     Copperplate caps, and a one-time slide-down on load so the discount
+     code grabs the eye the moment the page paints. The BORING10 code is
+     marked with <em> (see header-group.json — inline_richtext strips spans,
+     but allows <em>) to read as a Mango-Yellow chip. */
+  .announcement-bar {
+    animation: bfc-promo-in 0.7s var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)) both;
+  }
+  .announcement-bar__text {
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .announcement-bar__text em {
+    display: inline-block;
+    font-style: normal;
+    background: var(--mango-yellow);
+    color: var(--kohl-black);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    padding: 0.05em 0.5em;
+    border-radius: 4px;
+    margin: 0 0.15em;
+    box-shadow: 1px 1px 0 rgb(0 0 0 / 0.45);
+  }
+  @keyframes bfc-promo-in {
+    from { transform: translateY(-100%); }
+    to   { transform: translateY(0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .announcement-bar { animation: none; }
   }
 
   /* ── Global accessibility (audit items #8, #10) ─────────────────────
