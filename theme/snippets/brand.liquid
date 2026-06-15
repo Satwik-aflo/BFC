@@ -294,4 +294,33 @@
     overflow-wrap: anywhere;
     text-wrap: balance;
   }
+
+  /* ── Search + cart reskin (native components, visual only) ───────────
+     Panels are made cream via popover_color_scheme / drawer_color_scheme =
+     scheme-1 in settings_data.json. These rules add the brand accents on
+     top: Ripe-Orange cart count, deeper-cream cart footer, and a ≥16px
+     search input (no iOS zoom-on-focus). Horizon's search/cart logic is
+     untouched. */
+  .cart-bubble__background {
+    background: var(--ripe-orange) !important;
+    border: 1px solid var(--kohl-black);
+  }
+  .cart-bubble__text {
+    color: var(--kulfi-malai) !important;
+    font-family: var(--font-heading--family);
+    font-weight: 700;
+  }
+  .cart-drawer__summary {
+    background: var(--kulfi-deep);
+    border-top: var(--bfc-line);
+  }
+  .cart-drawer__heading,
+  .cart-drawer__header .h4 {
+    font-family: var(--font-heading--family);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-caps);
+  }
+  .search-modal__content :is(input[type="search"], .search-input, .predictive-search-form__input) {
+    font-size: 16px;
+  }
 {% endstyle %}
