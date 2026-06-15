@@ -27,6 +27,28 @@
     font-style: normal;
     font-display: swap;
   }
+  /* Hyphenated aliases the live comparison table forces by name. */
+  @font-face {
+    font-family: "Aesthet-Nova-Light";
+    src: url({{ 'AesthetNova-Light.otf' | asset_url }}) format("opentype");
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Aesthet-Nova";
+    src: url({{ 'AesthetNova-Medium.otf' | asset_url }}) format("opentype");
+    font-weight: 400 700;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Aesthet-Nova-Medium";
+    src: url({{ 'AesthetNova-Medium.otf' | asset_url }}) format("opentype");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
   @font-face {
     font-family: "Copperplate BFC";
     src: url({{ 'Copperplate-Light.otf' | asset_url }}) format("opentype");
@@ -75,6 +97,10 @@
     --font-subheading--family: "Copperplate BFC", "Aesthet Nova", serif;
     --font-heading--family: "Copperplate BFC", Georgia, serif;
     --font-accent--family: "Flagflies", "Copperplate BFC", serif;
+    /* Brand-only families for charm/script/poster accents (sections opt in). */
+    --font-charm: "Flagflies", Georgia, serif;
+    --font-script: "Musloner", cursive;
+    --font-poster: "Mexicana Hollow", "Copperplate BFC", serif;
   }
 
   /* ── Navigation legibility ──────────────────────────────────────────
@@ -115,5 +141,20 @@
   .overflow-menu .menu-list__link {
     opacity: 1 !important;
     color: var(--color-foreground) !important;
+  }
+
+  /* ── Global accessibility (audit items #8, #10) ─────────────────────
+     High-contrast focus ring (Indian Blue) so brand styling never
+     suppresses keyboard focus; wrap long Copperplate/Mexicana headings
+     so they don't clip at 360px. */
+  :where(a, button, summary, input, select, textarea, [tabindex]):focus-visible {
+    outline: 2px solid #5d57c5;
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+  h1, h2, h3, h4,
+  .h0, .h1, .h2, .h3, .h4 {
+    overflow-wrap: break-word;
+    hyphens: auto;
   }
 {% endstyle %}
