@@ -1221,7 +1221,8 @@
           "settings": {
             "title": "Inflammation Relief",
             "subtitle": "Turmeric + Moringa",
-            "link": "/collections/all"
+            "link": "/products/inflammation-relief",
+            "image_asset": "bundle-inflammation-relief.jpg"
           }
         },
         "bundle_2": {
@@ -1229,7 +1230,8 @@
           "settings": {
             "title": "Immune Defense",
             "subtitle": "Turmeric + Pepper + Moringa · 400 g",
-            "link": "/products/immune-defense"
+            "link": "/products/immune-defense",
+            "image_asset": "bundle-immune-defense.jpg"
           }
         },
         "bundle_3": {
@@ -1237,7 +1239,8 @@
           "settings": {
             "title": "Fitness Essentials",
             "subtitle": "Ashwagandha + Moringa · 300 g",
-            "link": "/products/fitness-essentials"
+            "link": "/products/fitness-essentials",
+            "image_asset": "bundle-fitness-essentials.jpg"
           }
         },
         "bundle_4": {
@@ -1245,7 +1248,8 @@
           "settings": {
             "title": "Relaxation Support",
             "subtitle": "Ashwagandha + Turmeric · 300 g",
-            "link": "/products/relaxation-support"
+            "link": "/products/relaxation-support",
+            "image_asset": "bundle-relaxation-support.jpg"
           }
         }
       },
