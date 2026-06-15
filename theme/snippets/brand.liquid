@@ -101,7 +101,96 @@
     --font-charm: "Flagflies", Georgia, serif;
     --font-script: "Musloner", cursive;
     --font-poster: "Mexicana Hollow", "Copperplate BFC", serif;
+    --font-display: var(--font-heading--family);
+
+    /* Brand palette + scale tokens (mirror site/css/tokens.css) so our custom
+       sections can reuse the static-site CSS almost verbatim. New var names
+       only — they never override Horizon's own --color-*/--font-*--family. */
+    --kulfi-malai: #fbf3cc;
+    --indian-blue: #5d57c5;
+    --ripe-orange: #f84b21;
+    --ripe-orange-ink: #c2390f; /* AA-safe orange for small text on cream */
+    --mango-yellow: #f9bf29;
+    --neem-green: #244f24;
+    --kohl-black: #000000;
+    --kulfi-deep: #f6ebb4;
+    --ink-soft: rgba(0, 0, 0, 0.72);
+
+    --text-xs: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-base: 1.0625rem;
+    --text-lg: 1.3125rem;
+    --text-xl: clamp(1.5rem, 1.2rem + 1.4vw, 2.25rem);
+    --text-2xl: clamp(2rem, 1.4rem + 2.6vw, 3.5rem);
+    --text-3xl: clamp(2.75rem, 1.8rem + 4.5vw, 5.5rem);
+    --text-poster: clamp(3.5rem, 2rem + 9vw, 11rem);
+
+    --tracking-caps: 0.18em;
+    --tracking-wide: 0.32em;
+    --leading-body: 1.65;
+    --bfc-line: 1.5px solid var(--kohl-black);
+    --bfc-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+
+    --space-1: 0.5rem;
+    --space-2: 1rem;
+    --space-3: 1.5rem;
+    --space-4: 2.5rem;
+    --space-5: 4rem;
+    --space-6: 6.5rem;
+    --space-7: 10rem;
+    --gutter: clamp(1.25rem, 4vw, 4rem);
+    --measure: 38rem;
   }
+
+  /* ── Brand utility classes (shared by our custom sections) ──────────── */
+  .bfc-kicker {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: var(--text-sm);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85em;
+  }
+  .bfc-kicker::before,
+  .bfc-kicker::after {
+    content: "";
+    width: 2.5rem;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.5;
+  }
+  .bfc-caps {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+  }
+  .bfc-script { font-family: var(--font-script); }
+  .bfc-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7em;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--text-sm);
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+    color: var(--kohl-black);
+    background: var(--mango-yellow);
+    border: var(--bfc-line);
+    outline: 1px solid var(--kohl-black);
+    outline-offset: 3px;
+    padding: 0.9em 1.6em;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.25s var(--bfc-ease-out), box-shadow 0.25s var(--bfc-ease-out);
+  }
+  .bfc-btn .hand { font-size: 1.2em; line-height: 0; transform: translateY(-1px); }
+  .bfc-btn:hover { transform: translate(-2px, -2px); box-shadow: 4px 4px 0 var(--kohl-black); }
+  .bfc-btn:active { transform: translate(0, 0); box-shadow: none; }
+  .bfc-btn--light { background: var(--kulfi-malai); }
 
   /* ── Navigation legibility ──────────────────────────────────────────
      Copperplate is an engraved (airy) face, so the top-level nav needs a
