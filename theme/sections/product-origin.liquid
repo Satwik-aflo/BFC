@@ -1,0 +1,164 @@
+{% comment %}
+  Brand section: From the Hills of Meghalaya — heading + body + image.
+  Merchant-editable via settings. Static brand copy as defaults.
+{% endcomment %}
+
+<section class="porigin color-{{ section.settings.color_scheme }} section">
+  <div class="porigin__inner">
+    <div class="porigin__head">
+      {%- if section.settings.kicker != blank -%}
+        <span class="bfc-kicker">{{ section.settings.kicker }}</span>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="porigin__title">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+    </div>
+
+    {%- if section.settings.image != blank -%}
+      <div class="porigin__photo">
+        <img
+          src="{{ section.settings.image | image_url: width: 1600 }}"
+          srcset="{{ section.settings.image | image_url: width: 800 }} 800w, {{ section.settings.image | image_url: width: 1600 }} 1600w"
+          sizes="(min-width: 1152px) 1152px, 100vw"
+          width="{{ section.settings.image.width }}"
+          height="{{ section.settings.image.height }}"
+          alt="{{ section.settings.image.alt | escape }}"
+          loading="lazy"
+        >
+        {%- if section.settings.caption != blank -%}
+          <span class="porigin__caption bfc-caps">{{ section.settings.caption }}</span>
+        {%- endif -%}
+      </div>
+    {%- else -%}
+      <div class="porigin__photo porigin__photo--placeholder">
+        {{ 'image' | placeholder_svg_tag: 'porigin__placeholder-svg' }}
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.body != blank -%}
+      <div class="porigin__body">{{ section.settings.body }}</div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .porigin { overflow: hidden; }
+  .porigin__inner {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding-inline: var(--gutter);
+  }
+  .porigin__head {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-5);
+  }
+  .porigin__title {
+    font-family: var(--font-heading--family);
+    font-weight: 400;
+    font-size: var(--text-2xl);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1.15;
+    margin: 0;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+  .porigin__photo {
+    position: relative;
+    border: var(--bfc-line);
+    overflow: hidden;
+  }
+  .porigin__photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .porigin__photo--placeholder {
+    background: var(--mango-yellow);
+    aspect-ratio: 16 / 7;
+  }
+  .porigin__photo--placeholder .porigin__placeholder-svg {
+    width: 100%;
+    height: 100%;
+    opacity: 0.5;
+  }
+  .porigin__caption {
+    position: absolute;
+    inset-block-end: 0;
+    inset-inline-start: 0;
+    background: var(--kohl-black);
+    color: var(--kulfi-malai);
+    font-size: var(--text-xs);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 0.6em 1em;
+  }
+  .porigin__body {
+    max-width: 38rem;
+    margin: var(--space-4) auto 0;
+    text-align: center;
+    font-size: var(--text-lg);
+    font-family: var(--font-body--family);
+    line-height: 1.6;
+  }
+  .porigin__body :where(p) { margin: 0; }
+  .porigin__body a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Product Origin",
+  "tag": "section",
+  "class": "section-product-origin",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "Single Origin"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "From the Hills of Meghalaya"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "caption",
+      "label": "Image caption",
+      "default": "Lakadong, Meghalaya — harvest, March 2025"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Body",
+      "default": "<p>Grown by women-led self-help groups in Lakadong, harvested in March, and packed at source — pesticide-free, fumigant-free, and traceable down to the batch.</p>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Origin"
+    }
+  ]
+}
+{% endschema %}

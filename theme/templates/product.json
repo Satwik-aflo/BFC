@@ -932,10 +932,62 @@
         "padding-block-start": 0,
         "padding-block-end": 0
       }
+    },
+    "product_in_the_box_brand": {
+      "type": "product-in-the-box",
+      "blocks": {
+        "in_1": { "type": "in_item", "settings": { "label": "98% Lakadong Turmeric", "note": "single origin, Meghalaya" } },
+        "in_2": { "type": "in_item", "settings": { "label": "2% Malabar Black Pepper", "note": "for up to 20x absorption" } },
+        "in_3": { "type": "in_item", "settings": { "label": "100% Pure", "note": "NABL lab-verified, every batch" } },
+        "in_4": { "type": "in_item", "settings": { "label": "100% Benefits", "note": "nothing diluted, nothing faked" } },
+        "not_1": { "type": "not_item", "settings": { "label": "NO Added Colour" } },
+        "not_2": { "type": "not_item", "settings": { "label": "NO Fillers" } },
+        "not_3": { "type": "not_item", "settings": { "label": "NO Heavy Metals" } },
+        "not_4": { "type": "not_item", "settings": { "label": "NO Preservatives" } },
+        "not_5": { "type": "not_item", "settings": { "label": "NO Bakwaas" } }
+      },
+      "block_order": [
+        "in_1", "in_2", "in_3", "in_4",
+        "not_1", "not_2", "not_3", "not_4", "not_5"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "kicker": "Full Transparency",
+        "heading": "What's in the Box",
+        "in_title": "In the Box",
+        "not_title": "Not in the Box"
+      }
+    },
+    "product_how_to_use_brand": {
+      "type": "product-how-to-use",
+      "blocks": {
+        "step_1": { "type": "step", "settings": { "number": "01", "title": "Warm Milk or Water", "text": "Stir ½–1 teaspoon (1.5–3 g) into warm milk or water for a daily golden drink." } },
+        "step_2": { "type": "step", "settings": { "number": "02", "title": "Cook With It", "text": "Add to dals, curries, rice, and sabzis the way it's been done for generations." } },
+        "step_3": { "type": "step", "settings": { "number": "03", "title": "Honey + Lemon", "text": "Mix with honey and a squeeze of lemon for an easy immunity shot." } }
+      },
+      "block_order": ["step_1", "step_2", "step_3"],
+      "settings": {
+        "color_scheme": "scheme-neem",
+        "kicker": "½–1 tsp · Once Daily",
+        "heading": "How to Use"
+      }
+    },
+    "product_origin_brand": {
+      "type": "product-origin",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "kicker": "Single Origin",
+        "heading": "From the Hills of Meghalaya",
+        "caption": "Lakadong, Meghalaya — harvest, March 2025",
+        "body": "<p>Grown by women-led self-help groups in Lakadong, harvested in March, and packed at source — pesticide-free, fumigant-free, and traceable down to the batch.</p>"
+      }
     }
   },
   "order": [
     "main",
+    "product_in_the_box_brand",
+    "product_how_to_use_brand",
+    "product_origin_brand",
     "product_recommendations_qggXJq",
     "icon_highlight_bar_mmkRGA",
     "product_recommendations_FftkVq",
