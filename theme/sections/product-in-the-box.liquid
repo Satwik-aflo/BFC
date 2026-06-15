@@ -1,0 +1,256 @@
+{% comment %}
+  Brand section: What's in the Box — two columns (in / not in the box).
+  Merchant-editable via blocks (in_item / not_item). Static brand copy as defaults.
+{% endcomment %}
+
+<section class="pbox color-{{ section.settings.color_scheme }} section">
+  <div class="pbox__inner">
+    <div class="pbox__head">
+      {%- if section.settings.kicker != blank -%}
+        <span class="bfc-kicker">{{ section.settings.kicker }}</span>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="pbox__title">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+    </div>
+
+    <div class="pbox__grid">
+      {%- assign in_count = 0 -%}
+      {%- assign not_count = 0 -%}
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'in_item' -%}{%- assign in_count = in_count | plus: 1 -%}{%- endif -%}
+        {%- if block.type == 'not_item' -%}{%- assign not_count = not_count | plus: 1 -%}{%- endif -%}
+      {%- endfor -%}
+
+      {%- if in_count > 0 -%}
+        <div class="pbox__col pbox__col--yes">
+          <h3 class="pbox__col-title">{{ section.settings.in_title | default: 'In the Box' }}</h3>
+          <ul class="pbox__list">
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'in_item' -%}
+                <li class="pbox__item" {{ block.shopify_attributes }}>
+                  <span class="pbox__label">{{ block.settings.label }}</span>
+                  {%- if block.settings.note != blank -%}
+                    <small class="pbox__note">{{ block.settings.note }}</small>
+                  {%- endif -%}
+                </li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
+
+      {%- if not_count > 0 -%}
+        <div class="pbox__col pbox__col--no">
+          <h3 class="pbox__col-title">{{ section.settings.not_title | default: 'Not in the Box' }}</h3>
+          <ul class="pbox__list">
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'not_item' -%}
+                <li class="pbox__item" {{ block.shopify_attributes }}>
+                  <span class="pbox__label">{{ block.settings.label }}</span>
+                </li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .pbox__inner {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding-inline: var(--gutter);
+  }
+  .pbox__head {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-5);
+  }
+  .pbox__title {
+    font-family: var(--font-heading--family);
+    font-weight: 400;
+    font-size: var(--text-2xl);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1.15;
+    margin: 0;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+  .pbox__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    align-items: stretch;
+  }
+  .pbox__col {
+    background: var(--kulfi-malai);
+    color: var(--kohl-black);
+    position: relative;
+    border: var(--bfc-line);
+    padding: clamp(1.5rem, 4vw, 3rem);
+    --r: 14px;
+    clip-path: polygon(
+      var(--r) 0, calc(100% - var(--r)) 0, 100% var(--r),
+      100% calc(100% - var(--r)), calc(100% - var(--r)) 100%,
+      var(--r) 100%, 0 calc(100% - var(--r)), 0 var(--r)
+    );
+  }
+  .pbox__col-title {
+    font-family: var(--font-heading--family);
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-size: var(--text-lg);
+    margin: 0 0 var(--space-3);
+    display: flex;
+    align-items: center;
+    gap: 0.7em;
+  }
+  .pbox__col--yes .pbox__col-title { color: var(--neem-green); }
+  .pbox__col--no .pbox__col-title { color: var(--ripe-orange-ink); }
+  .pbox__col-title::before {
+    font-family: var(--font-body--family);
+    font-size: 0.9em;
+  }
+  .pbox__col--yes .pbox__col-title::before { content: '✓'; color: var(--neem-green); }
+  .pbox__col--no .pbox__col-title::before { content: '✕'; color: var(--ripe-orange-ink); }
+  .pbox__list {
+    list-style: none;
+    display: grid;
+    gap: 0.9rem;
+    margin: 0;
+    padding: 0;
+  }
+  .pbox__item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15em;
+    font-size: var(--text-base);
+    font-weight: 500;
+    position: relative;
+    padding-inline-start: 1.6em;
+  }
+  .pbox__item::before {
+    position: absolute;
+    inset-inline-start: 0;
+    top: 0;
+  }
+  .pbox__col--yes .pbox__item::before {
+    content: '✦';
+    color: var(--mango-yellow);
+    text-shadow: 1px 1px 0 var(--kohl-black);
+  }
+  .pbox__col--no .pbox__item::before {
+    content: '✕';
+    color: var(--ripe-orange-ink);
+    font-weight: 900;
+  }
+  .pbox__note {
+    display: block;
+    font-weight: 300;
+    font-size: var(--text-sm);
+    opacity: 0.75;
+  }
+  @media (max-width: 720px) {
+    .pbox__grid { grid-template-columns: 1fr; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "What's in the Box",
+  "tag": "section",
+  "class": "section-product-in-the-box",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "Full Transparency"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "What's in the Box"
+    },
+    {
+      "type": "header",
+      "content": "Columns"
+    },
+    {
+      "type": "text",
+      "id": "in_title",
+      "label": "In-the-box column title",
+      "default": "In the Box"
+    },
+    {
+      "type": "text",
+      "id": "not_title",
+      "label": "Not-in-the-box column title",
+      "default": "Not in the Box"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "in_item",
+      "name": "In the box item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "98% Lakadong Turmeric"
+        },
+        {
+          "type": "text",
+          "id": "note",
+          "label": "Note",
+          "default": "single origin, Meghalaya"
+        }
+      ]
+    },
+    {
+      "type": "not_item",
+      "name": "Not in the box item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "NO Added Colour"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "What's in the Box",
+      "blocks": [
+        { "type": "in_item", "settings": { "label": "98% Lakadong Turmeric", "note": "single origin, Meghalaya" } },
+        { "type": "in_item", "settings": { "label": "2% Malabar Black Pepper", "note": "for up to 20x absorption" } },
+        { "type": "in_item", "settings": { "label": "100% Pure", "note": "NABL lab-verified, every batch" } },
+        { "type": "in_item", "settings": { "label": "100% Benefits", "note": "nothing diluted, nothing faked" } },
+        { "type": "not_item", "settings": { "label": "NO Added Colour" } },
+        { "type": "not_item", "settings": { "label": "NO Fillers" } },
+        { "type": "not_item", "settings": { "label": "NO Heavy Metals" } },
+        { "type": "not_item", "settings": { "label": "NO Preservatives" } },
+        { "type": "not_item", "settings": { "label": "NO Bakwaas" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
