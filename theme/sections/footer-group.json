@@ -11,6 +11,17 @@
   "type": "footer",
   "name": "Footer",
   "sections": {
+    "custom_liquid_bfcfooter": {
+      "type": "custom-liquid",
+      "name": "Footer brand band",
+      "settings": {
+        "custom_liquid": "<div class='bfc-fm' aria-hidden='true'><div class='bfc-fm__t'><span>Support Women SHGs</span><span>&#10022;</span><span>Support Natural Farming</span><span>&#10022;</span><span>Support Women SHGs</span><span>&#10022;</span><span>Support Natural Farming</span><span>&#10022;</span></div></div><section class='bfc-fh'><div class='bfc-fh__in'><p class='bfc-fh__line'>Boring is the new <span class='bfc-fh__accent'>super</span> again.</p><nav class='bfc-fh__nav' aria-label='Footer links'><a href='/pages/about-us'>Our Story</a><a href='/collections/shop'>Shop</a><a href='/pages/reports'>Reports</a><a href='/pages/contact'>Contact</a></nav><a class='bfc-fh__cta' href='/pages/contact'><span class='bfc-fh__hand'>&#9758;</span> Write to Us</a></div></section><style>.bfc-fm{background:#f9bf29;overflow:hidden;border-top:2px solid #000;border-bottom:2px solid #000}.bfc-fm__t{display:flex;gap:2.5rem;white-space:nowrap;width:max-content;padding:.6rem 0;animation:bfc-fm 24s linear infinite;font-family:var(--font-heading--family,Georgia);text-transform:uppercase;letter-spacing:.18em;font-weight:700;color:#000;font-size:.85rem}.bfc-fm__t span{flex:none}@keyframes bfc-fm{to{transform:translateX(-50%)}}@media(prefers-reduced-motion:reduce){.bfc-fm__t{animation:none}}.bfc-fh{background:#244f24;color:#fbf3cc;padding:clamp(2.5rem,6vw,5rem) var(--gutter,1.5rem);overflow:hidden}.bfc-fh__in{max-width:60rem;margin:0 auto;text-align:center}.bfc-fh__line{font-family:var(--font-heading--family,Georgia);font-size:clamp(2rem,5vw,3.5rem);line-height:1.08;margin:0 0 1.5rem}.bfc-fh__accent{font-family:var(--font-script,cursive);color:#f9bf29;font-size:1.15em}.bfc-fh__nav{display:flex;gap:1.6rem;flex-wrap:wrap;justify-content:center;margin-bottom:1.6rem;font-family:var(--font-heading--family,Georgia);text-transform:uppercase;letter-spacing:.12em;font-size:.85rem}.bfc-fh__nav a{color:#fbf3cc;text-decoration:none;opacity:.9}.bfc-fh__nav a:hover{opacity:1;text-decoration:underline}.bfc-fh__cta{display:inline-flex;align-items:center;gap:.6em;background:#f9bf29;color:#000;border:1.5px solid #000;font-family:var(--font-heading--family,Georgia);text-transform:uppercase;letter-spacing:.12em;font-weight:700;font-size:.8rem;padding:.85em 1.5em;text-decoration:none;transition:transform .2s,box-shadow .2s}.bfc-fh__cta:hover{box-shadow:4px 4px 0 #000;transform:translate(-2px,-2px)}.bfc-fh__hand{font-size:1.2em}</style>",
+        "color_scheme": "",
+        "section_width": "full-width",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
     "custom_liquid_jjP6hf": {
       "type": "custom-liquid",
       "name": "t:names.custom_liquid",
@@ -192,6 +203,7 @@
     }
   },
   "order": [
+    "custom_liquid_bfcfooter",
     "custom_liquid_jjP6hf",
     "footer_m9NzUG",
     "section_ygzG6J"
