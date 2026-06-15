@@ -311,58 +311,6 @@
         "gap_between_elements": 80
       }
     },
-    "custom_product_section_PnFTdK": {
-      "type": "custom-product-section",
-      "blocks": {
-        "card_WEBdgH": {
-          "type": "card",
-          "settings": {
-            "product": "ashwagandha-powder",
-            "card_title": "",
-            "header_color": "#fbf3cc",
-            "button_label": "SHOP"
-          }
-        },
-        "card_XdPaGi": {
-          "type": "card",
-          "settings": {
-            "product": "black-pepper-powder",
-            "card_title": "",
-            "header_color": "#fbf3cc",
-            "button_label": "SHOP"
-          }
-        },
-        "card_k6hCMc": {
-          "type": "card",
-          "settings": {
-            "product": "moringa-powder",
-            "card_title": "",
-            "header_color": "#fbf3cc",
-            "button_label": "SHOP"
-          }
-        },
-        "card_pdKCtK": {
-          "type": "card",
-          "settings": {
-            "product": "turmeric-powder",
-            "card_title": "",
-            "header_color": "#fbf3cc",
-            "button_label": "SHOP"
-          }
-        }
-      },
-      "block_order": [
-        "card_WEBdgH",
-        "card_XdPaGi",
-        "card_k6hCMc",
-        "card_pdKCtK"
-      ],
-      "disabled": true,
-      "name": "Superfoods Product Cards",
-      "settings": {
-        "section_title": ""
-      }
-    },
     "product_list_fa6P9H": {
       "type": "product-list",
       "blocks": {
@@ -1206,7 +1154,6 @@
     "section_pemmFU",
     "product_list_wE8meU",
     "marquee_images_zXx6fE",
-    "custom_product_section_PnFTdK",
     "product_list_fa6P9H",
     "section_4D73dE",
     "section_PWFkyK",

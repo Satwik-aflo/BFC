@@ -246,4 +246,52 @@
     overflow-wrap: break-word;
     hyphens: auto;
   }
+
+  /* ── Brand product cards ────────────────────────────────────────────
+     Reskin Horizon's native <product-card> (used on the homepage Shop
+     grid, collection/PLP, search results, recommendations) into the brand
+     card: the content panel becomes the Indian-Blue label with an inset
+     dotted cream border, a framed photo, and cream Copperplate name +
+     price. Price is kept (restyled), per product decision. Logic untouched. */
+  .product-card { transition: transform 0.35s var(--bfc-ease-out); }
+  .product-card:hover { transform: translateY(-4px); }
+  .product-card .product-card__content {
+    position: relative;
+    background: var(--indian-blue) !important;
+    color: var(--kulfi-malai) !important;
+    border: var(--bfc-line);
+    border-radius: 14px;
+    padding: 0.9rem;
+    text-align: center;
+    gap: 0.6rem;
+    transition: box-shadow 0.35s var(--bfc-ease-out);
+  }
+  .product-card:hover .product-card__content { box-shadow: 5px 5px 0 var(--kohl-black); }
+  .product-card .product-card__content::before {
+    content: "";
+    position: absolute;
+    inset: 7px;
+    border: 1.6px dotted rgb(251 243 204 / 0.7);
+    border-radius: 9px;
+    pointer-events: none;
+    z-index: 3;
+  }
+  .product-card .product-card__content :is(.product-media, .media, img, svg) {
+    border-radius: 10px;
+  }
+  .product-card .product-card__content img {
+    transition: transform 0.8s var(--bfc-ease-out);
+  }
+  .product-card:hover .product-card__content img { transform: scale(1.05); }
+  .product-card .product-card__content :is(h1, h2, h3, h4, h5, h6, a, .price, .price *) {
+    color: var(--kulfi-malai) !important;
+    font-family: var(--font-heading--family);
+  }
+  .product-card .product-card__content :is(h1, h2, h3, h4, h5, h6) {
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+    text-wrap: balance;
+  }
 {% endstyle %}
