@@ -56,6 +56,27 @@ Identical structure; full-width; chips wrap to multiple rows; panel height ≈ 4
 
 ---
 
+## DECISION (2026-06-16, user) — empty state is the product grid, NOT chips
+
+After reviewing the live/official search, the user directed: **do not port the static
+"Popular" spice chips.** The search panel's empty state must instead be **Horizon's own
+empty state — the "Recently Viewed" + "Products" product grid** (cream bg, Neem-Green
+Copperplate section headings, uppercase product names, Ripe-Orange prices, framed pack
+shots), which we already brand-styled in Wave 1c. Reference screenshot supplied by the user
+(official search empty state) — that grid is the target, verbatim.
+
+**Consequences for the plan:**
+- The chip work in items 3–5 of "Content blocks" and item 4 of "The remap work" below is
+  **cancelled.** No `bfc-search-chips` snippet, **no edit to any Horizon core file**, no
+  chip-action decision.
+- The empty-state grid (`predictive-search-empty-state.liquid` → `predictive-search-products-list`)
+  stays **exactly as-is**; we only verify it still renders correctly inside the new panel.
+- The remap is therefore **pure CSS in `brand.liquid`'s `{% style %}` block** (re-anchor +
+  animate the modal shell + restyle the input), plus verification. The "Open decisions"
+  below are all resolved/moot.
+
+---
+
 ## Mapping target & constraints (for the plan)
 
 **Goal:** make Horizon's search modal *look and animate like this static panel* while keeping
@@ -91,13 +112,14 @@ Horizon's **real predictive search** (functional results, focus trap, scroll-loc
    insertion point during planning (`predictive-search-empty-state.liquid` / search section setting).
 5. Keep predictive results rendering below the field (functional) — already styled.
 
-**Open decisions to resolve when writing/brainstorming the plan:**
-- Chips: source (A/B/C) and **do they submit** (`/search?q=`) or just fill the input? (Recommend
-  submit — more useful and still on-brand.)
-- Where chip markup lives (snippet edit vs section setting) — keep Horizon core as pristine as
-  possible; prefer a brand-owned snippet/section over editing a core file.
-- Does the slide-from-top panel hurt the predictive UX on desktop (results push the page height)?
-  Verify scroll behaviour inside the fixed panel.
+**Open decisions — RESOLVED:**
+- Chips: **cancelled** (see DECISION above). Empty state = Horizon product grid, kept as-is.
+- Chip markup location / core-file edits: **moot** — no markup added, no core file touched.
+- Slide-from-top panel vs predictive UX: still verify scroll behaviour inside the panel —
+  Horizon's results wrapper is `position:absolute; top:100%` (a dropdown under the input);
+  for a full-width top panel the results must flow *inside* the panel and scroll there, not
+  hang off the bottom. This is a CSS override in the plan (`predictive-search-form__content-wrapper`
+  → in-flow + `max-height` + internal scroll), not an open question.
 
 **Verification (per project rule):** Playwright screenshots of the theme search at 1280 + 390,
 opened via the header search trigger, compared against `ss_desk_open_final.png` /
