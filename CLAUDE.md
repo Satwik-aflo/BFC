@@ -50,9 +50,24 @@ Color schemes (scheme-1..6) live in `settings_data.json`; global type sizes are 
 like `type_size_paragraph`. The header nav font is controlled by the `_header-menu` block
 (`type_font_primary_link` defaults to `heading` = Copperplate).
 
-### Liquid gotcha that matters here
-`{% style %}` **renders Liquid** (so `asset_url` works for fonts) — `{% stylesheet %}` does
-**not**. The brand layer uses `{% style %}` for that reason.
+New full-width brand sections follow a bespoke **`bfc-*.liquid`** pattern (e.g. `bfc-hero`,
+`bfc-manifesto`, `bfc-footer`): each ports one static section's markup + `{% stylesheet %}`
+(referencing brand tokens already defined in `brand.liquid` `:root`) + `{% schema %}`, is
+theme-editable, and is wired into the relevant template / section-group JSON — **retiring**
+any legacy `custom-liquid` equivalent. Prefer adding a `bfc-*` section over editing Horizon
+core sections.
+
+### Liquid & validation gotchas
+- `{% style %}` **renders Liquid** (so `asset_url` works for fonts) — `{% stylesheet %}` does
+  **not**. The brand layer uses `{% style %}` for that reason. (`{% stylesheet %}`/`{% javascript %}`
+  are fine for static CSS/JS that only reference brand tokens via `var(--…)`.)
+- **`inline_richtext` sanitizes hard.** Shopify strips `<span class="…">` and most attributes
+  from an `inline_richtext`/announcement value; it keeps `<strong>`, `<em>`, `<i>`, `<b>`,
+  `<a>`, `<br>`. Style via the allowed tag (e.g. `.announcement-bar__text em { … }`), not a
+  custom `<span class>` — the class won't survive the push.
+- **The Dev MCP validator rejects hardcoded `/collections/...` URLs** — use
+  `collections['handle'].url` (or `routes.*_url`) instead. Hardcoded `/pages/...` and
+  `/policies/...` paths are accepted.
 
 ### Shopify CLI workflow (hard-won rules)
 - Store permanent domain: **`d9v1pv-06.myshopify.com`** (vanity = boringfoodscompany.com).
@@ -61,24 +76,64 @@ like `type_size_paragraph`. The header nav font is controlled by the `_header-me
 - Working/preview theme: **`#151032561833`** ("Boring Foods — New Design", a pristine admin
   duplicate of Horizon). Live theme must **NEVER** be pushed/published to without explicit
   user approval.
+- **Always pass `--path theme`.** The theme lives in `theme/`, not the repo root, and the
+  Bash tool resets cwd to the repo root before every call (so `cd theme && …` state doesn't
+  persist). A push/pull run from the repo root matches **zero** files with `--only` and moves
+  nothing — **yet still prints "pushed successfully."** This silent no-op has burned us
+  repeatedly.
 - **Never re-upload Horizon's core sections.** CLI 4.1.0's validation is stricter than
   Horizon 3.5.1's schema and rejects `product-list`/`product-recommendations` on a full
   push, breaking templates. Push **only our brand files** surgically:
 
   ```bash
-  shopify theme push --store d9v1pv-06.myshopify.com --theme 151032561833 --nodelete \
-    --only snippets/brand.liquid --only config/settings_data.json
+  shopify theme push --path theme --store d9v1pv-06.myshopify.com --theme 151032561833 \
+    --nodelete --only snippets/brand.liquid --only config/settings_data.json
   ```
+- **Verify every push by pulling back — never trust the success banner.** Shopify reports
+  success even when it uploaded nothing or silently stripped a value. Pull the changed files
+  to a temp dir and grep. The `--path` dir must already exist or the pull errors:
+
+  ```bash
+  mkdir -p /tmp/bfc-verify
+  shopify theme pull --path /tmp/bfc-verify --store d9v1pv-06.myshopify.com \
+    --theme 151032561833 --only snippets/brand.liquid
+  ```
+- **A new section setting — or a new section *type* — needs two sequential pushes.** Push the
+  section `.liquid` first (so the new schema/type is live server-side), verify, then push the
+  template / section-group JSON that references it. Pushing both at once makes Shopify
+  validate the JSON against the *old* server-side schema and **silently strip** the unknown
+  setting or drop the section reference. (Hit with a new `image_asset` setting on bundle cards,
+  and again wiring `bfc-footer` into `footer-group.json`.)
 - Pull pristine source if needed: `rm -rf theme && shopify theme pull --theme 151032561833`
 - Preview: `https://d9v1pv-06.myshopify.com?preview_theme_id=151032561833` (sets a preview
   cookie in *your* browser only — real customers are unaffected; use incognito to see live).
 - If auth returns 401 "Service is not valid for authentication": `shopify auth logout` then
   re-login as the store owner (interactive, in a real terminal).
 
-### Validate before pushing
-Liquid/theme edits should be validated with the Shopify Dev MCP (`@shopify/dev-mcp`, docs
-& validation only — no store access). Call `learn_shopify_api` (api: `liquid`) first to get
-a `conversationId`, then `validate_theme` with the theme path and changed files.
+### Validate before pushing (Shopify Dev MCP)
+Validate Liquid/theme edits with the Shopify Dev MCP (`@shopify/dev-mcp`, docs & validation
+only — no store access). Call `learn_shopify_api` (api: `liquid`) first to get a
+`conversationId`, then `validate_theme` with the **absolute** theme path and the changed
+files. On a re-validation after a fix, reuse the returned `artifactId` and bump `revision`.
+Treat this (and `curl | grep`) as a syntax/schema gate only — not proof the page looks right.
+
+### Verifying theme work = visual, not validator
+**A passing validator + a successful push + a `curl | grep` for text markers does NOT mean a
+page renders or looks right.** Shopify fails silently: it renders empty product cards, drops
+an erroring section, and serves the default template for an unbound page — all without
+errors. And much of the "truth" lives in the **admin**, not theme code: page→template
+binding, the nav menus, which pages exist, product data, and images. A perfect section stays
+invisible until an admin step wires it up.
+
+Always confirm visually with headless Chromium + Playwright screenshots (desktop 1280 +
+mobile 390), comparing against `site/`. The QA harness lives in `/tmp/bfc-qa/`; Playwright
+resolves `playwright-core` from `/tmp/node_modules`, Chromium from the `ms-playwright` cache.
+Set the preview cookie by visiting `?preview_theme_id=151032561833` once, then navigate to
+the real URL and screenshot. When a page looks blank despite valid code, suspect an unbound
+template or a missing menu/page in admin — and hand the user an explicit admin checklist.
+(Storefront pages live store-wide at `/pages/<handle>`, independent of theme; a page set to
+**Hidden** returns 404 and is absent from `/sitemap.xml` — that's the usual "my new page
+404s" cause, not caching.)
 
 ## `site/` — static marketing site
 
