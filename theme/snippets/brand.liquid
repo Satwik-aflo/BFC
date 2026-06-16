@@ -345,32 +345,160 @@
     text-wrap: balance;
   }
 
-  /* ── Search + cart reskin (native components, visual only) ───────────
-     Panels are made cream via popover_color_scheme / drawer_color_scheme =
-     scheme-1 in settings_data.json. These rules add the brand accents on
-     top: Ripe-Orange cart count, deeper-cream cart footer, and a ≥16px
-     search input (no iOS zoom-on-focus). Horizon's search/cart logic is
-     untouched. */
+  /* ── Search + cart reskin → match static .sf-search / .sf-cart ───────
+     Panels are already cream via popover_color_scheme / drawer_color_scheme
+     = scheme-1. These rules port the static mock's brand treatment onto
+     Horizon's native components. CSS only — search/cart logic, forms, and
+     markup are 100% untouched. Static reference: site/css/main.css 1207-1442. */
+
+  /* Cart-count bubble: Ripe-Orange chip, cream Copperplate count. */
   .cart-bubble__background {
     background: var(--ripe-orange) !important;
     border: 1px solid var(--kohl-black);
   }
   .cart-bubble__text {
     color: var(--kulfi-malai) !important;
-    font-family: var(--font-heading--family);
+    font-family: var(--font-display);
     font-weight: 700;
   }
+
+  /* Primary CTAs → static .btn (= .bfc-btn): mango-yellow, black text,
+     double black border, Copperplate uppercase, hover lift + hard shadow.
+     Applies to checkout, predictive "View all", and the empty-cart button. */
+  #checkout.cart__checkout-button,
+  .predictive-search__search-button,
+  .cart-items__empty-button {
+    font-family: var(--font-display) !important;
+    font-weight: 700 !important;
+    letter-spacing: var(--tracking-caps) !important;
+    text-transform: uppercase !important;
+    color: var(--kohl-black) !important;
+    background: var(--mango-yellow) !important;
+    border: var(--bfc-line) !important;
+    outline: 1px solid var(--kohl-black);
+    outline-offset: 3px;
+    border-radius: 0 !important;
+    box-shadow: none;
+    transition: transform 0.25s var(--bfc-ease-out), box-shadow 0.25s var(--bfc-ease-out);
+  }
+  #checkout.cart__checkout-button:hover,
+  .predictive-search__search-button:hover,
+  .cart-items__empty-button:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 4px 4px 0 var(--kohl-black);
+  }
+  #checkout.cart__checkout-button { width: 100%; justify-content: center; }
+  .cart__checkout-button .button-text { color: var(--kohl-black) !important; }
+  .predictive-search-form__footer { display: flex; justify-content: center; }
+
+  /* Cart drawer / page headings → Copperplate uppercase. */
   .cart-drawer__summary {
     background: var(--kulfi-deep);
     border-top: var(--bfc-line);
   }
   .cart-drawer__heading,
   .cart-drawer__header .h4 {
-    font-family: var(--font-heading--family);
+    font-family: var(--font-display);
     text-transform: uppercase;
     letter-spacing: var(--tracking-caps);
   }
-  .search-modal__content :is(input[type="search"], .search-input, .predictive-search-form__input) {
-    font-size: 16px;
+
+  /* Line items → static .sf-line. */
+  .cart-items__title {
+    font-family: var(--font-display) !important;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .cart-items__media-container img,
+  .cart-items__media img {
+    border: var(--bfc-line);
+    background: var(--kulfi-deep);
+    border-radius: 0;
+  }
+  .cart-items__variant,
+  .cart-items__variants {
+    color: var(--ink-soft);
+    font-size: var(--text-xs);
+  }
+  .cart-items__quantity-controls {
+    border: 1px solid var(--kohl-black);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .cart-items__quantity-controls button:hover,
+  .cart-items__quantity-controls .quantity-selector__button:hover {
+    color: var(--ripe-orange);
+  }
+  .cart-items__remove {
+    color: var(--ink-soft) !important;
+    text-underline-offset: 3px;
+  }
+  .cart-items__remove:hover { color: var(--ripe-orange) !important; }
+  .cart-items__price {
+    font-family: var(--font-display);
+    font-weight: 700;
+  }
+
+  /* Totals → static .sf-cart__subtotal. */
+  .cart-totals__total-label,
+  .cart-totals__original-label {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+  }
+  .cart-totals__total,
+  .cart-totals__total-value {
+    font-family: var(--font-display);
+    font-weight: 700;
+  }
+
+  /* Empty states → static charm/neem-green. */
+  .cart-drawer__heading--empty {
+    font-family: var(--font-charm);
+    text-transform: none;
+    letter-spacing: normal;
+    color: var(--neem-green);
+  }
+
+  /* ── Search modal → static .sf-search. ── */
+  /* Big underlined input (≥20px, no iOS zoom), body font. */
+  .search-modal__content :is(.search-input, input[type="search"], .predictive-search-form__input) {
+    font-size: clamp(1.25rem, 1rem + 1vw, 1.75rem) !important;
+    font-family: var(--font-body--family);
+    font-weight: 500;
+    color: var(--kohl-black);
+  }
+  /* Section title ("PRODUCTS" / "SUGGESTIONS") → Copperplate uppercase neem-green. */
+  .predictive-search-results__title {
+    font-family: var(--font-display) !important;
+    font-weight: 700;
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+    color: var(--neem-green);
+  }
+  /* Predictive result card name + WCAG-safe price. */
+  .predictive-search-results__card .resource-card__title {
+    font-family: var(--font-display) !important;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .predictive-search-results__card :is(.resource-card__subtext, .price, .price *) {
+    color: var(--ripe-orange-ink) !important;
+  }
+
+  /* Focus ring (don't suppress Horizon's; make it brand + high-contrast). */
+  .search-modal__content :is(input, button, a):focus-visible,
+  .cart-drawer__dialog :is(input, button, a):focus-visible,
+  .cart-page__summary :is(input, button, a):focus-visible {
+    outline: 2px solid var(--ripe-orange-ink);
+    outline-offset: 2px;
+  }
+
+  /* Touch: keep cart stepper / remove ≥44px (WCAG 2.5.5). */
+  @media (pointer: coarse) {
+    .cart-items__quantity-controls button { min-width: 44px; min-height: 44px; }
+    .cart-items__remove { min-height: 44px; }
   }
 {% endstyle %}
