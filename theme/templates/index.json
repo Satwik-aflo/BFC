@@ -13,93 +13,6 @@
       "type": "bfc-hero",
       "settings": {}
     },
-    "section_pemmFU": {
-      "type": "section",
-      "blocks": {
-        "text_CnVBBV": {
-          "type": "text",
-          "name": "t:names.heading",
-          "settings": {
-            "text": "<h2>Boring Foods, Your Way</h2>",
-            "width": "fit-content",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "rte",
-            "font": "var(--font-heading--family)",
-            "font_size": "var(--text-2xl)",
-            "line_height": "tight",
-            "letter_spacing": "normal",
-            "case": "uppercase",
-            "wrap": "pretty",
-            "color": "var(--color-foreground)",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 60,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        },
-        "image_yYdYEY": {
-          "type": "image",
-          "name": "t:names.image",
-          "settings": {
-            "image": "shopify://shop_images/stars_d2737678-f978-4977-8155-588e07dd3786.png",
-            "link": "",
-            "image_ratio": "adapt",
-            "width": "custom",
-            "custom_width": 6,
-            "width_mobile": "custom",
-            "custom_width_mobile": 6,
-            "height": "fit",
-            "border": "solid",
-            "border_width": 1,
-            "border_opacity": 0,
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "text_CnVBBV",
-        "image_yYdYEY"
-      ],
-      "custom_css": [],
-      "name": "BFC Heading",
-      "settings": {
-        "content_direction": "row",
-        "vertical_on_mobile": false,
-        "horizontal_alignment": "flex-start",
-        "vertical_alignment": "flex-start",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
-        "vertical_alignment_flex_direction_column": "flex-start",
-        "gap": 0,
-        "section_width": "page-width",
-        "section_height": "custom",
-        "section_height_custom": 0,
-        "color_scheme": "scheme-1",
-        "background_media": "none",
-        "video_position": "cover",
-        "background_image_position": "cover",
-        "border": "none",
-        "border_width": 1,
-        "border_opacity": 100,
-        "border_radius": 0,
-        "toggle_overlay": false,
-        "overlay_color": "#00000026",
-        "overlay_style": "solid",
-        "gradient_direction": "to top",
-        "padding-block-start": 60,
-        "padding-block-end": 0
-      }
-    },
     "product_list_wE8meU": {
       "type": "product-list",
       "blocks": {
@@ -141,16 +54,16 @@
               "type": "text",
               "name": "t:names.heading",
               "settings": {
-                "text": "<h3>Boring Foods your way</h3>",
+                "text": "<h2>Boring Foods, Your Way</h2>",
                 "width": "fit-content",
                 "max_width": "none",
                 "alignment": "left",
                 "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
+                "font": "var(--font-heading--family)",
+                "font_size": "var(--text-2xl)",
+                "line_height": "tight",
                 "letter_spacing": "normal",
-                "case": "none",
+                "case": "uppercase",
                 "wrap": "pretty",
                 "color": "var(--color-foreground)",
                 "background": false,
@@ -1277,7 +1190,6 @@
   },
   "order": [
     "custom_liquid_CjPRme",
-    "section_pemmFU",
     "product_list_wE8meU",
     "marquee_images_zXx6fE",
     "bundles_brand",
