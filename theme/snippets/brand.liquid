@@ -222,6 +222,19 @@
   }
   .header__column--center .menu-list { gap: clamp(1.8rem, 2.6vw, 2.4rem); }
 
+  /* Issue 2: the compact header packs the logo flush against the promo bar.
+     Give the header's top row a little vertical breathing room so the logo
+     (and nav) sit a few px below the announcement bar, on every page. */
+  .header__row--top { padding-block-start: 6px; }
+
+  /* Issue 4: the navigation-bar second row (.header__navigation-bar-row →
+     .menu-list--mobile) renders the menu inline on mobile and lands on top of
+     the hero. Hide it on mobile so the menu lives only in the hamburger drawer;
+     the top row keeps the hamburger, search, account and cart. */
+  @media (max-width: 749px) {
+    .header__navigation-bar-row { display: none !important; }
+  }
+
   /* Solid headers (sub-pages): always render nav in Kohl Black on the
      cream/scheme background, regardless of Horizon's hover colour swap. */
   header-component:not([transparent]) .menu-list__link,
@@ -280,6 +293,21 @@
   }
   @media (prefers-reduced-motion: reduce) {
     .announcement-bar { animation: none; }
+  }
+
+  /* Issue 9: the judge.me featured carousel forces each slide to a fixed
+     height (~200px) and stretches the review body to the tallest review, so the
+     reviewer name is stranded far below short reviews and each slide carries
+     dead space (long mobile scroll). On mobile, collapse the slide + review to
+     natural content height so reviews are compact and the name sits directly
+     under the text. Desktop keeps equal heights for its side-by-side reviews.
+     `!important` beats judge.me's non-important inline heights. */
+  @media (max-width: 749px) {
+    .jdgm-carousel-item,
+    .jdgm-carousel-item__review {
+      height: auto !important;
+      min-height: 0 !important;
+    }
   }
 
   /* ── Global accessibility (audit items #8, #10) ─────────────────────
