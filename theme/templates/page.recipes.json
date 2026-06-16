@@ -12,32 +12,6 @@
     "main": {
       "type": "main-page",
       "blocks": {
-        "heading": {
-          "type": "text",
-          "name": "Title",
-          "settings": {
-            "text": "<h1>{{ closest.page.title }}</h1>",
-            "width": "100%",
-            "max_width": "normal",
-            "alignment": "center",
-            "type_preset": "h2",
-            "font": "var(--font-primary--family)",
-            "font_size": "",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "color": "",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        },
         "page-content": {
           "type": "page-content",
           "settings": {},
@@ -45,7 +19,6 @@
         }
       },
       "block_order": [
-        "heading",
         "page-content"
       ],
       "disabled": false,
@@ -67,7 +40,9 @@
             "badge": "Refresher",
             "ingredients": "<ul><li>½ tsp Lakadong turmeric powder</li><li>4 tsp lemon juice</li><li>Salt and pepper to taste</li><li>100 ml cold water</li></ul>",
             "method": "<p>Mix turmeric, salt and pepper with the lemon juice thoroughly. Add to a glass of iced water, stir, and enjoy.</p>",
-            "hack": "<p>Optional: add some carbonated water for an extra refreshing kick.</p>"
+            "hack": "<p>Optional: add some carbonated water for an extra refreshing kick.</p>",
+            "image_asset": "recipe-turmeric-lemonade.jpg",
+            "cutout": false
           },
           "blocks": {}
         },
@@ -78,7 +53,9 @@
             "badge": "Morning Ritual",
             "ingredients": "<ul><li>½ tsp Lakadong turmeric powder</li><li>1 tsp lemon juice</li><li>100 ml lukewarm water</li></ul>",
             "method": "<p>Pour your turmeric and lemon juice into warm water. Mix and sip away for a morning detox.</p>",
-            "hack": "<p>Boring Foods hack: add ½ tsp moringa to enhance your morning boost.</p>"
+            "hack": "<p>Boring Foods hack: add ½ tsp moringa to enhance your morning boost.</p>",
+            "image_asset": "recipe-turmeric-detox.jpg",
+            "cutout": false
           },
           "blocks": {}
         }
@@ -90,7 +67,7 @@
       "settings": {
         "heading": "Lakadong Turmeric",
         "intro": "9% curcumin + black pepper — immunity, anti-inflammation, gut support. Typical daily use is 1–2 teaspoons.",
-        "color_scheme": "scheme-1",
+        "color_scheme": "scheme-2",
         "padding_top": 56,
         "padding_bottom": 56
       }
@@ -104,7 +81,9 @@
             "title": "Moringa Latte",
             "badge": "Bestseller · Tastes Like Matcha",
             "ingredients": "<ul><li>90 ml cold milk of choice (oat for creaminess)</li><li>1 tsp moringa powder</li><li>Sweetener of choice (fresh strawberries or vanilla essence)</li></ul>",
-            "method": "<p>Mix your moringa powder with 2 teaspoons of water to create a concentrate. Add the concentrate to your milk, then add sweetener and froth to combine well.</p>"
+            "method": "<p>Mix your moringa powder with 2 teaspoons of water to create a concentrate. Add the concentrate to your milk, then add sweetener and froth to combine well.</p>",
+            "image_asset": "recipe-moringa-latte.png",
+            "cutout": true
           },
           "blocks": {}
         },
@@ -115,7 +94,9 @@
             "badge": "Boost Your Buttermilk",
             "ingredients": "<ul><li>1 tsp moringa powder</li><li>½ tsp cumin</li><li>5–6 tbsp (80 ml) yogurt</li><li>A few splashes of water</li><li>Salt and black pepper to taste</li></ul>",
             "method": "<p>Add all ingredients to a blender and mix until well combined. Pour into a glass, add ice, and enjoy.</p>",
-            "hack": "<p>Add our Karimunda pepper powder for a bold punch.</p>"
+            "hack": "<p>Add our Karimunda pepper powder for a bold punch.</p>",
+            "image_asset": "recipe-moringa-buttermilk.png",
+            "cutout": true
           },
           "blocks": {}
         },
@@ -125,7 +106,9 @@
             "title": "Moringa Overnight Oats",
             "badge": "Breakfast of Champions",
             "ingredients": "<ul><li>½ cup rolled oats</li><li>2 tbsp chia seeds</li><li>1 tsp moringa</li><li>3–4 spoons Greek yogurt</li><li>½ cup milk of choice</li><li>3 almonds + 3 walnuts, chopped</li></ul>",
-            "method": "<p>Add all ingredients to a bowl, mix till combined. Leave overnight to chill and enjoy.</p>"
+            "method": "<p>Add all ingredients to a bowl, mix till combined. Leave overnight to chill and enjoy.</p>",
+            "image_asset": "recipe-moringa-oats.png",
+            "cutout": true
           },
           "blocks": {}
         },
@@ -136,7 +119,9 @@
             "badge": "Easiest Hack",
             "ingredients": "<ul><li>Your regular atta or dosa batter</li><li>2–3 tsp moringa powder (per 4–5 rotis or dosas)</li></ul>",
             "method": "<p>Take your regular atta or dosa batter and add 2–3 teaspoons of moringa powder for 4–5 rotis or dosas. Adjust the amount depending on the quantity of atta.</p>",
-            "hack": "<p>Boring Foods hack: add our Lakadong turmeric powder for extra immunity.</p>"
+            "hack": "<p>Boring Foods hack: add our Lakadong turmeric powder for extra immunity.</p>",
+            "image_asset": "recipe-moringa-dosa.png",
+            "cutout": true
           },
           "blocks": {}
         }
@@ -150,7 +135,7 @@
       "settings": {
         "heading": "Moringa",
         "intro": "A nutrient-dense leaf — iron absorption, blood-sugar regulation, antioxidant support. Tastes fresh and grassy. Start with ½ teaspoon.",
-        "color_scheme": "scheme-3",
+        "color_scheme": "scheme-neem",
         "padding_top": 56,
         "padding_bottom": 56
       }
@@ -164,7 +149,9 @@
             "title": "Ashwagandha Protein Shake",
             "badge": "Post-Workout · V1",
             "ingredients": "<ul><li>½ tsp ashwagandha</li><li>1 scoop protein powder</li><li>1 glass of cold or warm water</li></ul>",
-            "method": "<p>Add all ingredients to a glass, mix thoroughly, and enjoy ashwagandha-powered muscle recovery.</p>"
+            "method": "<p>Add all ingredients to a glass, mix thoroughly, and enjoy ashwagandha-powered muscle recovery.</p>",
+            "image_asset": "recipe-ashwagandha-shake-1.jpg",
+            "cutout": false
           },
           "blocks": {}
         },
@@ -174,7 +161,9 @@
             "title": "Ashwagandha Protein Shake",
             "badge": "Post-Workout · V2",
             "ingredients": "<ul><li>½ tsp ashwagandha</li><li>1 scoop protein powder</li><li>1 pack Greek yogurt (100 ml)</li><li>1 tbsp peanut butter</li><li>50 ml oat milk</li><li>3 almonds</li></ul>",
-            "method": "<p>Blend all ingredients in a mixer, pour into a glass, and enjoy.</p>"
+            "method": "<p>Blend all ingredients in a mixer, pour into a glass, and enjoy.</p>",
+            "image_asset": "recipe-ashwagandha-shake-2.jpg",
+            "cutout": false
           },
           "blocks": {}
         },
@@ -184,7 +173,9 @@
             "title": "Ashwagandha Hot Chocolate",
             "badge": "A Simple Wind Down",
             "ingredients": "<ul><li>½ tsp ashwagandha</li><li>1 tsp unsweetened cocoa or drinking chocolate</li><li>½ glass warm milk of choice</li></ul>",
-            "method": "<p>Add all ingredients to a glass, mix thoroughly, and enjoy a stress-free slumber.</p>"
+            "method": "<p>Add all ingredients to a glass, mix thoroughly, and enjoy a stress-free slumber.</p>",
+            "image_asset": "recipe-ashwagandha-hot-chocolate.png",
+            "cutout": true
           },
           "blocks": {}
         },
@@ -196,7 +187,9 @@
             "ingredients": "<ul><li>½ tsp ashwagandha</li><li>A mug of any night-time tea you enjoy</li></ul>",
             "method": "<p>To your night-time tea routine, add half a teaspoon of ashwagandha for added sleep benefits. Stir, and enjoy.</p>",
             "pdf": "https://cdn.shopify.com/s/files/1/0722/5042/5513/files/BFC_Recipe_Guide.pdf?v=1775106994",
-            "signoff": "Our goal is to reimagine how traditional ingredients are enjoyed in everyday life. Tag us @boringfoodscompany on Instagram. Boringly yours, Anvi & Varuni."
+            "signoff": "Our goal is to reimagine how traditional ingredients are enjoyed in everyday life. Tag us @boringfoodscompany on Instagram. Boringly yours, Anvi & Varuni.",
+            "image_asset": "recipe-ashwagandha-night-tea.jpg",
+            "cutout": false
           },
           "blocks": {}
         }
@@ -210,16 +203,46 @@
       "settings": {
         "heading": "Ashwagandha",
         "intro": "Helps regulate cortisol — stress balance, better sleep, muscle recovery. Earthy and neutral. Start with ½ teaspoon.",
-        "color_scheme": "scheme-2",
+        "color_scheme": "scheme-1",
         "padding_top": 56,
         "padding_bottom": 80
       }
+    },
+    "recipe_hero": {
+      "type": "bfc-recipe-hero",
+      "settings": {
+        "kicker": "Recipe Guide",
+        "heading": "Simple Ways to Use Power-Packed Ingredients",
+        "intro": "<p>Boring staples, anything-but-boring in the glass. Easy, everyday ways to get turmeric, moringa, and ashwagandha into your routine — no chef skills required.</p>",
+        "color_scheme": "scheme-1",
+        "padding_top": 64,
+        "padding_bottom": 32
+      },
+      "blocks": {}
+    },
+    "recipe_download": {
+      "type": "bfc-recipe-download",
+      "settings": {
+        "kicker": "The Whole Guide",
+        "heading": "Take It With You",
+        "button_label": "Download the Recipe Guide (PDF)",
+        "button_url": "https://cdn.shopify.com/s/files/1/0722/5042/5513/files/BFC_Recipe_Guide.pdf?v=1775106994",
+        "signoff": "<p>Our goal is to reimagine how traditional ingredients are enjoyed in everyday life. We hope you enjoy these as much as we do — tag us <strong>@boringfoodscompany</strong> on Instagram.</p>",
+        "signature_lead": "Boringly yours,",
+        "signature": "Anvi & Varuni",
+        "color_scheme": "scheme-1",
+        "padding_top": 64,
+        "padding_bottom": 80
+      },
+      "blocks": {}
     }
   },
   "order": [
+    "recipe_hero",
     "main",
     "recipe_group_turmeric",
     "recipe_group_moringa",
-    "recipe_group_ashwagandha"
+    "recipe_group_ashwagandha",
+    "recipe_download"
   ]
 }

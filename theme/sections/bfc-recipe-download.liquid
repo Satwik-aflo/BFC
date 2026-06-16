@@ -1,0 +1,205 @@
+<section
+  class="recipe-download color-{{ section.settings.color_scheme }} recipe-download--{{ section.id }}"
+  style="--rd-pad-top: {{ section.settings.padding_top }}px; --rd-pad-bottom: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="recipe-download__inner">
+    {%- if section.settings.kicker != blank -%}
+      <span class="recipe-download__kicker">{{ section.settings.kicker | escape }}</span>
+    {%- endif -%}
+    {%- if section.settings.heading != blank -%}
+      <h2 class="recipe-download__title">{{ section.settings.heading | escape }}</h2>
+    {%- endif -%}
+    {%- if section.settings.button_label != blank and section.settings.button_url != blank -%}
+      <p class="recipe-download__cta">
+        <a class="recipe-download__btn" href="{{ section.settings.button_url }}" target="_blank" rel="noopener">
+          <span class="recipe-download__hand" aria-hidden="true">&#9758;</span> {{ section.settings.button_label | escape }}
+        </a>
+      </p>
+    {%- endif -%}
+    {%- if section.settings.signoff != blank -%}
+      <div class="recipe-download__signoff">{{ section.settings.signoff }}</div>
+    {%- endif -%}
+    {%- if section.settings.signature != blank -%}
+      <p class="recipe-download__signature">
+        {{ section.settings.signature_lead | escape }}
+        <span class="recipe-download__script">{{ section.settings.signature | escape }}</span>
+      </p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .recipe-download {
+    padding-block: var(--rd-pad-top, 64px) var(--rd-pad-bottom, 80px);
+    padding-inline: 5vw;
+    text-align: center;
+  }
+
+  .recipe-download__inner {
+    max-width: 50rem;
+    margin-inline: auto;
+  }
+
+  .recipe-download__kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85em;
+    font-family: var(--font-heading--family);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 0.875rem;
+  }
+
+  .recipe-download__kicker::before,
+  .recipe-download__kicker::after {
+    content: "";
+    width: 2.5rem;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.5;
+  }
+
+  .recipe-download__title {
+    font-family: var(--font-heading--family);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    font-size: clamp(1.75rem, 1.3rem + 2vw, 2.75rem);
+    line-height: 1.1;
+    margin-block: 0.6rem 0;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+
+  .recipe-download__cta {
+    margin-block: 1.4rem 0;
+  }
+
+  .recipe-download__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    font-family: var(--font-heading--family);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 1rem;
+    padding: 0.85rem 1.6rem;
+    background: #f9bf29;
+    color: #000000;
+    border: 1px solid #000000;
+  }
+
+  .recipe-download__hand {
+    font-style: normal;
+  }
+
+  .recipe-download__signoff {
+    font-family: var(--font-body--family);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    margin-block-start: 1.4rem;
+    opacity: 0.9;
+  }
+
+  .recipe-download__signoff p {
+    margin: 0;
+  }
+
+  .recipe-download__signature {
+    font-family: var(--font-body--family);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    margin-block-start: 0.4rem;
+    opacity: 0.9;
+  }
+
+  .recipe-download__script {
+    font-family: var(--font-script);
+    font-size: 1.5em;
+    color: #f84b21;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Recipe download",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "The Whole Guide"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Take It With You"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Download the Recipe Guide (PDF)"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button link"
+    },
+    {
+      "type": "richtext",
+      "id": "signoff",
+      "label": "Sign-off",
+      "default": "<p>Our goal is to reimagine how traditional ingredients are enjoyed in everyday life. We hope you enjoy these as much as we do — tag us <strong>@boringfoodscompany</strong> on Instagram.</p>"
+    },
+    {
+      "type": "text",
+      "id": "signature_lead",
+      "label": "Signature lead-in",
+      "default": "Boringly yours,"
+    },
+    {
+      "type": "text",
+      "id": "signature",
+      "label": "Signature (script font)",
+      "default": "Anvi & Varuni"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    }
+  ],
+  "presets": [
+    {
+      "name": "Recipe download"
+    }
+  ]
+}
+{% endschema %}

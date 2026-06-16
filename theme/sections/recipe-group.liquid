@@ -23,17 +23,27 @@
       <div class="recipe-grid">
         {%- for block in section.blocks -%}
           <article class="recipe-card" {{ block.shopify_attributes }}>
-            {%- if block.settings.image != blank -%}
-              <figure class="recipe-card__media">
-                {{
-                  block.settings.image
-                  | image_url: width: 800
-                  | image_tag:
-                    loading: 'lazy',
-                    sizes: '(min-width: 750px) 50vw, 100vw',
-                    widths: '300, 400, 600, 800',
-                    alt: block.settings.image.alt | default: block.settings.title
-                }}
+            {%- if block.settings.image != blank or block.settings.image_asset != blank -%}
+              <figure class="recipe-card__media{% if block.settings.cutout %} recipe-card__media--cutout{% endif %}">
+                {%- if block.settings.image != blank -%}
+                  {{
+                    block.settings.image
+                    | image_url: width: 800
+                    | image_tag:
+                      loading: 'lazy',
+                      sizes: '(min-width: 750px) 50vw, 100vw',
+                      widths: '300, 400, 600, 800',
+                      alt: block.settings.image.alt | default: block.settings.title
+                  }}
+                {%- else -%}
+                  <img
+                    src="{{ block.settings.image_asset | asset_url }}"
+                    alt="{{ block.settings.title | escape }}"
+                    loading="lazy"
+                    width="800"
+                    height="600"
+                  >
+                {%- endif -%}
               </figure>
             {%- endif -%}
 
@@ -102,7 +112,9 @@
   .recipe-group__title {
     font-family: var(--font-heading--family);
     text-transform: uppercase;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.02em;
+    /* Reduced for mobile legibility — keeps long names (e.g. "Ashwagandha") on one line at 360–390px */
+    font-size: clamp(1.5rem, 1.1rem + 1.8vw, 2.5rem);
     line-height: 1.1;
     margin: 0;
     overflow-wrap: break-word;
@@ -129,21 +141,24 @@
     }
   }
 
+  /* Cards are always brand cream, independent of the group's color scheme,
+     so they stay legible on the green (Moringa) band — matches the static site. */
   .recipe-card {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
     padding: 1.25rem;
-    border: 1px solid currentColor;
-    background: var(--color-background, #fbf3cc);
-    color: var(--color-foreground, #000000);
+    border: 1px solid #000000;
+    background: #fbf3cc;
+    color: #000000;
   }
 
   .recipe-card__media {
     margin: -1.25rem -1.25rem 0.25rem;
     aspect-ratio: 4 / 3;
     overflow: hidden;
-    border-block-end: 1px solid currentColor;
+    border-block-end: 1px solid #000000;
+    background: #f6ebb4;
   }
 
   .recipe-card__media img {
@@ -151,6 +166,18 @@
     height: 100%;
     object-fit: cover;
     display: block;
+  }
+
+  /* Cutout treatment for product PNGs — contained with a drop-shadow, like the static site. */
+  .recipe-card__media--cutout {
+    display: grid;
+    place-items: center;
+  }
+
+  .recipe-card__media--cutout img {
+    object-fit: contain;
+    padding: 0.9rem;
+    filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.22));
   }
 
   .recipe-card__badge {
@@ -310,6 +337,19 @@
           "type": "image_picker",
           "id": "image",
           "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "image_asset",
+          "label": "Image (theme asset filename)",
+          "info": "Fallback when no image is picked above, e.g. recipe-moringa-latte.png"
+        },
+        {
+          "type": "checkbox",
+          "id": "cutout",
+          "label": "Cutout image (contain + drop-shadow)",
+          "info": "Use for product PNGs with transparent backgrounds.",
+          "default": false
         },
         {
           "type": "text",
