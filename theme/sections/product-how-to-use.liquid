@@ -37,7 +37,10 @@
 
 {% stylesheet %}
   .phow {
-    background: var(--neem-green);
+    /* Win over Horizon's color-{scheme} class on the same element, which
+       otherwise paints the section cream (→ cream text on cream + the mango
+       step number drops to 1.5:1). The section is brand-fixed neem-green. */
+    background-color: var(--neem-green) !important;
     color: var(--kulfi-malai);
   }
   .phow__inner {

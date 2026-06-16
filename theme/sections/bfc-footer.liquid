@@ -7,7 +7,7 @@
   --tracking-caps, --gutter) and .bfc-btn / .bfc-script / .hand come from brand.liquid.
 {% endcomment %}
 
-<footer class="bfc-footer" id="contact" role="contentinfo">
+<div class="bfc-footer" id="contact">
   <div class="bfc-footer__inner">
     <div class="bfc-footer__top">
       <img class="bfc-footer__stamp" src="{{ 'sun-stamp.svg' | asset_url }}"
@@ -58,7 +58,7 @@
       <span>{{ section.settings.legal_tagline | escape }}</span>
     </div>
   </div>
-</footer>
+</div>
 
 {% stylesheet %}
   .bfc-footer { background: var(--neem-green, #244f24); color: var(--kulfi-malai, #fbf3cc); padding: 4.5rem var(--gutter, 1.5rem) 1.5rem; }
