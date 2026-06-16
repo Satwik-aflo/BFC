@@ -493,6 +493,25 @@
     margin-inline: auto;
     background: transparent !important;
   }
+  /* Visible "SEARCH" title — un-hide Horizon's modal heading (static .sf-search__title). */
+  .search-modal__content #search-modal-heading {
+    position: static !important;
+    width: auto !important;
+    height: auto !important;
+    margin: 0 auto 1rem !important;
+    padding: 0 !important;
+    clip: auto !important;
+    clip-path: none !important;
+    overflow: visible !important;
+    white-space: normal !important;
+    max-width: 64rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+    color: var(--kohl-black);
+  }
 
   /* Slide down from the top (static: translateY(-100%)→0, 0.5s brand ease-out). */
   @keyframes bfc-search-slide-down {
