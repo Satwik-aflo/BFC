@@ -264,12 +264,18 @@
 
   /* ── Announcement bar (promo / discount-code attention bar) ─────────
      Keep the Indian-Blue scheme-4 bar but tune it to the brand: tighter
-     Copperplate caps, and a one-time slide-down on load so the discount
-     code grabs the eye the moment the page paints. The BORING10 code is
-     marked with <em> (see header-group.json — inline_richtext strips spans,
-     but allows <em>) to read as a Mango-Yellow chip. */
+     Copperplate caps, and a gentle opacity fade-in on load. NOTE: this used
+     to be a translateY slide-down, but a transform on the topmost element
+     skews its getBoundingClientRect while Horizon / the transparent hero
+     header measure their offsets on load — which cramped the header, logo
+     and hero centering until the first scroll forced a recalculation (and
+     the late-loading brand CSS made the bar paint once, then slide, looking
+     doubled). A pure opacity fade keeps layout geometry stable and reads
+     cleaner. The BORING10 code is marked with <em> (see header-group.json —
+     inline_richtext strips spans, but allows <em>) to read as a Mango-Yellow
+     chip. */
   .announcement-bar {
-    animation: bfc-promo-in 0.7s var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)) both;
+    animation: bfc-promo-fade 0.8s var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)) both;
   }
   .announcement-bar__text {
     letter-spacing: 0.14em;
@@ -287,9 +293,9 @@
     margin: 0 0.15em;
     box-shadow: 1px 1px 0 rgb(0 0 0 / 0.45);
   }
-  @keyframes bfc-promo-in {
-    from { transform: translateY(-100%); }
-    to   { transform: translateY(0); }
+  @keyframes bfc-promo-fade {
+    from { opacity: 0; }
+    to   { opacity: 1; }
   }
   @media (prefers-reduced-motion: reduce) {
     .announcement-bar { animation: none; }
