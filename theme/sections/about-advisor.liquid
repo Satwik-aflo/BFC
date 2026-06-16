@@ -1,0 +1,205 @@
+{% comment %}
+  About / Our Story — Our Advisor (landscape photo on the left, heading + bio on
+  the right). Mirrors the founders Field block, columns reversed. Self-contained
+  literal copy + assets, brand colors.
+{% endcomment %}
+
+<section class="about-advisor about-advisor-{{ section.id }} color-{{ section.settings.color_scheme }}">
+  <div class="about-advisor__container">
+
+    <div class="about-advisor__image-col">
+      <div class="about-advisor__image-wrapper">
+        <img
+          src="{{ 'about-advisor.jpg' | asset_url }}"
+          alt="Dr. Shridevi S. Gothe with the founders in the lab"
+          width="1999"
+          height="1613"
+          loading="lazy"
+          class="about-advisor__main-img"
+        >
+
+        <div class="about-advisor__sticker" aria-hidden="true">
+          <img src="{{ 'about-spark.png' | asset_url }}" alt="" width="100" height="100" loading="lazy">
+        </div>
+      </div>
+    </div>
+
+    <div class="about-advisor__text-col">
+      <h1 class="about-advisor__heading">Our Advisor</h1>
+
+      <div class="about-advisor__body">
+        <p><strong>Dr. Shridevi S. Gothe</strong> is an Ayurvedic scholar and Assistant Professor at The University of Trans-Disciplinary Health Sciences and Technology, Bangalore. She holds an MD in Ayurveda and a diploma in Public Health Nutrition, and has established extensive experience in functional food development and nutritional research rooted in traditional practice.</p>
+        <p>Dr. Shridevi&rsquo;s involvement with us stems from a deeply held shared belief: <strong>that real nourishment comes from understanding what&rsquo;s in your food and what it&rsquo;s meant to be paired with.</strong> She advises on formulations, iterations, and ingredient pairings, making sure that what we put in our packs is grounded in something more than a good story.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+{% stylesheet %}
+  .about-advisor {
+    background-color: #fbf3cc;
+    padding: 10px 20px;
+  }
+
+  .about-advisor__container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 60px;
+    padding-top: 30px;
+  }
+
+  .about-advisor__image-col {
+    flex: 0 0 45%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .about-advisor__image-wrapper {
+    position: relative;
+    display: inline-block;
+  }
+
+  .about-advisor__main-img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    display: block;
+    box-shadow: 6px 6px 0 rgb(0 0 0 / 0.1);
+  }
+
+  .about-advisor__sticker {
+    position: absolute;
+    top: -34px;
+    right: -24px;
+    width: 80px;
+    height: auto;
+    z-index: 2;
+    transform: rotate(8deg);
+  }
+
+  .about-advisor__sticker img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .about-advisor__text-col {
+    flex: 1;
+    color: #5d57c5;
+    font-family: var(--font-body--family, "Aesthet Nova", Georgia, serif);
+  }
+
+  .about-advisor__heading {
+    font-family: var(--font-heading--family, "Copperplate", Georgia, serif);
+    color: #5d57c5;
+    font-size: clamp(28px, 4vw, 34px);
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    line-height: 1.1;
+    margin: 0 0 20px;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+
+  .about-advisor__body {
+    font-size: 20px;
+    line-height: 1.4;
+  }
+
+  .about-advisor__body p {
+    margin: 0 0 1em;
+  }
+
+  .about-advisor__body p:last-child {
+    margin-bottom: 0;
+  }
+
+  .about-advisor__body strong {
+    color: #5d57c5;
+    font-weight: 800;
+  }
+
+  @media (max-width: 900px) {
+    .about-advisor__container {
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .about-advisor__image-col {
+      width: 100%;
+      flex: auto;
+    }
+
+    .about-advisor__sticker {
+      width: 60px;
+      top: -20px;
+      right: -10px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .about-advisor {
+      padding: 20px 12px;
+    }
+
+    .about-advisor__container {
+      flex-direction: column;
+      gap: 20px;
+      padding-top: 0;
+    }
+
+    .about-advisor__image-col {
+      width: 100%;
+      align-items: center;
+    }
+
+    .about-advisor__main-img {
+      width: 100%;
+      box-shadow: 3px 3px 0 rgb(0 0 0 / 0.08);
+    }
+
+    .about-advisor__sticker {
+      width: 44px;
+      top: -12px;
+      right: 6px;
+      transform: rotate(8deg);
+    }
+
+    .about-advisor__text-col {
+      width: 100%;
+      text-align: center;
+    }
+
+    .about-advisor__heading {
+      font-size: 24px;
+      margin-bottom: 12px;
+    }
+
+    .about-advisor__body {
+      font-size: 14px;
+      line-height: 1.3;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "About Advisor",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    }
+  ],
+  "presets": [
+    { "name": "About Advisor" }
+  ]
+}
+{% endschema %}
