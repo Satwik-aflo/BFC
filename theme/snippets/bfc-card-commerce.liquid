@@ -11,7 +11,7 @@
   <p class="bfc-card-pricewt">{{ v.price | money }}{%- if show_weight != false -%}<span class="bfc-card-weight"> / {{ v.weight | round }} {{ v.weight_unit }}</span>{%- endif -%}</p>
   <product-form-component data-product-id="{{ product.id }}" on:submit="/handleSubmit" class="bfc-card-atc">
     {%- form 'product', product, id: form_id, novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
-      <input type="hidden" name="id" value="{{ v.id }}"{% if v.available == false %} disabled{% endif %}>
+      <input type="hidden" name="id" ref="variantId" value="{{ v.id }}"{% if v.available == false %} disabled{% endif %}>
       <input type="hidden" name="quantity" value="1">
       {%- assign atc_media = v.featured_media.preview_image | default: product.featured_media.preview_image | image_url: width: 100 -%}
       <div class="retro-oval-wrapper">
@@ -25,7 +25,6 @@
             type="submit"
             name="add"
             ref="addToCartButton"
-            on:click="/handleClick"
             class="button bfc-card-atc__button button-retro-oval"
             {% if v.available == false %}disabled{% endif %}
           >
