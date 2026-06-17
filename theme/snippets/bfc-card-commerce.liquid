@@ -1,13 +1,14 @@
 {% doc %}
   Renders price + net weight and an add-to-cart-only control (NO buy-now) for a product card.
   @param {object} product - The card's product.
+  @param {boolean} [show_weight] - Set to false to hide the weight (e.g. on bundle cards where weight is in the subtitle). Defaults to true.
 {% enddoc %}
 {%- liquid
   assign v = product.selected_or_first_available_variant
   assign form_id = 'bfc-atc-' | append: product.id
 -%}
 <div class="bfc-card-commerce">
-  <p class="bfc-card-pricewt">{{ v.price | money }}<span class="bfc-card-weight"> / {{ v.weight | round }} {{ v.weight_unit }}</span></p>
+  <p class="bfc-card-pricewt">{{ v.price | money }}{%- if show_weight != false -%}<span class="bfc-card-weight"> / {{ v.weight | round }} {{ v.weight_unit }}</span>{%- endif -%}</p>
   <product-form-component data-product-id="{{ product.id }}" on:submit="/handleSubmit" class="bfc-card-atc">
     {%- form 'product', product, id: form_id, novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
       <input type="hidden" name="id" value="{{ v.id }}"{% if v.available == false %} disabled{% endif %}>
