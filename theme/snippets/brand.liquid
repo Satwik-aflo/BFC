@@ -260,11 +260,17 @@
      sets data-sticky-state="active" when the header sticks after scrolling.
      Force dark nav + action icons in that scrolled/stuck state.
      Selector confirmed live via DOM inspection (Step 1). */
-  header-component[data-sticky-state="active"] :is(.menu-list__link, .header-actions__action, .header__icon),
-  header-component[data-sticky-state="active"] :is(.menu-list__link, .header-actions__action, .header__icon) svg {
+  header-component[data-sticky-state="active"] .menu-list__link {
     color: #000 !important;
     text-shadow: none !important;
-    fill: currentColor !important;
+  }
+  /* Action icons (search / account / cart): darken to the SAME tone Horizon uses
+     for solid-header icons on sub-pages (rgba(0,0,0,0.81)), and do NOT touch
+     `fill` — forcing fill:currentColor turned these line icons into solid black
+     blobs (the scroll-state icon regression). Colour drives their stroke. */
+  header-component[data-sticky-state="active"] :is(.header-actions__action, .header__icon) {
+    color: rgba(0, 0, 0, 0.81) !important;
+    text-shadow: none !important;
   }
 
   /* Submenu / overflow dropdown links: ensure they never inherit a dimmed
