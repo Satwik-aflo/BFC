@@ -110,11 +110,11 @@
         </div>
 
         {% unless forloop.last %}
-          <div class="icon-strip__separator">
+          <div class="icon-strip__separator" aria-hidden="true">
             {% if section.settings.separator_image %}
               {{ section.settings.separator_image
                 | image_url: width: 40
-                | image_tag: alt: section.settings.separator_alt, loading: 'lazy'
+                | image_tag: alt: '', loading: 'lazy'
               }}
             {% else %}
               <span style="font-size:0.9rem;color:#fffdf4;">✦</span>
