@@ -1186,6 +1186,10 @@
         "body": "<p>Our mission is to reconnect people with the power of traditional foods — transforming everyday meals into intentional acts of self-care and nourishment. Pure, transparently sourced products that go beyond flavor: they actively support wellness and preventive health.</p>",
         "signoff": "#proudlyboring"
       }
+    },
+    "bfc_proudly_banner": {
+      "type": "bfc-proudly-banner",
+      "settings": {}
     }
   },
   "order": [
@@ -1203,6 +1207,7 @@
     "marquee_FnfwbK",
     "1763747545012c1950",
     "1767110500a5c27095",
-    "featured_blog_posts_EPpNQc"
+    "featured_blog_posts_EPpNQc",
+    "bfc_proudly_banner"
   ]
 }

@@ -1,0 +1,64 @@
+{%- comment -%}
+  BFC proudly-boring scrolling banner. Ports site/ .marquee: mango-yellow bar,
+  Copperplate caps items, one Musloner script item, ✦ separators.
+{%- endcomment -%}
+<div class="bfc-proudly" aria-hidden="true">
+  <div class="bfc-proudly__track">
+    {%- for n in (1..2) -%}
+      <span class="bfc-proudly__item">{{ section.settings.phrase_1 | escape }}</span>
+      <span class="bfc-proudly__item bfc-proudly__item--script">{{ section.settings.phrase_2 | escape }}</span>
+      <span class="bfc-proudly__item">{{ section.settings.phrase_3 | escape }}</span>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% stylesheet %}
+  .bfc-proudly {
+    background: var(--mango-yellow, #f9bf29);
+    border-top: 2px solid var(--kohl-black, #000);
+    border-bottom: 2px solid var(--kohl-black, #000);
+    overflow: hidden;
+    padding: 0.9rem 0;
+  }
+  .bfc-proudly__track {
+    display: flex;
+    gap: 3rem;
+    width: max-content;
+    animation: bfc-proudly-scroll 28s linear infinite;
+  }
+  .bfc-proudly:hover .bfc-proudly__track { animation-play-state: paused; }
+  .bfc-proudly__item {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    font-family: var(--font-heading--family);
+    font-weight: 700;
+    font-size: clamp(0.9rem, 0.7rem + 1vw, 1.25rem);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--kohl-black, #000);
+  }
+  .bfc-proudly__item::after { content: '✦'; color: var(--ripe-orange, #f84b21); }
+  .bfc-proudly__item--script {
+    font-family: var(--font-script, "Musloner", cursive);
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 1.4em;
+    font-weight: 400;
+  }
+  @keyframes bfc-proudly-scroll { to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) { .bfc-proudly__track { animation: none; } }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "BFC Proudly Banner",
+  "settings": [
+    { "type": "text", "id": "phrase_1", "label": "Phrase 1", "default": "Support Natural Farming" },
+    { "type": "text", "id": "phrase_2", "label": "Phrase 2 (script)", "default": "Proudly Boring" },
+    { "type": "text", "id": "phrase_3", "label": "Phrase 3", "default": "Backed by Science" }
+  ],
+  "presets": [{ "name": "BFC Proudly Banner" }]
+}
+{% endschema %}
