@@ -42,15 +42,15 @@
         <a href="/pages/recipes">Recipes</a>
         <a href="/pages/faqs">FAQ</a>
       </nav>
-    </div>
 
-    <nav class="bfc-footer__policies" aria-label="Policies">
-      <a href="/policies/privacy-policy">Privacy Policy</a>
-      <a href="/policies/refund-policy">Return &amp; Refund</a>
-      <a href="/policies/shipping-policy">Shipping Policy</a>
-      <a href="/policies/terms-of-service">Terms &amp; Conditions</a>
-      <a href="/pages/contact">Contact</a>
-    </nav>
+      <nav class="bfc-footer__policies" aria-label="Policies">
+        <a href="/policies/privacy-policy">Privacy Policy</a>
+        <a href="/policies/refund-policy">Return &amp; Refund</a>
+        <a href="/policies/shipping-policy">Shipping Policy</a>
+        <a href="/policies/terms-of-service">Terms &amp; Conditions</a>
+        <a href="/pages/contact">Contact</a>
+      </nav>
+    </div>
 
     <div class="bfc-footer__bottom">
       <span>&copy; {{ 'now' | date: '%Y' }} {{ section.settings.legal_name | escape }}</span>
@@ -82,10 +82,41 @@
   .bfc-footer__policies a:hover { color: var(--mango-yellow, #f9bf29); opacity: 1; }
   .bfc-footer__bottom { border-top: 1px solid rgb(251 243 204 / 0.3); padding-top: 1rem; display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; font-family: var(--font-display); font-size: 0.75rem; letter-spacing: var(--tracking-caps, 0.18em); text-transform: uppercase; opacity: 0.85; }
   @keyframes bfc-footer-spin { to { transform: rotate(360deg); } }
+  @media (min-width: 750px) {
+    .bfc-footer__policies { grid-column: 1 / -1; margin-top: 1.5rem; }
+  }
   @media (max-width: 749px) {
-    .bfc-footer__top { grid-template-columns: 1fr; justify-items: center; text-align: center; }
-    .bfc-footer__nav { justify-items: center; }
-    .bfc-footer__policies { justify-content: center; }
+    .bfc-footer__top {
+      grid-template-columns: 1fr 1fr;
+      justify-items: center;
+      text-align: center;
+      gap: 1.5rem 1rem;
+    }
+    .bfc-footer__stamp { grid-column: 1 / -1; }
+    .bfc-footer__cta   { grid-column: 1 / -1; }
+    .bfc-footer__nav {
+      grid-column: 1;
+      justify-items: start;
+      text-align: left;
+      align-self: start;
+    }
+    .bfc-footer__nav a { font-size: 0.8rem; }
+    .bfc-footer__policies {
+      grid-column: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      text-align: right;
+      gap: 0.55rem;
+      margin-top: 0;
+    }
+    /* De-emphasize boilerplate policy links: lighter + smaller. */
+    .bfc-footer__policies a {
+      font-weight: 400;
+      font-size: 0.62rem;
+      opacity: 0.7;
+      letter-spacing: 0.12em;
+    }
     .bfc-footer__socials { justify-content: center; }
     .bfc-footer__bottom { justify-content: center; text-align: center; letter-spacing: 0.08em; }
   }
