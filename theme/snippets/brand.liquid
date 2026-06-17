@@ -737,7 +737,61 @@
   }
   .bfc-card-weight { font-size: 0.8em; opacity: 0.75; white-space: nowrap; }
   .bfc-card-atc { display: block; }
-  .bfc-card-atc__button { width: 100%; }
+  /* Centre the retro-oval pill (it is an inline-block, content-width button). */
+  .bfc-card-atc,
+  .bfc-card-atc form { text-align: center; }
+
+  /* ── Retro-oval add-to-cart pill (mirrors the live PDP button: purple oval,
+     yellow caps, chunky shadow, two star sparkles). Classes are unique to our
+     card buttons, so these rules don't touch any other button. ── */
+  .retro-oval-wrapper {
+    position: relative;
+    display: inline-block;
+    width: auto;
+    max-width: 100%;
+    z-index: 1;
+    vertical-align: middle;
+  }
+  .button-retro-oval,
+  .button-retro-oval:disabled[disabled] {
+    --retro-purple: #6a69e2;
+    --retro-yellow: #fefeb0;
+    --retro-dark: #222222;
+    background-color: var(--retro-purple) !important;
+    color: var(--retro-yellow) !important;
+    border: 3px solid var(--retro-dark) !important;
+    border-radius: 400px !important;
+    box-shadow: 0 6px 0 var(--retro-dark) !important;
+    font-family: var(--font-heading--family) !important;
+    font-weight: 800 !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 14px 30px;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: 100%;
+    display: inline-block !important;
+    opacity: 1 !important;
+    position: relative;
+    transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+  }
+  .button-retro-oval:not(:disabled):hover {
+    transform: translateY(4px);
+    box-shadow: 0 2px 0 var(--retro-dark) !important;
+  }
+  .button-retro-oval:not(:disabled):active {
+    transform: translateY(6px);
+    box-shadow: none !important;
+  }
+  .retro-sparkle {
+    position: absolute;
+    z-index: 2;
+    pointer-events: none;
+    width: 42px;
+    height: auto;
+  }
+  .sparkle-top-left { top: -19px; left: -13px; }
+  .sparkle-bottom-right { bottom: -15px; right: -13px; }
 
   /* Card add-to-cart "added" state (mirrors the PDP button: cart icon → checkmark + "Added").
      Scoped to card buttons; PDP / quick-add keep their own snippet behaviour. */
@@ -752,15 +806,11 @@
   .bfc-card-atc__button .svg-wrapper svg { width: 1.05em; height: 1.05em; }
 
   /* Bottom-align the price + add-to-cart across a row of homepage product cards,
-     regardless of how many lines the title wraps to. Scoped via our commerce block. */
-  .product-grid__item:has(.bfc-card-commerce) { height: 100%; }
-  product-card:has(.bfc-card-commerce) {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-  }
+     regardless of how many lines the title wraps to. Horizon already gives
+     .product-card { display:grid; height:100% } so .product-card__content fills the
+     row; we just push our commerce block's (class-less) wrapper to the bottom. */
   .product-card__content:has(.bfc-card-commerce) { height: 100%; }
-  .product-card__content .bfc-card-commerce { margin-block-start: auto; }
+  .product-card__content > *:has(> .bfc-card-commerce) { margin-block-start: auto; }
 
   /* ── Batch 4: tighten homepage section headings to 1–2 lines, smaller. ──
      The Horizon core text-block headings ("Boring Foods, Your Way" and
