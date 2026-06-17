@@ -769,29 +769,10 @@
      judge.me headings have their own classes. CSS only for Horizon-core
      headings; markup accent-span added to bundles.liquid (our section). */
 
-  /* "Boring Foods, Your Way" — Horizon product-list text block.
-     Desktop: was 48px (1 line). Target: ~32px max, 1-2 lines.
-     Mobile 390px: was 36px → 4 lines. Target: ~22px → 2 lines max.
-     text-wrap:balance distributes words evenly across 2 lines. */
-  [id*="__product_list_wE8meU"] h2 {
-    font-size: clamp(1.4rem, 1rem + 2vw, 2rem) !important;
-    line-height: 1.15 !important;
-    text-wrap: balance !important;
-    overflow-wrap: break-word !important;
-    max-width: 14ch !important;
-  }
-
-  /* "How We Are Different" — Horizon section text block.
-     Desktop: was 48px (1 line). Target: ~28px, 1 line.
-     Mobile 390px: was 36px → 3 lines. Target: ~20px → 1-2 lines.
-     "How We Are Different" = 4 words, should fit 1 line at ~20px on 390px. */
-  [id*="__section_PWFkyK"] h2 {
-    font-size: clamp(1.2rem, 0.9rem + 1.8vw, 1.75rem) !important;
-    line-height: 1.12 !important;
-    text-wrap: balance !important;
-    overflow-wrap: break-word !important;
-    white-space: normal !important;
-  }
+  /* "Boring Foods, Your Way" (product_list_wE8meU) and "How We Are Different"
+     (section_PWFkyK): NO size override — they inherit the Horizon default so
+     they match the "Socials" h2 (section_HmpREz: 48px, Copperplate, ripe-orange)
+     along with their shared stars icon. (User: match these to the Socials h2.) */
 
   /* "Blends With a Purpose" — our bundles section (.bfc-bundles__title).
      Desktop: was ~56px (1 line). Target: ~38px, 1 line.
