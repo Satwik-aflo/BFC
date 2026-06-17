@@ -810,7 +810,12 @@
      .product-card { display:grid; height:100% } so .product-card__content fills the
      row; we just push our commerce block's (class-less) wrapper to the bottom. */
   .product-card__content:has(.bfc-card-commerce) { height: 100%; }
-  .product-card__content > *:has(> .bfc-card-commerce) { margin-block-start: auto; }
+  /* margin-auto pins it to the bottom; padding-block-end keeps the bottom
+     sparkle + the pill's chunky 0 6px 0 shadow clear of the card's overflow:hidden. */
+  .product-card__content > *:has(> .bfc-card-commerce) {
+    margin-block-start: auto;
+    padding-block-end: 24px;
+  }
 
   /* ── Batch 4: tighten homepage section headings to 1–2 lines, smaller. ──
      The Horizon core text-block headings ("Boring Foods, Your Way" and
