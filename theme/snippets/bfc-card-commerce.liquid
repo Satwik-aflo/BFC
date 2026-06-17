@@ -10,6 +10,7 @@
 <div class="bfc-card-commerce">
   <p class="bfc-card-pricewt">{{ v.price | money }}{%- if show_weight != false -%}<span class="bfc-card-weight"> / {{ v.weight | round }} {{ v.weight_unit }}</span>{%- endif -%}</p>
   <product-form-component data-product-id="{{ product.id }}" on:submit="/handleSubmit" class="bfc-card-atc">
+    <div class="visually-hidden" aria-live="assertive" role="status" aria-atomic="true" ref="liveRegion"></div>
     {%- form 'product', product, id: form_id, novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
       <input type="hidden" name="id" ref="variantId" value="{{ v.id }}"{% if v.available == false %} disabled{% endif %}>
       <input type="hidden" name="quantity" value="1">
