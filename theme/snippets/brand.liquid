@@ -849,16 +849,19 @@
      they match the "Socials" h2 (section_HmpREz: 48px, Copperplate, ripe-orange)
      along with their shared stars icon. (User: match these to the Socials h2.) */
 
-  /* The stars image beside "Boring Foods, Your Way" (block image_RxaHRw) sits in a
-     full-width product-list header ROW, so its 6% width resolves against a wider
-     container than the identical stars beside "How We Are Different" / "Socials"
-     (which sit in narrower section columns) — on phones it balloons. Pin it to a
-     viewport-relative size so all three stars read the same on mobile. */
+  /* The three "stars" decorations (beside "Boring Foods, Your Way", "How We Are
+     Different", "Socials") all use the same 6% image width, but each sits in a
+     different-width container, so on mobile they render ~129 / 28 / 104px. Pin all
+     three to one explicit size on mobile so they match the "How We Are Different"
+     star (~28px = 1.75rem). The block wrapper class is image-block--<hash>__<blockid>,
+     so match by the stable blockid suffix. Desktop already matches (all 72px). */
   @media (max-width: 749px) {
-    .image-block--image_RxaHRw {
-      width: 6vw !important;
+    .image-block[class*="image_RxaHRw"],
+    .image-block[class*="image_7F7Ypt"],
+    .image-block[class*="image_EAEdkf"] {
+      width: 1.75rem !important;
       min-width: 0 !important;
-      max-width: 2.75rem !important;
+      max-width: 1.75rem !important;
       flex: 0 0 auto !important;
     }
   }
