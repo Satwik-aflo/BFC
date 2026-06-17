@@ -254,6 +254,19 @@
     text-shadow: 0 1px 2px rgb(0 0 0 / 0.6), 0 1px 4px rgb(0 0 0 / 0.35);
   }
 
+  /* Home: once the transparent header gains its solid (cream) background on
+     scroll, the [transparent] cream-nav rule above renders cream-on-cream —
+     invisible. Horizon never removes the [transparent] attribute; instead it
+     sets data-sticky-state="active" when the header sticks after scrolling.
+     Force dark nav + action icons in that scrolled/stuck state.
+     Selector confirmed live via DOM inspection (Step 1). */
+  header-component[data-sticky-state="active"] :is(.menu-list__link, .header-actions__action, .header__icon),
+  header-component[data-sticky-state="active"] :is(.menu-list__link, .header-actions__action, .header__icon) svg {
+    color: #000 !important;
+    text-shadow: none !important;
+    fill: currentColor !important;
+  }
+
   /* Submenu / overflow dropdown links: ensure they never inherit a dimmed
      or transparent colour. */
   .menu-list__submenu .menu-list__link,
