@@ -849,6 +849,20 @@
      they match the "Socials" h2 (section_HmpREz: 48px, Copperplate, ripe-orange)
      along with their shared stars icon. (User: match these to the Socials h2.) */
 
+  /* The stars image beside "Boring Foods, Your Way" (block image_RxaHRw) sits in a
+     full-width product-list header ROW, so its 6% width resolves against a wider
+     container than the identical stars beside "How We Are Different" / "Socials"
+     (which sit in narrower section columns) — on phones it balloons. Pin it to a
+     viewport-relative size so all three stars read the same on mobile. */
+  @media (max-width: 749px) {
+    .image-block--image_RxaHRw {
+      width: 6vw !important;
+      min-width: 0 !important;
+      max-width: 2.75rem !important;
+      flex: 0 0 auto !important;
+    }
+  }
+
   /* "Blends With a Purpose" — our bundles section (.bfc-bundles__title).
      Desktop: was ~56px (1 line). Target: ~38px, 1 line.
      Mobile: was ~33px → 2 lines. Target: ~26px → 1-2 lines.
