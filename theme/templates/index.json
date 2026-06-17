@@ -1217,10 +1217,6 @@
         "kicker": "Shop by Benefits",
         "heading": "Blends With a Purpose"
       }
-    },
-    "bfc_proudly_banner": {
-      "type": "bfc-proudly-banner",
-      "settings": {}
     }
   },
   "order": [
@@ -1237,7 +1233,6 @@
     "marquee_FnfwbK",
     "1763747545012c1950",
     "1767110500a5c27095",
-    "featured_blog_posts_EPpNQc",
-    "bfc_proudly_banner"
+    "featured_blog_posts_EPpNQc"
   ]
 }

@@ -11,6 +11,11 @@
   "type": "footer",
   "name": "Footer",
   "sections": {
+    "bfc_proudly_banner": {
+      "type": "bfc-proudly-banner",
+      "name": "BFC Proudly Banner",
+      "settings": {}
+    },
     "bfc_footer": {
       "type": "bfc-footer",
       "name": "BFC Footer",
@@ -18,6 +23,7 @@
     }
   },
   "order": [
+    "bfc_proudly_banner",
     "bfc_footer"
   ]
 }
