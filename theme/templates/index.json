@@ -1178,15 +1178,6 @@
         "heading": "Blends With a Purpose"
       }
     },
-    "manifesto_brand": {
-      "type": "manifesto",
-      "settings": {
-        "color_scheme": "scheme-1",
-        "heading": "The Future of Health is Ancient",
-        "body": "<p>Our mission is to reconnect people with the power of traditional foods — transforming everyday meals into intentional acts of self-care and nourishment. Pure, transparently sourced products that go beyond flavor: they actively support wellness and preventive health.</p>",
-        "signoff": "#proudlyboring"
-      }
-    },
     "bfc_proudly_banner": {
       "type": "bfc-proudly-banner",
       "settings": {}
@@ -1197,7 +1188,6 @@
     "product_list_wE8meU",
     "marquee_images_zXx6fE",
     "bundles_brand",
-    "manifesto_brand",
     "product_list_fa6P9H",
     "section_4D73dE",
     "section_PWFkyK",
