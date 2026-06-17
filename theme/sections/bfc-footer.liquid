@@ -42,6 +42,15 @@
         <a href="/pages/recipes">Recipes</a>
         <a href="/pages/faqs">FAQ</a>
       </nav>
+    </div>
+
+    <div class="bfc-footer__legalrow">
+      <div class="bfc-footer__legal">
+        {%- if section.settings.company_name != blank -%}<p class="bfc-footer__legal-name">{{ section.settings.company_name | escape }}</p>{%- endif -%}
+        {%- if section.settings.company_address != blank -%}<p>{{ section.settings.company_address | escape }}</p>{%- endif -%}
+        {%- if section.settings.email != blank -%}<p>Email: <a href="mailto:{{ section.settings.email }}">{{ section.settings.email }}</a></p>{%- endif -%}
+        {%- if section.settings.fssai != blank -%}<p>{{ section.settings.fssai | escape }}</p>{%- endif -%}
+      </div>
 
       <nav class="bfc-footer__policies" aria-label="Policies">
         <a href="/policies/privacy-policy">Privacy Policy</a>
@@ -50,13 +59,6 @@
         <a href="/policies/terms-of-service">Terms &amp; Conditions</a>
         <a href="/pages/contact">Contact</a>
       </nav>
-    </div>
-
-    <div class="bfc-footer__legal">
-      {%- if section.settings.company_name != blank -%}<p class="bfc-footer__legal-name">{{ section.settings.company_name | escape }}</p>{%- endif -%}
-      {%- if section.settings.company_address != blank -%}<p>{{ section.settings.company_address | escape }}</p>{%- endif -%}
-      {%- if section.settings.email != blank -%}<p>Email: <a href="mailto:{{ section.settings.email }}">{{ section.settings.email }}</a></p>{%- endif -%}
-      {%- if section.settings.fssai != blank -%}<p>{{ section.settings.fssai | escape }}</p>{%- endif -%}
     </div>
 
     <div class="bfc-footer__bottom">
@@ -83,51 +85,32 @@
   .bfc-footer__nav { display: grid; gap: 0.8rem; justify-items: start; }
   .bfc-footer__nav a { font-family: var(--font-display); font-size: 0.75rem; font-weight: 700; letter-spacing: var(--tracking-caps, 0.18em); text-transform: uppercase; text-decoration: none; color: var(--kulfi-malai, #fbf3cc); }
   .bfc-footer__nav a:hover { color: var(--mango-yellow, #f9bf29); }
-  .bfc-footer__policies { display: flex; flex-wrap: wrap; gap: 0.5rem 1.4rem; padding-bottom: 1rem; }
-  .bfc-footer__policies a { font-family: var(--font-display); font-size: 0.75rem; letter-spacing: var(--tracking-caps, 0.18em); text-transform: uppercase; text-decoration: none; color: var(--kulfi-malai, #fbf3cc); opacity: 0.85; }
+  .bfc-footer__legalrow { border-top: 1px solid rgb(251 243 204 / 0.3); padding-top: 1.5rem; padding-bottom: 0.5rem; display: flex; justify-content: space-between; align-items: flex-start; gap: 2rem; flex-wrap: wrap; }
+  .bfc-footer__policies { display: flex; flex-direction: column; align-items: flex-end; text-align: right; gap: 0.5rem; flex: 0 0 auto; }
+  .bfc-footer__policies a { font-family: var(--font-display); font-size: 0.7rem; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; color: var(--kulfi-malai, #fbf3cc); opacity: 0.7; white-space: nowrap; }
   .bfc-footer__policies a:hover { color: var(--mango-yellow, #f9bf29); opacity: 1; }
-  .bfc-footer__legal { border-top: 1px solid rgb(251 243 204 / 0.3); padding-top: 1rem; padding-bottom: 0.5rem; font-size: 0.8rem; line-height: 1.65; opacity: 0.8; }
+  .bfc-footer__legal { font-size: 0.8rem; line-height: 1.65; opacity: 0.8; }
   .bfc-footer__legal p { margin: 0; }
   .bfc-footer__legal-name { font-weight: 700; letter-spacing: 0.04em; }
   .bfc-footer__legal a { color: var(--kulfi-malai, #fbf3cc); text-underline-offset: 3px; }
   .bfc-footer__legal a:hover { color: var(--mango-yellow, #f9bf29); }
   .bfc-footer__bottom { border-top: 1px solid rgb(251 243 204 / 0.3); padding-top: 1rem; display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; font-family: var(--font-display); font-size: 0.75rem; letter-spacing: var(--tracking-caps, 0.18em); text-transform: uppercase; opacity: 0.85; }
   @keyframes bfc-footer-spin { to { transform: rotate(360deg); } }
-  @media (min-width: 750px) {
-    .bfc-footer__policies { grid-column: 1 / -1; margin-top: 1.5rem; }
-  }
   @media (max-width: 749px) {
     .bfc-footer__top {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr;
       justify-items: center;
       text-align: center;
-      gap: 1.5rem 1rem;
+      gap: 1.5rem;
     }
-    .bfc-footer__stamp { grid-column: 1 / -1; }
-    .bfc-footer__cta   { grid-column: 1 / -1; }
-    .bfc-footer__nav {
-      grid-column: 1;
-      justify-items: start;
-      text-align: left;
-      align-self: start;
-    }
+    .bfc-footer__nav { justify-items: center; text-align: center; }
     .bfc-footer__nav a { font-size: 0.8rem; }
-    .bfc-footer__policies {
-      grid-column: 2;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      text-align: right;
-      gap: 0.55rem;
-      margin-top: 0;
-    }
-    /* De-emphasize boilerplate policy links: lighter + smaller. */
-    .bfc-footer__policies a {
-      font-weight: 400;
-      font-size: 0.62rem;
-      opacity: 0.7;
-      letter-spacing: 0.12em;
-    }
+    /* Stacks at this width — center legal + policies to match the rest of the
+       centered mobile footer. */
+    .bfc-footer__legalrow { gap: 1.25rem; justify-content: center; text-align: center; }
+    .bfc-footer__legal { flex: 1 1 100%; text-align: center; }
+    .bfc-footer__policies { flex: 1 1 100%; align-items: center; text-align: center; }
+    .bfc-footer__policies a { font-size: 0.65rem; }
     .bfc-footer__socials { justify-content: center; }
     .bfc-footer__bottom { justify-content: center; text-align: center; letter-spacing: 0.08em; }
   }
