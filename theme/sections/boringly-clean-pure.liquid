@@ -25,11 +25,7 @@
 
         {% if section.settings.main_image != blank %}
           <div class="bc-section__image">
-            <img
-              src="{{ section.settings.main_image | image_url: width: 800 }}"
-              alt="{{ section.settings.main_image.alt | escape }}"
-              loading="lazy"
-            >
+            {{ section.settings.main_image | image_url: width: 800 | image_tag: alt: section.settings.main_image.alt, loading: 'lazy' }}
           </div>
         {% endif %}
       </div>
@@ -40,11 +36,7 @@
           
           {%- comment -%} BACKGROUND SHAPE (Uploaded Image) {%- endcomment -%}
           {% if section.settings.blob_image != blank %}
-            <img 
-              src="{{ section.settings.blob_image | image_url: width: 1000 }}" 
-              class="bc-section__blob-bg" 
-              alt="" 
-              loading="lazy">
+            {{ section.settings.blob_image | image_url: width: 1000 | image_tag: class: 'bc-section__blob-bg', alt: '', loading: 'lazy' }}
           {% endif %}
           
           {%- comment -%} Badge (Ribbon + Heading) {%- endcomment -%}

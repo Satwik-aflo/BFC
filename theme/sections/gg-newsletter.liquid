@@ -16,6 +16,7 @@
         <input
           type="email"
           name="contact[email]"
+          aria-label="{{ section.settings.placeholder | default: 'Email' | escape }}"
           placeholder="{{ section.settings.placeholder }}"
           required
         >
