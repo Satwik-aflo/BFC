@@ -754,11 +754,12 @@
   }
   .button-retro-oval,
   .button-retro-oval:disabled[disabled] {
-    --retro-purple: #6a69e2;
-    --retro-yellow: #fefeb0;
-    --retro-dark: #222222;
-    background-color: var(--retro-purple) !important;
-    color: var(--retro-yellow) !important;
+    /* Yellow fill + black text/border, matching the SINGLE ORIGIN badge. */
+    --retro-fill: #f9bf29;
+    --retro-text: #000000;
+    --retro-dark: #000000;
+    background-color: var(--retro-fill) !important;
+    color: var(--retro-text) !important;
     border: 3px solid var(--retro-dark) !important;
     border-radius: 400px !important;
     box-shadow: 0 6px 0 var(--retro-dark) !important;
