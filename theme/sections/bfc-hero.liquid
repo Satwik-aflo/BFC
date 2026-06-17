@@ -12,11 +12,12 @@
 <section class="bfc-hero" id="top">
   <div class="bfc-hero__media" aria-hidden="true">
     {%- if section.settings.image -%}
-      <img class="bfc-hero__photo" src="{{ section.settings.image | image_url: width: 2400 }}"
-           alt="" loading="eager" width="2400" height="1350">
+      {{ section.settings.image | image_url: width: 3000 | image_tag:
+         class: 'bfc-hero__photo', alt: '', loading: 'eager', preload: true,
+         widths: '600, 900, 1200, 1600, 2000, 2400, 3000', sizes: '100vw' }}
     {%- else -%}
       <img class="bfc-hero__photo" src="{{ 'hero-powder.jpg' | asset_url }}"
-           alt="" loading="eager" width="2400" height="1350">
+           alt="" loading="eager" fetchpriority="high" width="2400" height="1350">
     {%- endif -%}
     <div class="bfc-hero__scrim"></div>
   </div>
