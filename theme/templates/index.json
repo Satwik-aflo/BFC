@@ -1215,7 +1215,8 @@
       "settings": {
         "color_scheme": "scheme-neem",
         "kicker": "Shop by Benefits",
-        "heading": "Blends With a Purpose"
+        "heading": "Blends With",
+        "heading_accent": "a Purpose"
       }
     }
   },
