@@ -117,15 +117,18 @@
     color: inherit;
   }
 
+  .marquee-item {
+    justify-content: center;
+    gap: 10px;
+  }
   .marquee-item__image {
-    max-height: 90px;
+    max-height: 64px;
     width: auto;
     display: block;
   }
-
   .marquee-item__text {
     margin: 0;
-    padding-top:25px;
+    padding-top: 0;
     font-size: 0.85rem;
     white-space: nowrap;
   }
@@ -162,7 +165,7 @@
 
     /* Reduce text spacing & size */
     .marquee-item__text {
-      padding-top: 6px !important;
+      padding-top: 4px !important;
       font-size: 0.7rem !important;
       line-height: 1.2;
     }
