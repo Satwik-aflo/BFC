@@ -725,6 +725,19 @@
     .cart-items__quantity-controls button { min-width: 44px; min-height: 44px; }
     .cart-items__remove { min-height: 44px; }
   }
+
+  /* Batch 3: product-card price + net weight inline (₹289 / 150 g) + add-to-cart-only (no buy-now).
+     Rendered via snippets/bfc-card-commerce.liquid as a custom-liquid block in the product-card. */
+  .bfc-card-commerce { margin-block-start: 0.4rem; }
+  .bfc-card-pricewt {
+    margin: 0 0 0.5rem;
+    font-family: var(--font-heading--family);
+    font-weight: 700;
+    color: var(--kulfi-malai);
+  }
+  .bfc-card-weight { font-size: 0.8em; opacity: 0.75; white-space: nowrap; }
+  .bfc-card-atc { display: block; }
+  .bfc-card-atc__button { width: 100%; }
 {% endstyle %}
 
 {%- comment -%}
