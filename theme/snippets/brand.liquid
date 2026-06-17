@@ -280,6 +280,19 @@
   .announcement-bar__text {
     letter-spacing: 0.14em;
     text-transform: uppercase;
+    /* Single-line from first paint — the long promo would otherwise wrap to
+       ~3 lines, then collapse the instant the marquee script runs (a visible
+       height jump on load). Locking the bar to one line up front keeps the
+       header offset stable and degrades to a readable truncated line if JS
+       never runs. width:100% caps the <p> to its container so overflow:hidden
+       clips (instead of the nowrap line ballooning past the viewport).
+       !important: Horizon's compiled .text-block paragraph rule (0,1,1) loads
+       after this snippet and outranks a plain .announcement-bar__text (0,1,0),
+       so the single-line lock needs to win the cascade explicitly. */
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    width: 100%;
+    text-align: center;
   }
   /* BORING10 chip — scope to .announcement-bar (not __text) so it still styles
      the <em> after the marquee script nests the copy inside a track. */
@@ -309,8 +322,6 @@
   .announcement-bar.bfc-marquee-on .announcement-bar__slide { width: 100%; }
   .announcement-bar.bfc-marquee-on .announcement-bar__text {
     width: 100%;
-    overflow: hidden;
-    white-space: nowrap;
   }
   .bfc-marquee__track {
     display: inline-flex;
