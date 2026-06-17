@@ -52,9 +52,15 @@
       </nav>
     </div>
 
+    <div class="bfc-footer__legal">
+      {%- if section.settings.company_name != blank -%}<p class="bfc-footer__legal-name">{{ section.settings.company_name | escape }}</p>{%- endif -%}
+      {%- if section.settings.company_address != blank -%}<p>{{ section.settings.company_address | escape }}</p>{%- endif -%}
+      {%- if section.settings.email != blank -%}<p>Email: <a href="mailto:{{ section.settings.email }}">{{ section.settings.email }}</a></p>{%- endif -%}
+      {%- if section.settings.fssai != blank -%}<p>{{ section.settings.fssai | escape }}</p>{%- endif -%}
+    </div>
+
     <div class="bfc-footer__bottom">
       <span>&copy; {{ 'now' | date: '%Y' }} {{ section.settings.legal_name | escape }}</span>
-      <span>{{ section.settings.legal_address | escape }}</span>
       <span>{{ section.settings.legal_tagline | escape }}</span>
     </div>
   </div>
@@ -80,6 +86,11 @@
   .bfc-footer__policies { display: flex; flex-wrap: wrap; gap: 0.5rem 1.4rem; padding-bottom: 1rem; }
   .bfc-footer__policies a { font-family: var(--font-display); font-size: 0.75rem; letter-spacing: var(--tracking-caps, 0.18em); text-transform: uppercase; text-decoration: none; color: var(--kulfi-malai, #fbf3cc); opacity: 0.85; }
   .bfc-footer__policies a:hover { color: var(--mango-yellow, #f9bf29); opacity: 1; }
+  .bfc-footer__legal { border-top: 1px solid rgb(251 243 204 / 0.3); padding-top: 1rem; padding-bottom: 0.5rem; font-size: 0.8rem; line-height: 1.65; opacity: 0.8; }
+  .bfc-footer__legal p { margin: 0; }
+  .bfc-footer__legal-name { font-weight: 700; letter-spacing: 0.04em; }
+  .bfc-footer__legal a { color: var(--kulfi-malai, #fbf3cc); text-underline-offset: 3px; }
+  .bfc-footer__legal a:hover { color: var(--mango-yellow, #f9bf29); }
   .bfc-footer__bottom { border-top: 1px solid rgb(251 243 204 / 0.3); padding-top: 1rem; display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; font-family: var(--font-display); font-size: 0.75rem; letter-spacing: var(--tracking-caps, 0.18em); text-transform: uppercase; opacity: 0.85; }
   @keyframes bfc-footer-spin { to { transform: rotate(360deg); } }
   @media (min-width: 750px) {
@@ -137,7 +148,11 @@
     { "type": "header", "content": "Bottom meta line" },
     { "type": "text", "id": "legal_name", "label": "Company name", "default": "The Boring Foods Company" },
     { "type": "text", "id": "legal_address", "label": "Address", "default": "Agsto Foods Pvt Ltd, Gurugram, Haryana" },
-    { "type": "text", "id": "legal_tagline", "label": "Tagline", "default": "The Future of Health is Ancient" }
+    { "type": "text", "id": "legal_tagline", "label": "Tagline", "default": "The Future of Health is Ancient" },
+    { "type": "header", "content": "Legal / company details" },
+    { "type": "text", "id": "company_name", "label": "Registered company name", "default": "Agsto Foods Private Limited" },
+    { "type": "text", "id": "company_address", "label": "Registered address", "default": "Plot 93, Sector 44, Gurgaon, 122003, Haryana, India" },
+    { "type": "text", "id": "fssai", "label": "FSSAI license", "default": "FSSAI Lic. No: 10825999000929" }
   ],
   "presets": [{ "name": "BFC Footer" }]
 }
