@@ -222,6 +222,19 @@
   }
   .header__column--center .menu-list { gap: clamp(1.8rem, 2.6vw, 2.4rem); }
 
+  /* Issue 2: the compact header packs the logo flush against the promo bar.
+     Give the header's top row a little vertical breathing room so the logo
+     (and nav) sit a few px below the announcement bar, on every page. */
+  .header__row--top { padding-block-start: 6px; }
+
+  /* Issue 4: the navigation-bar second row (.header__navigation-bar-row →
+     .menu-list--mobile) renders the menu inline on mobile and lands on top of
+     the hero. Hide it on mobile so the menu lives only in the hamburger drawer;
+     the top row keeps the hamburger, search, account and cart. */
+  @media (max-width: 749px) {
+    .header__navigation-bar-row { display: none !important; }
+  }
+
   /* Solid headers (sub-pages): always render nav in Kohl Black on the
      cream/scheme background, regardless of Horizon's hover colour swap. */
   header-component:not([transparent]) .menu-list__link,
@@ -251,18 +264,39 @@
 
   /* ── Announcement bar (promo / discount-code attention bar) ─────────
      Keep the Indian-Blue scheme-4 bar but tune it to the brand: tighter
-     Copperplate caps, and a one-time slide-down on load so the discount
-     code grabs the eye the moment the page paints. The BORING10 code is
-     marked with <em> (see header-group.json — inline_richtext strips spans,
-     but allows <em>) to read as a Mango-Yellow chip. */
+     Copperplate caps, and a gentle opacity fade-in on load. NOTE: this used
+     to be a translateY slide-down, but a transform on the topmost element
+     skews its getBoundingClientRect while Horizon / the transparent hero
+     header measure their offsets on load — which cramped the header, logo
+     and hero centering until the first scroll forced a recalculation (and
+     the late-loading brand CSS made the bar paint once, then slide, looking
+     doubled). A pure opacity fade keeps layout geometry stable and reads
+     cleaner. The BORING10 code is marked with <em> (see header-group.json —
+     inline_richtext strips spans, but allows <em>) to read as a Mango-Yellow
+     chip. */
   .announcement-bar {
-    animation: bfc-promo-in 0.7s var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)) both;
+    animation: bfc-promo-fade 0.8s var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)) both;
   }
   .announcement-bar__text {
     letter-spacing: 0.14em;
     text-transform: uppercase;
+    /* Single-line from first paint — the long promo would otherwise wrap to
+       ~3 lines, then collapse the instant the marquee script runs (a visible
+       height jump on load). Locking the bar to one line up front keeps the
+       header offset stable and degrades to a readable truncated line if JS
+       never runs. width:100% caps the <p> to its container so overflow:hidden
+       clips (instead of the nowrap line ballooning past the viewport).
+       !important: Horizon's compiled .text-block paragraph rule (0,1,1) loads
+       after this snippet and outranks a plain .announcement-bar__text (0,1,0),
+       so the single-line lock needs to win the cascade explicitly. */
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    width: 100%;
+    text-align: center;
   }
-  .announcement-bar__text em {
+  /* BORING10 chip — scope to .announcement-bar (not __text) so it still styles
+     the <em> after the marquee script nests the copy inside a track. */
+  .announcement-bar em {
     display: inline-block;
     font-style: normal;
     background: var(--mango-yellow);
@@ -274,12 +308,57 @@
     margin: 0 0.15em;
     box-shadow: 1px 1px 0 rgb(0 0 0 / 0.45);
   }
-  @keyframes bfc-promo-in {
-    from { transform: translateY(-100%); }
-    to   { transform: translateY(0); }
+
+  /* Marquee ticker (chosen via the /prototype pass). The promo copy scrolls
+     horizontally instead of wrapping to 4 lines (~145px) on mobile — keeps the
+     full message, stays ~40px, and a single-line bar holds a stable height from
+     first paint (no wrap-reflow that destabilised the header offset on load).
+     The script at the end of this file nests the announcement copy into a
+     two-copy track; translateX(-50%) loops it seamlessly. */
+  .announcement-bar.bfc-marquee-on .announcement-bar__slides {
+    max-width: none;
+    width: 100%;
+  }
+  .announcement-bar.bfc-marquee-on .announcement-bar__slide { width: 100%; }
+  .announcement-bar.bfc-marquee-on .announcement-bar__text {
+    width: 100%;
+  }
+  .bfc-marquee__track {
+    display: inline-flex;
+    will-change: transform;
+    animation: bfc-marquee 22s linear infinite;
+  }
+  .announcement-bar.bfc-marquee-on:hover .bfc-marquee__track,
+  .announcement-bar.bfc-marquee-on:focus-within .bfc-marquee__track {
+    animation-play-state: paused;
+  }
+  .bfc-marquee__item { padding-inline-end: 3rem; white-space: nowrap; }
+  @keyframes bfc-marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  @keyframes bfc-promo-fade {
+    from { opacity: 0; }
+    to   { opacity: 1; }
   }
   @media (prefers-reduced-motion: reduce) {
     .announcement-bar { animation: none; }
+    .bfc-marquee__track { animation: none; }
+  }
+
+  /* Issue 9: the judge.me featured carousel forces each slide to a fixed
+     height (~200px) and stretches the review body to the tallest review, so the
+     reviewer name is stranded far below short reviews and each slide carries
+     dead space (long mobile scroll). On mobile, collapse the slide + review to
+     natural content height so reviews are compact and the name sits directly
+     under the text. Desktop keeps equal heights for its side-by-side reviews.
+     `!important` beats judge.me's non-important inline heights. */
+  @media (max-width: 749px) {
+    .jdgm-carousel-item,
+    .jdgm-carousel-item__review {
+      height: auto !important;
+      min-height: 0 !important;
+    }
   }
 
   /* ── Global accessibility (audit items #8, #10) ─────────────────────
@@ -619,3 +698,31 @@
     .cart-items__remove { min-height: 44px; }
   }
 {% endstyle %}
+
+{%- comment -%}
+  Announcement-bar marquee: nest the promo copy into a two-copy track so the CSS
+  ticker (.bfc-marquee__track in the brand styles above) loops seamlessly. Keeps
+  Horizon's announcement section/block pristine — this only reshapes the rendered
+  text node. No-op if the bar is missing or already initialised.
+{%- endcomment -%}
+<script>
+  (function () {
+    function initMarquee(root) {
+      var bar = (root || document).querySelector('.announcement-bar');
+      if (!bar || bar.classList.contains('bfc-marquee-on')) return;
+      var textEl = bar.querySelector('.announcement-bar__text');
+      if (!textEl) return;
+      var html = textEl.innerHTML.trim();
+      if (!html) return;
+      textEl.innerHTML =
+        '<span class="bfc-marquee__track">' +
+          '<span class="bfc-marquee__item">' + html + '</span>' +
+          '<span class="bfc-marquee__item" aria-hidden="true">' + html + '</span>' +
+        '</span>';
+      bar.classList.add('bfc-marquee-on');
+    }
+    if (document.readyState !== 'loading') initMarquee();
+    else document.addEventListener('DOMContentLoaded', function () { initMarquee(); });
+    document.addEventListener('shopify:section:load', function (e) { initMarquee(e.target); });
+  })();
+</script>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<!--
+  ╔══════════════════════════════════════════════════════════════════════╗
+  ║  PROTOTYPE — THROWAWAY. Not production. Delete after a design is chosen. ║
+  ║  Question: what should the announcement bar look like? (It currently     ║
+  ║  eats too much real estate — 4 lines on mobile.)                         ║
+  ║  Run:  cd site && python3 -m http.server 8000                            ║
+  ║  Open: http://localhost:8000/_prototype-announcement-bar.html           ║
+  ║  Switch variants + desktop/mobile width from the floating bottom bar.    ║
+  ╚══════════════════════════════════════════════════════════════════════╝
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PROTOTYPE — Announcement bar designs</title>
+<link rel="stylesheet" href="css/tokens.css" />
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    font-family: var(--font-body, Georgia, serif);
+    background: #2b2b2b;
+    color: var(--kohl-black);
+    padding-bottom: 96px; /* room for dock */
+  }
+
+  /* ---- stage (constrains to mobile width when toggled) ---- */
+  .stage { margin: 0 auto; background: #000; overflow: hidden; transition: max-width .25s ease; }
+  body[data-width="mobile"] .stage { max-width: 390px; box-shadow: 0 0 0 6px #1b1b1b; }
+  body[data-width="desktop"] .stage { max-width: 100%; }
+
+  /* ---- shared announcement-bar shell ---- */
+  .promo {
+    background: var(--indian-blue);
+    color: #fff;
+    font-family: var(--font-display, 'Copperplate BFC', serif);
+    text-transform: uppercase;
+    overflow: hidden;
+    position: relative;
+  }
+  .promo a { color: inherit; text-decoration: none; }
+  .chip {
+    display: inline-block;
+    background: var(--mango-yellow);
+    color: var(--kohl-black);
+    font-weight: 700;
+    letter-spacing: .1em;
+    padding: .04em .5em;
+    border-radius: 4px;
+    margin: 0 .12em;
+    box-shadow: 1px 1px 0 rgba(0,0,0,.45);
+  }
+
+  /* V0 — current (baseline): centered, wraps to multiple lines */
+  .promo--current { padding: 18px 16px; text-align: center; }
+  .promo--current .msg { font-size: 1rem; letter-spacing: .14em; font-weight: 700; line-height: 1.35; }
+
+  /* V1 — slim single line */
+  .promo--slim { padding: 11px 18px; text-align: center; }
+  .promo--slim .msg { font-size: .78rem; letter-spacing: .07em; font-weight: 700; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+  /* V2 — rotating messages (single slim line) */
+  .promo--rotate { padding: 11px 18px; text-align: center; height: 40px; }
+  .promo--rotate .rot { position: relative; height: 100%; }
+  .promo--rotate .msg {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    font-size: .8rem; letter-spacing: .1em; font-weight: 700; white-space: nowrap;
+    opacity: 0; transform: translateY(45%); transition: opacity .5s ease, transform .5s ease;
+  }
+  .promo--rotate .msg.is-on { opacity: 1; transform: none; }
+
+  /* V3 — marquee ticker */
+  .promo--marquee { padding: 10px 0; }
+  .promo--marquee .track { display: inline-flex; white-space: nowrap; will-change: transform; animation: ticker 18s linear infinite; }
+  .promo--marquee:hover .track { animation-play-state: paused; }
+  .promo--marquee .seg { font-size: .78rem; letter-spacing: .18em; font-weight: 700; padding-right: 2.5rem; }
+  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* V4 — compact, with dismiss */
+  .promo--dismiss { padding: 10px 40px; text-align: center; position: relative; }
+  .promo--dismiss .msg { font-size: .8rem; letter-spacing: .07em; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .promo--dismiss .x { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: 0; color: #fff; font-size: 1.1rem; line-height: 1; cursor: pointer; opacity: .8; }
+  .promo--dismiss .x:hover { opacity: 1; }
+  .promo.is-dismissed { height: 0 !important; padding: 0 !important; }
+
+  /* V5 — ultra micro */
+  .promo--micro { padding: 6px 14px; text-align: center; }
+  .promo--micro .msg { font-size: .7rem; letter-spacing: .06em; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+  /* ---- header + hero (context only) ---- */
+  .hdr { display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; position: relative; z-index: 2; }
+  .hdr .ico { color: #fff; font-size: 1.1rem; display: flex; gap: 16px; }
+  .hdr .nav { display: flex; gap: 20px; color: #fff; font-family: var(--font-display); font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; }
+  body[data-width="mobile"] .hdr .nav { display: none; }
+  .hero { position: relative; min-height: 420px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 28px 20px 56px; }
+  .hero::before { content: ""; position: absolute; inset: 0; background: url('assets/img/photos/hero-powder.jpg') center/cover; }
+  .hero::after { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,.5); }
+  .hero > * { position: relative; z-index: 1; }
+  .hero__logo { width: 168px; height: auto; margin-bottom: 18px; }
+  .hero__tag { color: var(--kulfi-malai); font-size: 1.5rem; line-height: 1.4; max-width: 30rem; text-shadow: 0 1px 3px rgba(0,0,0,.6); }
+  body[data-width="mobile"] .hero__tag { font-size: 1.2rem; }
+
+  /* ---- floating dock ---- */
+  .dock { position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%); display: flex; flex-wrap: wrap; align-items: center; gap: 6px; background: #111; color: #fff; padding: 10px 12px; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,.5); z-index: 50; font-family: var(--font-body); max-width: 94vw; }
+  .dock button { font: inherit; font-size: .8rem; padding: 7px 11px; border-radius: 8px; border: 1px solid #444; background: #1e1e1e; color: #ddd; cursor: pointer; }
+  .dock button.active { background: var(--mango-yellow); color: #000; border-color: var(--mango-yellow); font-weight: 700; }
+  .dock .sep { width: 1px; align-self: stretch; background: #444; margin: 0 4px; }
+  .dock .readout { font-size: .74rem; color: #aaa; max-width: 320px; line-height: 1.3; padding-left: 6px; }
+  .dock .readout b { color: #fff; }
+</style>
+</head>
+<body data-variant="1" data-width="mobile">
+
+  <div class="stage">
+    <div class="promo" id="promo"></div>
+    <header class="hdr">
+      <div class="ico">&#9776; &#128269;</div>
+      <nav class="nav"><span>Home</span><span>About&nbsp;Us</span><span>Shop</span><span>Reports</span><span>Recipes</span></nav>
+      <div class="ico">&#128100; &#128722;</div>
+    </header>
+    <section class="hero">
+      <img class="hero__logo" src="assets/img/logo-web4.png" alt="The Boring Foods Company" />
+      <p class="hero__tag">In a world of synthetic, flashy health fads, we bring you back to the basics &mdash; boring, powerful, time-tested foods.</p>
+    </section>
+  </div>
+
+  <div class="dock" id="dock">
+    <button data-v="0">0 · Current</button>
+    <button data-v="1">1 · Slim</button>
+    <button data-v="2">2 · Rotating</button>
+    <button data-v="3">3 · Marquee</button>
+    <button data-v="4">4 · Dismissible</button>
+    <button data-v="5">5 · Micro</button>
+    <span class="sep"></span>
+    <button data-w="desktop">Desktop</button>
+    <button data-w="mobile">Mobile</button>
+    <span class="readout" id="readout"></span>
+  </div>
+
+<script>
+  var CHIP = '<span class="chip">BORING10</span>';
+  var VARIANTS = {
+    0: { name: 'Current (baseline)', desc: 'Today’s bar. Full copy, centered — wraps to 4 lines on mobile (~140px). This is what we’re replacing.',
+         cls: 'promo--current',
+         html: '<div class="msg">Free shipping on orders with 2+ products · Use code '+CHIP+' for 10% off your first order</div>' },
+    1: { name: 'Slim single line', desc: 'One message on one line, smaller caps (~38px). Clean & simplest — but a static line on mobile fits only ONE offer; the code would need its own moment (see Rotating/Marquee).',
+         cls: 'promo--slim',
+         html: '<div class="msg">Free shipping on 2+ products</div>' },
+    2: { name: 'Rotating messages', desc: 'One short message at a time, auto-crossfading every 3.5s (~40px). Keeps BOTH offers (shipping + code) without truncating — slim and fits mobile.',
+         cls: 'promo--rotate',
+         html: '<div class="rot">'
+             + '<div class="msg">✦&nbsp; Free shipping on 2+ products</div>'
+             + '<div class="msg">10% off with '+CHIP+'</div>'
+             + '</div>' },
+    3: { name: 'Marquee ticker', desc: 'Continuous horizontal scroll (~38px). Editorial/retro feel, fits unlimited copy; pauses on hover.',
+         cls: 'promo--marquee',
+         html: '' /* built in setup */ },
+    4: { name: 'Compact + dismiss', desc: 'Single line with a chip and an × to close (~40px). Closing reclaims the space entirely (would persist per visitor).',
+         cls: 'promo--dismiss',
+         html: '<div class="msg">Free shipping on 2+ products</div><button class="x" title="Dismiss">×</button>' },
+    5: { name: 'Ultra micro', desc: 'Tiniest footprint (~28px), one terse line. Maximum real-estate savings, quietest presence.',
+         cls: 'promo--micro',
+         html: '<div class="msg">Save 10% with '+CHIP+'</div>' }
+  };
+
+  var promo = document.getElementById('promo');
+  var readout = document.getElementById('readout');
+  var rotTimer = null;
+
+  function render(v) {
+    if (rotTimer) { clearInterval(rotTimer); rotTimer = null; }
+    var def = VARIANTS[v];
+    promo.className = 'promo ' + def.cls;
+    promo.classList.remove('is-dismissed');
+
+    if (v === '3' || v === 3) {
+      var seg = 'Free shipping on 2+ products &nbsp;✦&nbsp; Code '+CHIP+' — 10% off your first order &nbsp;✦&nbsp;';
+      promo.innerHTML = '<div class="track"><span class="seg">'+seg+'</span><span class="seg">'+seg+'</span></div>';
+    } else {
+      promo.innerHTML = def.html;
+    }
+
+    if (v === '2' || v === 2) {
+      var msgs = promo.querySelectorAll('.msg');
+      var i = 0; msgs[0].classList.add('is-on');
+      rotTimer = setInterval(function () {
+        msgs[i].classList.remove('is-on');
+        i = (i + 1) % msgs.length;
+        msgs[i].classList.add('is-on');
+      }, 3500);
+    }
+    if (v === '4' || v === 4) {
+      promo.querySelector('.x').addEventListener('click', function () { promo.classList.add('is-dismissed'); updateReadout(v, true); });
+    }
+    updateReadout(v, false);
+  }
+
+  function updateReadout(v, dismissed) {
+    var def = VARIANTS[v];
+    var h = Math.round(promo.getBoundingClientRect().height);
+    readout.innerHTML = '<b>Variant ' + v + ' — ' + def.name + '</b> &nbsp; (height ' + (dismissed ? '0 (closed)' : '~' + h + 'px') + ')<br>' + def.desc;
+  }
+
+  function setVariant(v) {
+    document.body.dataset.variant = v;
+    document.querySelectorAll('#dock button[data-v]').forEach(function (b) { b.classList.toggle('active', b.dataset.v === String(v)); });
+    var u = new URL(location); u.searchParams.set('v', v); history.replaceState(null, '', u);
+    render(String(v));
+  }
+  function setWidth(w) {
+    document.body.dataset.width = w;
+    document.querySelectorAll('#dock button[data-w]').forEach(function (b) { b.classList.toggle('active', b.dataset.w === w); });
+    var u = new URL(location); u.searchParams.set('w', w); history.replaceState(null, '', u);
+    setTimeout(function () { updateReadout(document.body.dataset.variant, false); }, 300);
+  }
+
+  document.getElementById('dock').addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    if (b.dataset.v != null) setVariant(b.dataset.v);
+    if (b.dataset.w != null) setWidth(b.dataset.w);
+  });
+
+  var params = new URL(location).searchParams;
+  setWidth(params.get('w') || 'mobile');
+  setVariant(params.get('v') || '1');
+</script>
+</body>
+</html>

@@ -208,9 +208,14 @@
     top: -100px;
     text-align: center;
     font-family: var(--font-body--family, "Aesthet Nova", Georgia, serif);
-    font-size: 18px;
+    /* Scale with viewport so the copy never outgrows the shrinking burst
+       in the two-column tablet range (769px–1100px). */
+    font-size: clamp(13px, 1.55vw, 18px);
     line-height: 1.5;
     color: #5d57c5;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .about-vision__starburst-content p {
