@@ -281,7 +281,9 @@
     letter-spacing: 0.14em;
     text-transform: uppercase;
   }
-  .announcement-bar__text em {
+  /* BORING10 chip — scope to .announcement-bar (not __text) so it still styles
+     the <em> after the marquee script nests the copy inside a track. */
+  .announcement-bar em {
     display: inline-block;
     font-style: normal;
     background: var(--mango-yellow);
@@ -293,12 +295,44 @@
     margin: 0 0.15em;
     box-shadow: 1px 1px 0 rgb(0 0 0 / 0.45);
   }
+
+  /* Marquee ticker (chosen via the /prototype pass). The promo copy scrolls
+     horizontally instead of wrapping to 4 lines (~145px) on mobile — keeps the
+     full message, stays ~40px, and a single-line bar holds a stable height from
+     first paint (no wrap-reflow that destabilised the header offset on load).
+     The script at the end of this file nests the announcement copy into a
+     two-copy track; translateX(-50%) loops it seamlessly. */
+  .announcement-bar.bfc-marquee-on .announcement-bar__slides {
+    max-width: none;
+    width: 100%;
+  }
+  .announcement-bar.bfc-marquee-on .announcement-bar__slide { width: 100%; }
+  .announcement-bar.bfc-marquee-on .announcement-bar__text {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .bfc-marquee__track {
+    display: inline-flex;
+    will-change: transform;
+    animation: bfc-marquee 22s linear infinite;
+  }
+  .announcement-bar.bfc-marquee-on:hover .bfc-marquee__track,
+  .announcement-bar.bfc-marquee-on:focus-within .bfc-marquee__track {
+    animation-play-state: paused;
+  }
+  .bfc-marquee__item { padding-inline-end: 3rem; white-space: nowrap; }
+  @keyframes bfc-marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
   @keyframes bfc-promo-fade {
     from { opacity: 0; }
     to   { opacity: 1; }
   }
   @media (prefers-reduced-motion: reduce) {
     .announcement-bar { animation: none; }
+    .bfc-marquee__track { animation: none; }
   }
 
   /* Issue 9: the judge.me featured carousel forces each slide to a fixed
@@ -653,3 +687,31 @@
     .cart-items__remove { min-height: 44px; }
   }
 {% endstyle %}
+
+{%- comment -%}
+  Announcement-bar marquee: nest the promo copy into a two-copy track so the CSS
+  ticker (.bfc-marquee__track in the brand styles above) loops seamlessly. Keeps
+  Horizon's announcement section/block pristine — this only reshapes the rendered
+  text node. No-op if the bar is missing or already initialised.
+{%- endcomment -%}
+<script>
+  (function () {
+    function initMarquee(root) {
+      var bar = (root || document).querySelector('.announcement-bar');
+      if (!bar || bar.classList.contains('bfc-marquee-on')) return;
+      var textEl = bar.querySelector('.announcement-bar__text');
+      if (!textEl) return;
+      var html = textEl.innerHTML.trim();
+      if (!html) return;
+      textEl.innerHTML =
+        '<span class="bfc-marquee__track">' +
+          '<span class="bfc-marquee__item">' + html + '</span>' +
+          '<span class="bfc-marquee__item" aria-hidden="true">' + html + '</span>' +
+        '</span>';
+      bar.classList.add('bfc-marquee-on');
+    }
+    if (document.readyState !== 'loading') initMarquee();
+    else document.addEventListener('DOMContentLoaded', function () { initMarquee(); });
+    document.addEventListener('shopify:section:load', function (e) { initMarquee(e.target); });
+  })();
+</script>
