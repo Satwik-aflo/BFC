@@ -655,6 +655,15 @@
     color: var(--kohl-black);
   }
 
+  /* Mobile: the brand body font at clamp(~24px) clips the long placeholder
+     ("Search our boring little pantry"). Drop to 16px (iOS no-zoom floor) so the
+     full placeholder is visible. */
+  @media (max-width: 749px) {
+    .search-modal__content :is(.search-input, input[type="search"], .predictive-search-form__input) {
+      font-size: 1rem !important;
+    }
+  }
+
   /* Results + empty-state grid flow INSIDE the panel and scroll there
      (Horizon hangs them off the input as an absolute dropdown). */
   .search-modal__content .predictive-search-form__content-wrapper {
