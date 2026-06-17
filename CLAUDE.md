@@ -50,6 +50,19 @@ Color schemes (scheme-1..6) live in `settings_data.json`; global type sizes are 
 like `type_size_paragraph`. The header nav font is controlled by the `_header-menu` block
 (`type_font_primary_link` defaults to `heading` = Copperplate).
 
+**A color scheme controls component text colour, and a mismatched scheme makes text
+invisible — not just off-brand.** `snippets/color-schemes.liquid` emits, per scheme,
+`.color-{id} { color: var(--color-foreground); background-color: var(--color-background); }`,
+and components carry that class from a *setting*: the cart drawer is
+`color-{{ settings.drawer_color_scheme }}` (`snippets/header-actions.liquid`), search/popovers/
+filters use `settings.popover_color_scheme`, sections use their own `color_scheme`. So if a
+scheme pairs a cream background with a light foreground (e.g. the live store once had the cart
+drawer + popover pointed at a scheme with `background #fbf3cc` + `foreground #FFFFFFCF`), every
+inheriting label renders **white-on-cream**. When text is invisible, suspect the `*_color_scheme`
+**setting**, not the CSS — repoint it to a scheme whose fg/bg actually contrast (usually
+`scheme-1`), and **don't** edit a shared scheme's colours (the transparent-header scheme reuses a
+cream/white pairing on purpose, for white nav over the hero photo).
+
 New full-width brand sections follow a bespoke **`bfc-*.liquid`** pattern (e.g. `bfc-hero`,
 `bfc-manifesto`, `bfc-footer`): each ports one static section's markup + `{% stylesheet %}`
 (referencing brand tokens already defined in `brand.liquid` `:root`) + `{% schema %}`, is
@@ -69,6 +82,20 @@ core sections.
   `collections['handle'].url` (or `routes.*_url`) instead. Hardcoded `/pages/...` and
   `/policies/...` paths are accepted.
 
+### Performance (brand assets)
+- **Brand fonts are served as WOFF2.** `brand.liquid` `@font-face` lists `format("woff2")`
+  **first**, with the original `.otf`/`.ttf` kept as a fallback `src` (≈halves font bytes — the 9
+  files went ~722 KB → ~300 KB). Adding a weight? Convert it (`fonttools`+`brotli`,
+  `f.flavor="woff2"`) and put the `.woff2` `src` before `format("opentype"|"truetype")`. Keep
+  `font-display: swap`.
+- **Responsive images:** render hero/large images with `image_tag` + `widths:` + `sizes:` so
+  Shopify emits a `srcset`, plus `preload: true` on the LCP hero (Shopify's resource hint —
+  `image_tag` has **no** `fetchpriority` param). `image_tag` also auto-emits intrinsic
+  `width`/`height`, which fixes CLS *and* the `ImgWidthAndHeight` theme-check error — prefer it
+  over a hand-written `<img>`. Images referenced via `asset_url` (`{{ 'x.jpg' | asset_url }}`)
+  **cannot** be CDN-resized — compress those at the source (`sips`) and keep them
+  `loading="eager" fetchpriority="high"`.
+
 ### Shopify CLI workflow (hard-won rules)
 - Store permanent domain: **`d9v1pv-06.myshopify.com`** (vanity = boringfoodscompany.com).
   **Always use the permanent domain** with the CLI — passing the vanity domain makes the CLI
@@ -76,11 +103,15 @@ core sections.
 - Working/preview theme: **`#151032561833`** ("Boring Foods — New Design", a pristine admin
   duplicate of Horizon). Live theme must **NEVER** be pushed/published to without explicit
   user approval.
-- **Always pass `--path theme`.** The theme lives in `theme/`, not the repo root, and the
-  Bash tool resets cwd to the repo root before every call (so `cd theme && …` state doesn't
-  persist). A push/pull run from the repo root matches **zero** files with `--only` and moves
-  nothing — **yet still prints "pushed successfully."** This silent no-op has burned us
-  repeatedly.
+- **Always pass `--path theme`, run the CLI from the repo root, and remember `--only` pushes the
+  *entire* file (a full replace, not a patch).** The theme lives in `theme/`, not the repo root.
+  The Bash tool resets cwd to the repo root before every call (so `cd theme && …` doesn't
+  persist) — but if a command *does* run with cwd already inside `theme/`, `--path theme` resolves
+  to `theme/theme` and the command **errors**; prepend `cd /…/BFC &&` to be safe. Conversely, a
+  push/pull that matches **zero** files (wrong `--path`/`--only`) moves nothing — **yet still
+  prints "pushed successfully."** And since `--only` is a full-file replace, the working-tree file
+  must be the newest version: with all work on `main` (and the draft mirroring `main`) it always
+  is, but re-verify after any `git stash`/`checkout`/pull of an older copy.
 - **Never re-upload Horizon's core sections.** CLI 4.1.0's validation is stricter than
   Horizon 3.5.1's schema and rejects `product-list`/`product-recommendations` on a full
   push, breaking templates. Push **only our brand files** surgically:
@@ -109,6 +140,24 @@ core sections.
   cookie in *your* browser only — real customers are unaffected; use incognito to see live).
 - If auth returns 401 "Service is not valid for authentication": `shopify auth logout` then
   re-login as the store owner (interactive, in a real terminal).
+- **Read deployed theme files read-only with `shopify store execute`** (Admin GraphQL) — the
+  only way to see what's *actually live* (or to diff live vs preview, or confirm a value landed
+  server-side). Auth once (interactive): `shopify store auth --store d9v1pv-06.myshopify.com
+  --scopes read_themes`. Then:
+
+  ```bash
+  shopify store execute --store d9v1pv-06.myshopify.com -j --query \
+    'query { theme(id:"gid://shopify/OnlineStoreTheme/147961872553"){ files(first:1, filenames:["config/settings_data.json"]){ nodes{ body{ ... on OnlineStoreThemeFileBodyText { content } } } } } }'
+  ```
+
+  Live theme = **`#147961872553`** ("Horizon", role MAIN). Strip the leading `/* … */` comment
+  from theme JSON before parsing. `read_themes` covers theme files only (product/customer reads
+  need broader scopes — get purchasable variant ids from the public `/products.json` instead).
+- **Live and preview have diverged — the live theme is being hand-edited in admin** in parallel
+  with our preview reskin (different drawer/header schemes, transparent-header toggles, homepage
+  sections). Before publishing the preview theme, diff live vs preview (query above) so a publish
+  doesn't clobber live-only work, or vice-versa. Shopify exposes **no per-file version history via
+  API**; the exact who/when of a live edit is only in admin → Themes → ⋯ → Version history.
 
 ### Validate before pushing (Shopify Dev MCP)
 Validate Liquid/theme edits with the Shopify Dev MCP (`@shopify/dev-mcp`, docs & validation
@@ -116,6 +165,12 @@ only — no store access). Call `learn_shopify_api` (api: `liquid`) first to get
 `conversationId`, then `validate_theme` with the **absolute** theme path and the changed
 files. On a re-validation after a fix, reuse the returned `artifactId` and bump `revision`.
 Treat this (and `curl | grep`) as a syntax/schema gate only — not proof the page looks right.
+
+`shopify theme check --path theme` is a useful second gate, but its **5 `JSONMissingBlock`
+errors are false positives** — they're app blocks (Instafeed, Judge.me) that can't resolve
+locally yet are installed on the shop. The ~25 `ValidScopedCSSClass` warnings and the lone
+`HardcodedRoutes` warning are likewise known/expected — don't chase them. Real, fixable signal
+looks like `ImgWidthAndHeight` (→ switch the `<img>` to `image_tag`).
 
 ### Verifying theme work = visual, not validator
 **A passing validator + a successful push + a `curl | grep` for text markers does NOT mean a
@@ -134,6 +189,21 @@ template or a missing menu/page in admin — and hand the user an explicit admin
 (Storefront pages live store-wide at `/pages/<handle>`, independent of theme; a page set to
 **Hidden** returns 404 and is absent from `/sitemap.xml` — that's the usual "my new page
 404s" cause, not caching.)
+
+**Preview an unbound or alternate template without touching admin:** append `&view=<suffix>` to
+the URL — e.g. `…/pages/recipes?preview_theme_id=151032561833&view=recipes` renders that
+template for your request only, no page→template binding required. (Several pages — recipes,
+about-us — render the *default* template at their plain URL because the page isn't bound to its
+new template yet; that binding is an admin step that affects live, so flag it, don't flip it.)
+
+**Interactive components (cart drawer, search popover) need state to verify.** Drive them with
+Playwright: POST `/cart/add.js` `{items:[{id:<variantId>,quantity:1}]}` to populate (variant id
+from the public `/products.json`), then click the cart/search trigger and screenshot the open
+panel. To dry-run a scheme/CSS fix without writing to the theme, swap the element's class
+in-page (`el.className = el.className.replace(/color-scheme-\S+/,'color-scheme-1')`) and
+re-read `getComputedStyle(el).color`. `loading="lazy"` images below the fold stay unrendered
+until scrolled — scroll the full page before a full-page screenshot (cards looked "imageless"
+in screenshots purely from this).
 
 ## `site/` — static marketing site
 
@@ -192,7 +262,10 @@ axe-core). Mobile is the primary purchase device, so treat these as the QA check
 ### High / Medium (verify in theme)
 7. **[BRAND] Heading hierarchy** — `site/` index has no `<h1>` and skips H1→H3 on contact/
    reports. Horizon templates are structured, but check any custom brand sections we add use
-   one `<h1>` and sequential headings.
+   sequential headings. **Do NOT add an `<h1>` to a `bfc-*` homepage section — Horizon's
+   `header-component` already emits a visually-hidden `<h1>` (the shop name) on every page, so a
+   second one is a duplicate-h1 a11y bug. Verify `document.querySelectorAll('h1').length === 1`.**
+   (The "`site/` has no h1" finding does NOT apply to the Horizon theme.)
 8. **[BRAND] No visible `:focus-visible` indicator** — add a global high-contrast focus ring in
    `brand.liquid` (don't let brand styling suppress Horizon's focus outlines).
 9. **[BRAND] PDP: price/CTA pushed far below the fold; no sticky buy bar.** When styling the
@@ -220,3 +293,13 @@ pattern is the model responsive transform · index hero CTA prominent above the 
 ## Git
 
 Remote `origin` = `https://github.com/Satwik-aflo/BFC.git` (private). Default branch `main`.
+
+**HARD RULE: all work happens directly on `main` — do NOT create feature branches.** This is a
+single-developer, non-production workflow; pages/sections are worked on independently, so there
+is no overlap to isolate and the overhead of branches/PRs isn't warranted. Critically, the
+**draft theme tracks `main`**: keeping everything on one branch guarantees the working tree always
+matches what the draft should be, so a surgical `--only` push can never revert unmerged work. (On
+2026-06-17, splitting work across `main` + a feature branch while the draft tracked the *feature*
+branch caused a `main`-based push to silently wipe the marquee announcement bar off the draft —
+single-branch eliminates this entire class of bug.) Commit straight to `main`; push to
+`origin/main` when the user asks.
