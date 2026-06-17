@@ -738,6 +738,89 @@
   .bfc-card-weight { font-size: 0.8em; opacity: 0.75; white-space: nowrap; }
   .bfc-card-atc { display: block; }
   .bfc-card-atc__button { width: 100%; }
+
+  /* Card add-to-cart "added" state (mirrors the PDP button: cart icon → checkmark + "Added").
+     Scoped to card buttons; PDP / quick-add keep their own snippet behaviour. */
+  .bfc-card-atc__button .add-to-cart-text--added {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+  }
+  .bfc-card-atc__button[data-added='true'] .add-to-cart-text { display: none; }
+  .bfc-card-atc__button[data-added='true'] .add-to-cart-text--added { display: inline-flex; }
+  .bfc-card-atc__button .svg-wrapper svg { width: 1.05em; height: 1.05em; }
+
+  /* Bottom-align the price + add-to-cart across a row of homepage product cards,
+     regardless of how many lines the title wraps to. Scoped via our commerce block. */
+  .product-grid__item:has(.bfc-card-commerce) { height: 100%; }
+  product-card:has(.bfc-card-commerce) {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  .product-card__content:has(.bfc-card-commerce) { height: 100%; }
+  .product-card__content .bfc-card-commerce { margin-block-start: auto; }
+
+  /* ── Batch 4: tighten homepage section headings to 1–2 lines, smaller. ──
+     The Horizon core text-block headings ("Boring Foods, Your Way" and
+     "How We Are Different") are plain <h2> elements with no custom class —
+     we target them via their shopify-section ID attribute. The bundles and
+     judge.me headings have their own classes. CSS only for Horizon-core
+     headings; markup accent-span added to bundles.liquid (our section). */
+
+  /* "Boring Foods, Your Way" — Horizon product-list text block.
+     Desktop: was 48px (1 line). Target: ~32px max, 1-2 lines.
+     Mobile 390px: was 36px → 4 lines. Target: ~22px → 2 lines max.
+     text-wrap:balance distributes words evenly across 2 lines. */
+  [id*="__product_list_wE8meU"] h2 {
+    font-size: clamp(1.4rem, 1rem + 2vw, 2rem) !important;
+    line-height: 1.15 !important;
+    text-wrap: balance !important;
+    overflow-wrap: break-word !important;
+    max-width: 14ch !important;
+  }
+
+  /* "How We Are Different" — Horizon section text block.
+     Desktop: was 48px (1 line). Target: ~28px, 1 line.
+     Mobile 390px: was 36px → 3 lines. Target: ~20px → 1-2 lines.
+     "How We Are Different" = 4 words, should fit 1 line at ~20px on 390px. */
+  [id*="__section_PWFkyK"] h2 {
+    font-size: clamp(1.2rem, 0.9rem + 1.8vw, 1.75rem) !important;
+    line-height: 1.12 !important;
+    text-wrap: balance !important;
+    overflow-wrap: break-word !important;
+    white-space: normal !important;
+  }
+
+  /* "Blends With a Purpose" — our bundles section (.bfc-bundles__title).
+     Desktop: was ~56px (1 line). Target: ~38px, 1 line.
+     Mobile: was ~33px → 2 lines. Target: ~26px → 1-2 lines.
+     .bfc-accent span (added in bundles.liquid) takes Musloner script font. */
+  .bfc-bundles__title {
+    font-size: clamp(1.6rem, 1.2rem + 2.2vw, 2.4rem) !important;
+    line-height: 1.12 !important;
+    text-wrap: balance !important;
+    overflow-wrap: break-word !important;
+  }
+  /* Accent span: trailing phrase in Musloner script. */
+  .bfc-bundles__title .bfc-accent {
+    font-family: var(--font-script) !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+    font-size: 1.2em !important;
+    display: inline !important;
+  }
+
+  /* "Let customers speak for us" — judge.me carousel title (third-party).
+     Was 40px at both breakpoints → 1 line desktop, 2 lines mobile.
+     Target: ~22px at mobile so it stays 1 line; ~28px desktop. */
+  .jdgm-carousel-title {
+    font-size: clamp(1.2rem, 0.9rem + 1.8vw, 1.75rem) !important;
+    line-height: 1.2 !important;
+    text-wrap: balance !important;
+    overflow-wrap: break-word !important;
+  }
 {% endstyle %}
 
 {%- comment -%}
