@@ -34,14 +34,27 @@ Hollow** = single display words only, never body. The 9 font files live in both
 
 ### Architecture of the reskin
 The reskin is **purely additive** — Horizon's core files are left pristine. The brand layer
-is one snippet:
+is one orchestrator snippet plus topical partials:
 
 - `theme/layout/theme.liquid` renders `{%- render 'brand' -%}` **after** `color-schemes`
   (so it wins the cascade).
-- `theme/snippets/brand.liquid` is the entire brand override: `@font-face` for the 5 brand
-  fonts + overrides of Horizon's four base font-family CSS variables
-  (`--font-body--family`, `--font-subheading--family`, `--font-heading--family`,
-  `--font-accent--family`), plus targeted component fixes (e.g. nav legibility).
+- `theme/snippets/brand.liquid` is a thin **orchestrator**: a single inline `{% style %}`
+  block that `{%- render -%}`s nine `theme/snippets/brand-*.liquid` partials **in strict
+  source order** (the order is load-bearing — later rules override earlier ones), plus the
+  announcement-bar marquee `<script>`. Rendering the partials inside one `{% style %}` keeps
+  `asset_url` working for `@font-face` and emits CSS byte-identical to the former monolith.
+  **Do not reorder the renders**, and add new brand CSS as a partial render (or into the
+  matching partial), never as a separate `{% stylesheet %}` (that bundles to an external file
+  with different load timing and breaks the "wins the cascade" guarantee). The nine partials:
+  `brand-fonts-and-tokens` (`@font-face` incl. legacy Copperplate/Flagflies aliases + `:root`
+  tokens — overrides Horizon's four base font-family vars `--font-body--family`,
+  `--font-subheading--family`, `--font-heading--family`, `--font-accent--family`),
+  `brand-utilities` (`.bfc-*` helpers), `brand-header-nav`, `brand-announcement`,
+  `brand-a11y` (focus ring, heading wrap), `brand-product-cards`, `brand-cart-search`,
+  `brand-card-commerce` (retro-oval add-to-cart pill), `brand-page-headings` (homepage +
+  collection-page reskin). Each partial is raw CSS (no `{% style %}` wrapper) with a `{% doc %}`
+  header; avoid literal `<tag>` text in their comments (theme-check parses each partial
+  standalone and treats `<…>` as unclosed HTML).
 - Everything else (h1–h6, paragraphs, buttons, cart) inherits from those four variables,
   defined in `theme/snippets/theme-styles-variables.liquid`. Change type/color there or via
   `theme/config/settings_data.json`, not by editing core sections.
