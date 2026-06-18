@@ -1,42 +1,10 @@
-{% # theme-check-disable %}
-{%- unless settings.type_body_font.system? -%}
-  <link
-    rel="preload"
-    as="font"
-    href="{{ settings.type_body_font | font_url }}"
-    type="font/woff2"
-    crossorigin
-    fetchpriority="low"
-  >
-{%- endunless -%}
-{%- unless settings.type_subheading_font.system? -%}
-  <link
-    rel="preload"
-    as="font"
-    href="{{ settings.type_subheading_font | font_url }}"
-    type="font/woff2"
-    crossorigin
-    fetchpriority="low"
-  >
-{%- endunless -%}
-{%- unless settings.type_heading_font.system? -%}
-  <link
-    rel="preload"
-    as="font"
-    href="{{ settings.type_heading_font | font_url }}"
-    type="font/woff2"
-    crossorigin
-    fetchpriority="low"
-  >
-{%- endunless -%}
-{%- unless settings.type_accent_font.system? -%}
-  <link
-    rel="preload"
-    as="font"
-    href="{{ settings.type_accent_font | font_url }}"
-    type="font/woff2"
-    crossorigin
-    fetchpriority="low"
-  >
-{%- endunless -%}
-{% # theme-check-enable %}
+{% comment %}
+  Brand override (perf): Horizon's type_*_font settings still point at Inter, but
+  the brand layer (snippets/brand.liquid) hard-overrides all four --font-*--family
+  vars to the Boring Foods fonts, so Inter never renders. Preloading it here fetched
+  ~120 KB of unused woff2 on the critical path, competing with the LCP hero for early
+  bandwidth. We intentionally preload nothing: the brand fonts are declared in the
+  inline {% style %} block in <head> (discovered immediately, font-display: swap), so
+  they need no preload, and skipping these hints frees early bandwidth for the hero.
+  To restore Horizon's Inter preloads, repoint type_*_font to a custom font and revert.
+{% endcomment %}
