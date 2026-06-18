@@ -16,8 +16,8 @@
          class: 'bfc-hero__photo', alt: '', loading: 'eager', preload: true,
          widths: '600, 900, 1200, 1600, 2000, 2400, 3000', sizes: '100vw' }}
     {%- else -%}
-      <img class="bfc-hero__photo" src="{{ 'hero-powder.jpg' | asset_url }}"
-           alt="" loading="eager" fetchpriority="high" width="2400" height="1350">
+      <img class="bfc-hero__photo" src="{{ 'hero-powder.webp' | asset_url }}"
+           alt="" loading="eager" fetchpriority="high" width="1280" height="750">
     {%- endif -%}
     <div class="bfc-hero__scrim"></div>
   </div>
@@ -33,7 +33,7 @@
     <img class="bfc-hero__logo" src="{{ section.settings.logo | image_url: width: 680 }}"
          alt="{{ shop.name | escape }}" width="340" height="190">
   {%- else -%}
-    <img class="bfc-hero__logo" src="{{ 'logo-web4.png' | asset_url }}"
+    <img class="bfc-hero__logo" src="{{ 'logo-web4.webp' | asset_url }}"
          alt="{{ shop.name | escape }}" width="340" height="190">
   {%- endif -%}
 
@@ -138,8 +138,8 @@
 {
   "name": "BFC Hero",
   "settings": [
-    { "type": "image_picker", "id": "image", "label": "Background photo", "info": "Defaults to hero-powder.jpg" },
-    { "type": "image_picker", "id": "logo", "label": "Logo", "info": "Defaults to logo-web4.png" },
+    { "type": "image_picker", "id": "image", "label": "Background photo", "info": "Defaults to hero-powder.webp" },
+    { "type": "image_picker", "id": "logo", "label": "Logo", "info": "Defaults to logo-web4.webp" },
     { "type": "text", "id": "cta1_label", "label": "Primary button label", "default": "Shop the Range" },
     { "type": "url", "id": "cta1_link", "label": "Primary button link", "info": "Defaults to the all-products collection" },
     { "type": "text", "id": "cta2_label", "label": "Secondary button label", "default": "Our Story" },
