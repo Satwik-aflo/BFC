@@ -1,0 +1,53 @@
+{% doc %}
+  Brand layer partial: shared .bfc-* utility classes. Rendered inside the single {% style %} block in
+  snippets/brand.liquid (in source order). CSS only.
+{% enddoc %}
+  /* ── Brand utility classes (shared by our custom sections) ──────────── */
+  .bfc-kicker {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: var(--text-sm);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85em;
+  }
+  .bfc-kicker::before,
+  .bfc-kicker::after {
+    content: "";
+    width: 2.5rem;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.5;
+  }
+  .bfc-caps {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+  }
+  .bfc-script { font-family: var(--font-script); }
+  .bfc-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7em;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--text-sm);
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+    color: var(--kohl-black);
+    background: var(--mango-yellow);
+    border: var(--bfc-line);
+    outline: 1px solid var(--kohl-black);
+    outline-offset: 3px;
+    padding: 0.9em 1.6em;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.25s var(--bfc-ease-out), box-shadow 0.25s var(--bfc-ease-out);
+  }
+  .bfc-btn .hand { font-size: 1.2em; line-height: 0; transform: translateY(-1px); }
+  .bfc-btn:hover { transform: translate(-2px, -2px); box-shadow: 4px 4px 0 var(--kohl-black); }
+  .bfc-btn:active { transform: translate(0, 0); box-shadow: none; }
+  .bfc-btn--light { background: var(--kulfi-malai); }

@@ -1,0 +1,140 @@
+{% doc %}
+  Brand layer partial: homepage headings/stars + collection page reskin. Rendered inside the single {% style %} block in
+  snippets/brand.liquid (in source order). CSS only.
+{% enddoc %}
+  /* ── Batch 4: tighten homepage section headings to 1–2 lines, smaller. ──
+     The Horizon core text-block headings ("Boring Foods, Your Way" and
+     "How We Are Different") are plain h2 elements with no custom class —
+     we target them via their shopify-section ID attribute. The bundles and
+     judge.me headings have their own classes. CSS only for Horizon-core
+     headings; markup accent-span added to bundles.liquid (our section). */
+
+  /* "Boring Foods, Your Way" (product_list_wE8meU) and "How We Are Different"
+     (section_PWFkyK): NO size override — they inherit the Horizon default so
+     they match the "Socials" h2 (section_HmpREz: 48px, Copperplate, ripe-orange)
+     along with their shared stars icon. (User: match these to the Socials h2.) */
+
+  /* The three "stars" decorations (beside "Boring Foods, Your Way", "How We Are
+     Different", "Socials") all use the same 6% image width, but each sits in a
+     different-width container, so on mobile they render ~129 / 28 / 104px. Pin all
+     three to one explicit size on mobile so they match the "How We Are Different"
+     star (~28px = 1.75rem). The block wrapper class is image-block--{hash}__{blockid},
+     so match by the stable blockid suffix. Desktop already matches (all 72px). */
+  @media (max-width: 749px) {
+    .image-block[class*="image_RxaHRw"],
+    .image-block[class*="image_7F7Ypt"],
+    .image-block[class*="image_EAEdkf"] {
+      width: 50px !important;
+      min-width: 0 !important;
+      max-width: 50px !important;
+      flex: 0 0 auto !important;
+    }
+  }
+
+  /* "Blends With a Purpose" — our bundles section (.bfc-bundles__title).
+     Desktop: was ~56px (1 line). Target: ~38px, 1 line.
+     Mobile: was ~33px → 2 lines. Target: ~26px → 1-2 lines.
+     .bfc-accent span (added in bundles.liquid) takes Musloner script font. */
+  .bfc-bundles__title {
+    font-size: clamp(1.6rem, 1.2rem + 2.2vw, 2.4rem) !important;
+    line-height: 1.12 !important;
+    text-wrap: balance !important;
+    overflow-wrap: break-word !important;
+  }
+  /* Accent span: trailing phrase in Musloner script. */
+  .bfc-bundles__title .bfc-accent {
+    font-family: var(--font-script) !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+    font-size: 1.2em !important;
+    display: inline !important;
+  }
+
+  /* "Let customers speak for us" — judge.me carousel title (third-party).
+     Was 40px at both breakpoints → 1 line desktop, 2 lines mobile.
+     Target: ~22px at mobile so it stays 1 line; ~28px desktop. */
+  .jdgm-carousel-title {
+    font-size: clamp(1.2rem, 0.9rem + 1.8vw, 1.75rem) !important;
+    line-height: 1.2 !important;
+    text-wrap: balance !important;
+    overflow-wrap: break-word !important;
+  }
+
+  /* ── Shop / collection page reskin (CSS-only) ─────────────────────────────
+     Make Horizon's collection page read like the homepage "range" grid:
+     uniform Kulfi-Malai cream, a centred Copperplate display title (with the
+     existing stars motif), and a brand-styled filter/sort bar. The collection
+     grid + product cards are already cream/branded via the rules above; this
+     only restyles the page chrome. Scoped with :has(.product-grid-container)
+     so it hits collection (and search results) pages ONLY — that container is
+     absent from the homepage, footer, etc. No new sections, no scheme edits;
+     fully reversible. */
+
+  /* 1. Neutralise the Mango-Yellow header band (the decorative collection-title
+        section uses color-scheme-2) so the whole page is one cream field. */
+  body:has(.product-grid-container) .section-background.color-scheme-2 {
+    background-color: var(--kulfi-malai) !important;
+  }
+  body:has(.product-grid-container) .section.color-scheme-2 {
+    background-color: transparent !important;
+  }
+
+  /* 2. Centre the collection-title row (title + stars image) and give the
+        heading the homepage range look: Copperplate, letterspaced caps,
+        Ripe-Orange (large display — AA-safe at this size). */
+  body:has(.product-grid-container) .section-content-wrapper {
+    justify-content: center !important;
+    text-align: center !important;
+  }
+  body:has(.product-grid-container) .section-content-wrapper .text-block {
+    padding-inline-start: 0 !important;
+    padding-inline-end: 0 !important;
+  }
+  body:has(.product-grid-container) .section-content-wrapper :is(h1, h2, h3) {
+    font-family: var(--font-heading--family) !important;
+    font-size: clamp(1.9rem, 1.4rem + 2.2vw, 3rem) !important;
+    line-height: 1.1 !important;
+    letter-spacing: var(--tracking-caps) !important;
+    text-transform: uppercase !important;
+    color: var(--ripe-orange) !important;
+    text-align: center !important;
+    text-wrap: balance !important;
+    overflow-wrap: break-word !important;
+    margin: 0 !important;
+  }
+  /* On narrow screens a long collection name wraps to two lines; the decorative
+     stars sit beside the title on desktop but force the wrapped heading to
+     left-hug on mobile (and balloon if dropped to their own line). Hide the
+     stars on mobile and let the title block take the full width, so the wrapped
+     heading stays truly centred. */
+  @media (max-width: 749px) {
+    body:has(.product-grid-container) .section-content-wrapper .image-block {
+      display: none !important;
+    }
+    body:has(.product-grid-container) .section-content-wrapper .text-block {
+      flex: 1 1 100% !important;
+      max-width: 100% !important;
+      text-align: center !important;
+    }
+  }
+
+  /* 3. Brand-style the filter / sort bar: Copperplate small-caps labels in
+        Neem-Green (AA on cream), readable body-font controls, and ≥44px tap
+        targets on mobile. */
+  body:has(.product-grid-container) .facets__label {
+    font-family: var(--font-heading--family) !important;
+    letter-spacing: var(--tracking-caps) !important;
+    text-transform: uppercase !important;
+    color: var(--neem-green) !important;
+  }
+  body:has(.product-grid-container) .sorting-filter__select {
+    font-family: var(--font-body--family) !important;
+    color: var(--neem-green) !important;
+  }
+  @media (max-width: 749px) {
+    body:has(.product-grid-container) .facets summary,
+    body:has(.product-grid-container) .facets button,
+    body:has(.product-grid-container) .sorting-filter__select {
+      min-height: 44px !important;
+    }
+  }

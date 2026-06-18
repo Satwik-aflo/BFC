@@ -1,0 +1,18 @@
+{% doc %}
+  Brand layer partial: global focus ring + heading wrap. Rendered inside the single {% style %} block in
+  snippets/brand.liquid (in source order). CSS only.
+{% enddoc %}
+  /* ── Global accessibility (audit items #8, #10) ─────────────────────
+     High-contrast focus ring (Indian Blue) so brand styling never
+     suppresses keyboard focus; wrap long Copperplate/Mexicana headings
+     so they don't clip at 360px. */
+  :where(a, button, summary, input, select, textarea, [tabindex]):focus-visible {
+    outline: 2px solid #5d57c5;
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+  h1, h2, h3, h4,
+  .h0, .h1, .h2, .h3, .h4 {
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }

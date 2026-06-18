@@ -1,0 +1,114 @@
+{% doc %}
+  Brand layer partial: card price+weight, retro-oval add-to-cart pill, bottom-align. Rendered inside the single {% style %} block in
+  snippets/brand.liquid (in source order). CSS only.
+{% enddoc %}
+  /* Batch 3: product-card price + net weight inline (₹289 / 150 g) + add-to-cart-only (no buy-now).
+     Rendered via snippets/bfc-card-commerce.liquid as a custom-liquid block in the product-card. */
+  .bfc-card-commerce { margin-block-start: 0.4rem; }
+  .bfc-card-pricewt {
+    margin: 0 0 0.5rem;
+    font-family: var(--font-heading--family);
+    font-weight: 700;
+    color: var(--kulfi-malai);
+  }
+  .bfc-card-weight { font-size: 0.8em; opacity: 0.75; white-space: nowrap; }
+  .bfc-card-atc { display: block; }
+  /* Centre the retro-oval pill (it is an inline-block, content-width button). */
+  .bfc-card-atc,
+  .bfc-card-atc form { text-align: center; }
+
+  /* ── Retro-oval add-to-cart pill (mirrors the live PDP button: purple oval,
+     yellow caps, chunky shadow, two star sparkles). Classes are unique to our
+     card buttons, so these rules don't touch any other button. ── */
+  .retro-oval-wrapper {
+    position: relative;
+    display: inline-block;
+    width: auto;
+    max-width: 100%;
+    z-index: 1;
+    vertical-align: middle;
+  }
+  .button-retro-oval,
+  .button-retro-oval:disabled[disabled] {
+    /* Yellow fill + black text/border, matching the SINGLE ORIGIN badge. */
+    --retro-fill: #f9bf29;
+    --retro-text: #000000;
+    --retro-dark: #000000;
+    background-color: var(--retro-fill) !important;
+    color: var(--retro-text) !important;
+    border: 3px solid var(--retro-dark) !important;
+    border-radius: 400px !important;
+    box-shadow: 0 6px 0 var(--retro-dark) !important;
+    font-family: var(--font-heading--family) !important;
+    font-weight: 800 !important;
+    font-size: var(--text-base);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    /* Keep it a one-line pill — without this the label wraps to 2–3 lines on
+       narrow mobile cards and the 400px radius turns it into a circle. */
+    white-space: nowrap;
+    padding: 14px 30px;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: 100%;
+    display: inline-block !important;
+    opacity: 1 !important;
+    position: relative;
+    transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+  }
+  .button-retro-oval:not(:disabled):hover {
+    transform: translateY(4px);
+    box-shadow: 0 2px 0 var(--retro-dark) !important;
+  }
+  .button-retro-oval:not(:disabled):active {
+    transform: translateY(6px);
+    box-shadow: none !important;
+  }
+  .retro-sparkle {
+    position: absolute;
+    z-index: 2;
+    pointer-events: none;
+    width: 42px;
+    height: auto;
+  }
+  .sparkle-top-left { top: -19px; left: -13px; }
+  .sparkle-bottom-right { bottom: -15px; right: -13px; }
+
+  /* Mobile: smaller pill + sparkles so it stays a tidy one-line oval on
+     narrow 2-up cards (was ballooning into a circle). */
+  @media (max-width: 749px) {
+    .button-retro-oval,
+    .button-retro-oval:disabled[disabled] {
+      font-size: 13px;
+      letter-spacing: 0.5px;
+      padding: 10px 18px;
+      box-shadow: 0 4px 0 var(--retro-dark) !important;
+    }
+    .retro-sparkle { width: 28px; }
+    .sparkle-top-left { top: -13px; left: -9px; }
+    .sparkle-bottom-right { bottom: -11px; right: -9px; }
+  }
+
+  /* Card add-to-cart "added" state (mirrors the PDP button: cart icon → checkmark + "Added").
+     Scoped to card buttons; PDP / quick-add keep their own snippet behaviour. */
+  .bfc-card-atc__button .add-to-cart-text--added {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+  }
+  .bfc-card-atc__button[data-added='true'] .add-to-cart-text { display: none; }
+  .bfc-card-atc__button[data-added='true'] .add-to-cart-text--added { display: inline-flex; }
+  .bfc-card-atc__button .svg-wrapper svg { width: 1.05em; height: 1.05em; }
+
+  /* Bottom-align the price + add-to-cart across a row of homepage product cards,
+     regardless of how many lines the title wraps to. Horizon already gives
+     .product-card { display:grid; height:100% } so .product-card__content fills the
+     row; we just push our commerce block's (class-less) wrapper to the bottom. */
+  .product-card__content:has(.bfc-card-commerce) { height: 100%; }
+  /* margin-auto pins it to the bottom; padding-block-end keeps the bottom
+     sparkle + the pill's chunky 0 6px 0 shadow clear of the card's overflow:hidden. */
+  .product-card__content > *:has(> .bfc-card-commerce) {
+    margin-block-start: auto;
+    padding-block-end: 24px;
+  }

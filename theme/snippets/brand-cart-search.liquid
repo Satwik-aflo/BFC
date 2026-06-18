@@ -1,0 +1,286 @@
+{% doc %}
+  Brand layer partial: cart bubble/CTAs/drawer/totals + search modal. Rendered inside the single {% style %} block in
+  snippets/brand.liquid (in source order). CSS only.
+{% enddoc %}
+  /* ── Search + cart reskin → match static .sf-search / .sf-cart ───────
+     Panels are already cream via popover_color_scheme / drawer_color_scheme
+     = scheme-1. These rules port the static mock's brand treatment onto
+     Horizon's native components. CSS only — search/cart logic, forms, and
+     markup are 100% untouched. Static reference: site/css/main.css 1207-1442. */
+
+  /* Cart-count bubble: Ripe-Orange chip, cream Copperplate count. */
+  .cart-bubble__background {
+    background: var(--ripe-orange) !important;
+    border: 1px solid var(--kohl-black);
+  }
+  .cart-bubble__text {
+    color: var(--kulfi-malai) !important;
+    font-family: var(--font-display);
+    font-weight: 700;
+  }
+
+  /* Primary CTAs → static .btn (= .bfc-btn): mango-yellow, black text,
+     double black border, Copperplate uppercase, hover lift + hard shadow.
+     Applies to checkout, predictive "View all", and the empty-cart button. */
+  #checkout.cart__checkout-button,
+  .predictive-search__search-button,
+  .cart-items__empty-button {
+    font-family: var(--font-display) !important;
+    font-weight: 700 !important;
+    letter-spacing: var(--tracking-caps) !important;
+    text-transform: uppercase !important;
+    color: var(--kohl-black) !important;
+    background: var(--mango-yellow) !important;
+    border: var(--bfc-line) !important;
+    outline: 1px solid var(--kohl-black);
+    outline-offset: 3px;
+    border-radius: 0 !important;
+    box-shadow: none;
+    transition: transform 0.25s var(--bfc-ease-out), box-shadow 0.25s var(--bfc-ease-out);
+  }
+  #checkout.cart__checkout-button:hover,
+  .predictive-search__search-button:hover,
+  .cart-items__empty-button:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 4px 4px 0 var(--kohl-black);
+  }
+  #checkout.cart__checkout-button { width: 100%; justify-content: center; }
+  .cart__checkout-button .button-text { color: var(--kohl-black) !important; }
+  .predictive-search-form__footer { display: flex; justify-content: center; }
+
+  /* Cart drawer / page headings → Copperplate uppercase. */
+  .cart-drawer__summary {
+    background: var(--kulfi-deep);
+    border-top: var(--bfc-line);
+  }
+  .cart-drawer__heading,
+  .cart-drawer__header .h4 {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-caps);
+  }
+
+  /* Line items → static .sf-line. */
+  .cart-items__title {
+    font-family: var(--font-display) !important;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .cart-items__media-container img,
+  .cart-items__media img {
+    border: var(--bfc-line);
+    background: var(--kulfi-deep);
+    border-radius: 0;
+  }
+  .cart-items__variant,
+  .cart-items__variants {
+    color: var(--ink-soft);
+    font-size: var(--text-xs);
+  }
+  .cart-items__quantity-controls {
+    border: 1px solid var(--kohl-black);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .cart-items__quantity-controls button:hover,
+  .cart-items__quantity-controls .quantity-selector__button:hover {
+    color: var(--ripe-orange);
+  }
+  .cart-items__remove {
+    color: var(--ink-soft) !important;
+    text-underline-offset: 3px;
+  }
+  .cart-items__remove:hover { color: var(--ripe-orange) !important; }
+  .cart-items__price {
+    font-family: var(--font-display);
+    font-weight: 700;
+  }
+
+  /* Totals → static .sf-cart__subtotal. */
+  .cart-totals__total-label,
+  .cart-totals__original-label {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+  }
+  .cart-totals__total,
+  .cart-totals__total-value {
+    font-family: var(--font-display);
+    font-weight: 700;
+  }
+
+  /* Empty states → static charm/neem-green. */
+  .cart-drawer__heading--empty {
+    font-family: var(--font-charm);
+    text-transform: none;
+    letter-spacing: normal;
+    color: var(--neem-green);
+  }
+
+  /* ── Search modal → static full-width top-sliding panel (.sf-search). ──
+     Re-anchors Horizon's centered cmdk modal into the static site's panel that
+     slides down from the top of the viewport. Keeps Horizon's predictive search,
+     empty-state product grid (Recently Viewed + Products), focus trap,
+     scroll-lock and keyboard. CSS only — no markup/JS touched.
+     Static ref: site/css/main.css 1207-1291 + /tmp/bfc-qa/ss_desk_open_final.png. */
+
+  /* Shell: full-width, pinned to viewport top, cream, black underline, inner 64rem. */
+  .search-modal__content {
+    position: fixed !important;
+    inset: 0 0 auto 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: clamp(1.25rem, 4vw, 2.25rem) var(--gutter) clamp(2rem, 5vw, 3rem) !important;
+    background: var(--kulfi-malai) !important;
+    border: none !important;
+    border-bottom: var(--bfc-line) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    max-height: 85dvh;
+    overflow: hidden;
+  }
+  .search-modal__content[open] { display: block !important; }
+  .search-modal__content predictive-search-component {
+    display: block !important;
+    width: 100%;
+    max-width: 64rem;
+    margin-inline: auto;
+    background: transparent !important;
+  }
+  /* Visible "SEARCH" title — un-hide Horizon's modal heading (static .sf-search__title). */
+  .search-modal__content #search-modal-heading {
+    position: static !important;
+    width: auto !important;
+    height: auto !important;
+    margin: 0 auto 1rem !important;
+    padding: 0 !important;
+    clip: auto !important;
+    clip-path: none !important;
+    overflow: visible !important;
+    white-space: normal !important;
+    max-width: 64rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+    color: var(--kohl-black);
+  }
+
+  /* Slide down from the top (static: translateY(-100%)→0, 0.5s brand ease-out). */
+  @keyframes bfc-search-slide-down {
+    from { transform: translateY(-100%); }
+    to   { transform: translateY(0); }
+  }
+  @keyframes bfc-search-slide-up {
+    from { transform: translateY(0); }
+    to   { transform: translateY(-100%); }
+  }
+  .dialog-modal[open].search-modal__content {
+    transform-origin: top center !important;
+    animation: bfc-search-slide-down 0.5s var(--bfc-ease-out) forwards !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+  .dialog-modal.search-modal__content.dialog-closing {
+    animation: bfc-search-slide-up 0.35s var(--bfc-ease-out) forwards !important;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .dialog-modal[open].search-modal__content,
+    .dialog-modal.search-modal__content.dialog-closing {
+      animation: none !important;
+    }
+  }
+
+  /* Dimming scrim on every breakpoint (Horizon hides ::backdrop under 750px). */
+  .search-modal__content::backdrop { background: rgba(0, 0, 0, 0.38); }
+  @media screen and (max-width: 749px) {
+    .search-modal__content::backdrop { display: block; }
+  }
+
+  /* Field: single black underline (no boxed border), big body-font input. */
+  .search-modal__content .predictive-search-form__header,
+  .search-modal__content .predictive-search-form__header-inner {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+  .search-modal__content .predictive-search-form__header {
+    border-bottom: var(--bfc-line) !important;
+    padding: 0 !important;
+  }
+  .search-modal__content :is(.search-input, input[type="search"], .predictive-search-form__input) {
+    font-size: clamp(1.25rem, 1rem + 2vw, 2rem) !important;
+    font-family: var(--font-body--family);
+    font-weight: 500;
+    color: var(--kohl-black);
+  }
+
+  /* Mobile: the brand body font at clamp(~24px) clips the long placeholder
+     ("Search our boring little pantry"). Drop to 16px (iOS no-zoom floor) so the
+     full placeholder is visible. */
+  @media (max-width: 749px) {
+    .search-modal__content :is(.search-input, input[type="search"], .predictive-search-form__input) {
+      font-size: 1rem !important;
+    }
+  }
+
+  /* Results + empty-state grid flow INSIDE the panel and scroll there
+     (Horizon hangs them off the input as an absolute dropdown). */
+  .search-modal__content .predictive-search-form__content-wrapper {
+    position: static !important;
+    top: auto;
+    width: 100%;
+    max-height: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    overflow: visible;
+  }
+  .search-modal__content .predictive-search-form__content {
+    max-height: min(60dvh, 32rem) !important;
+    overflow-y: auto;
+    background: transparent !important;
+    padding-block-start: 1.25rem;
+  }
+  .search-modal__content .predictive-search-form__footer {
+    position: static !important;
+    background: none !important;
+    padding-block: 1.25rem 0 !important;
+  }
+
+  /* Empty-state + predictive result TYPE (kept from Wave 1c — matches the
+     user-approved official grid: green Copperplate section titles, uppercase
+     product names, WCAG-safe orange prices). */
+  .predictive-search-results__title {
+    font-family: var(--font-display) !important;
+    font-weight: 700;
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+    color: var(--neem-green);
+  }
+  .predictive-search-results__card .resource-card__title {
+    font-family: var(--font-display) !important;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .predictive-search-results__card :is(.resource-card__subtext, .price, .price *) {
+    color: var(--ripe-orange-ink) !important;
+  }
+
+  /* Focus ring (don't suppress Horizon's; make it brand + high-contrast). */
+  .search-modal__content :is(input, button, a):focus-visible,
+  .cart-drawer__dialog :is(input, button, a):focus-visible,
+  .cart-page__summary :is(input, button, a):focus-visible {
+    outline: 2px solid var(--ripe-orange-ink);
+    outline-offset: 2px;
+  }
+
+  /* Touch: keep cart stepper / remove ≥44px (WCAG 2.5.5). */
+  @media (pointer: coarse) {
+    .cart-items__quantity-controls button { min-width: 44px; min-height: 44px; }
+    .cart-items__remove { min-height: 44px; }
+  }

@@ -1,0 +1,92 @@
+{% doc %}
+  Brand layer partial: header/nav legibility, logo, sticky+transparent states. Rendered inside the single {% style %} block in
+  snippets/brand.liquid (in source order). CSS only.
+{% enddoc %}
+  /* ── Navigation legibility ──────────────────────────────────────────
+     Copperplate is an engraved (airy) face, so the top-level nav needs a
+     heavier weight + letter-spacing to read well. Horizon also dims
+     non-hovered links via --opacity-subdued-text and, on hover, swaps the
+     header's --color-foreground to `inherit` (which makes the rgb()-based
+     link colour resolve to nothing -> the text vanishes). We pin explicit,
+     high-contrast colours and force full opacity in every state. */
+  .menu-list__link,
+  .menu-list__link:hover,
+  .menu-list__link:focus,
+  .menu-list:where(:has(.menu-list__list-item:hover)) .menu-list__link,
+  .menu-list:where(:has(.menu-list__list-item:focus-within)) .menu-list__link {
+    opacity: 1 !important;
+    font-weight: 700;
+    /* Static site: nav links are 12px / 0.18em tracking (--text-xs). Horizon
+       defaults this far larger; pin it small so the bar reads quiet + premium
+       and sits into the photo rather than shouting over it. */
+    font-size: 0.75rem !important;
+    letter-spacing: 0.18em;
+  }
+
+  /* Static-site header parity: 58px logo + roomier nav (static gap = 2.4rem).
+     The logo is an SVG so it scales crisply; Horizon renders it at 36px. */
+  .header-logo__image {
+    height: clamp(48px, 4vw, 58px) !important;
+    width: auto !important;
+    max-width: none;
+  }
+  .header__column--center .menu-list { gap: clamp(1.8rem, 2.6vw, 2.4rem); }
+
+  /* Issue 2: the compact header packs the logo flush against the promo bar.
+     Give the header's top row a little vertical breathing room so the logo
+     (and nav) sit a few px below the announcement bar, on every page. */
+  .header__row--top { padding-block-start: 6px; }
+
+  /* Issue 4: the navigation-bar second row (.header__navigation-bar-row →
+     .menu-list--mobile) renders the menu inline on mobile and lands on top of
+     the hero. Hide it on mobile so the menu lives only in the hamburger drawer;
+     the top row keeps the hamburger, search, account and cart. */
+  @media (max-width: 749px) {
+    .header__navigation-bar-row { display: none !important; }
+  }
+
+  /* Solid headers (sub-pages): always render nav in Kohl Black on the
+     cream/scheme background, regardless of Horizon's hover colour swap. */
+  header-component:not([transparent]) .menu-list__link,
+  header-component:not([transparent]) .menu-list__link:hover,
+  header-component:not([transparent]) .menu-list__link:focus,
+  header-component:not([transparent]) .menu-list:where(:has(.menu-list__list-item:hover)) .menu-list__link {
+    color: #000 !important;
+  }
+
+  /* Transparent header (over the hero photo): render nav in Kulfi cream (not
+     the scheme's cold near-white) with a TIGHT offset shadow so the type sits
+     INTO the photo like the static site, instead of a wide blur that haloes. */
+  header-component[transparent] .menu-list__link,
+  header-component[transparent] .menu-list__link:hover,
+  header-component[transparent] .menu-list__link:focus {
+    color: var(--kulfi-malai) !important;
+    text-shadow: 0 1px 2px rgb(0 0 0 / 0.6), 0 1px 4px rgb(0 0 0 / 0.35);
+  }
+
+  /* Home: once the transparent header gains its solid (cream) background on
+     scroll, the [transparent] cream-nav rule above renders cream-on-cream —
+     invisible. Horizon never removes the [transparent] attribute; instead it
+     sets data-sticky-state="active" when the header sticks after scrolling.
+     Force dark nav + action icons in that scrolled/stuck state.
+     Selector confirmed live via DOM inspection (Step 1). */
+  header-component[data-sticky-state="active"] .menu-list__link {
+    color: #000 !important;
+    text-shadow: none !important;
+  }
+  /* Action icons (search / account / cart): darken to the SAME tone Horizon uses
+     for solid-header icons on sub-pages (rgba(0,0,0,0.81)), and do NOT touch
+     `fill` — forcing fill:currentColor turned these line icons into solid black
+     blobs (the scroll-state icon regression). Colour drives their stroke. */
+  header-component[data-sticky-state="active"] :is(.header-actions__action, .header__icon) {
+    color: rgba(0, 0, 0, 0.81) !important;
+    text-shadow: none !important;
+  }
+
+  /* Submenu / overflow dropdown links: ensure they never inherit a dimmed
+     or transparent colour. */
+  .menu-list__submenu .menu-list__link,
+  .overflow-menu .menu-list__link {
+    opacity: 1 !important;
+    color: var(--color-foreground) !important;
+  }
