@@ -24,8 +24,9 @@
         {% endif %}
 
         {% if section.settings.main_image != blank %}
+          {%- assign bc_main_alt = section.settings.main_image.alt | default: shop.name -%}
           <div class="bc-section__image">
-            {{ section.settings.main_image | image_url: width: 800 | image_tag: alt: section.settings.main_image.alt, loading: 'lazy' }}
+            {{ section.settings.main_image | image_url: width: 800 | image_tag: alt: bc_main_alt, loading: 'lazy' }}
           </div>
         {% endif %}
       </div>

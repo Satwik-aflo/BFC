@@ -732,7 +732,7 @@
           "settings": {
             "feature_text": "Can you verify it?",
             "brand_icon": "shopify://shop_images/Check.svg",
-            "brand_text": "<p>reports you can actually see <a href=\"https://boringfoodscompany.com/pages/reports\" title=\"https://boringfoodscompany.com/pages/reports\">here</a></p>",
+            "brand_text": "<p><a href=\"https://boringfoodscompany.com/pages/reports\" title=\"https://boringfoodscompany.com/pages/reports\">Lab reports</a> you can actually see</p>",
             "standard_icon": "shopify://shop_images/question-mark.svg",
             "standard_text": "trust-based",
             "mass_icon": "shopify://shop_images/ed67cbdb-7727-4370-bb62-7ab18514c255.png",
