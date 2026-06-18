@@ -43,7 +43,8 @@
     <a class="bfc-btn" href="{{ section.settings.cta1_link | default: routes.all_products_collection_url }}">
       <span class="hand">&#9758;</span> {{ section.settings.cta1_label | escape }}
     </a>
-    <a class="bfc-btn bfc-btn--light" href="{{ section.settings.cta2_link | default: '#manifesto' }}">
+    <a class="bfc-btn bfc-btn--light" href="{{ section.settings.cta2_link | default: '#manifesto' }}"
+       aria-label="{{ section.settings.cta2_label | escape }} — jump to our story">
       <span class="hand">&#9758;</span> {{ section.settings.cta2_label | escape }}
     </a>
   </div>
