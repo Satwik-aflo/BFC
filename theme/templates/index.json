@@ -11,7 +11,10 @@
   "sections": {
     "custom_liquid_CjPRme": {
       "type": "bfc-hero",
-      "settings": {}
+      "settings": {
+        "cta2_label": "View Test Reports",
+        "cta2_link": "shopify://pages/reports"
+      }
     },
     "product_list_wE8meU": {
       "type": "product-list",
@@ -54,13 +57,13 @@
               "type": "text",
               "name": "t:names.heading",
               "settings": {
-                "text": "<h2>Boring Foods, Your Way</h2>",
+                "text": "<h2>Our Single Origin Spices and Herbs</h2>",
                 "width": "fit-content",
                 "max_width": "none",
                 "alignment": "left",
                 "type_preset": "rte",
-                "font": "var(--font-heading--family)",
-                "font_size": "var(--text-2xl)",
+                "font": "var(--font-display)",
+                "font_size": "var(--text-xl)",
                 "line_height": "tight",
                 "letter_spacing": "normal",
                 "case": "uppercase",
@@ -71,7 +74,7 @@
                 "corner_radius": 0,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
-                "padding-inline-start": 45,
+                "padding-inline-start": 0,
                 "padding-inline-end": 0
               },
               "blocks": {}
@@ -161,9 +164,9 @@
               "type": "product-title",
               "name": "t:names.product_title",
               "settings": {
-                "width": "fit-content",
+                "width": "fill",
                 "max_width": "normal",
-                "alignment": "left",
+                "alignment": "center",
                 "type_preset": "rte",
                 "font": "var(--font-body--family)",
                 "font_size": "1rem",
@@ -625,8 +628,8 @@
             "max_width": "normal",
             "alignment": "left",
             "type_preset": "rte",
-            "font": "var(--font-heading--family)",
-            "font_size": "var(--text-2xl)",
+            "font": "var(--font-display)",
+            "font_size": "var(--text-xl)",
             "line_height": "tight",
             "letter_spacing": "normal",
             "case": "uppercase",
@@ -637,7 +640,7 @@
             "corner_radius": 0,
             "padding-block-start": 0,
             "padding-block-end": 0,
-            "padding-inline-start": 60,
+            "padding-inline-start": 0,
             "padding-inline-end": 0
           },
           "blocks": {}
@@ -802,8 +805,8 @@
             "max_width": "normal",
             "alignment": "left",
             "type_preset": "rte",
-            "font": "var(--font-accent--family)",
-            "font_size": "var(--text-3xl)",
+            "font": "var(--font-display)",
+            "font_size": "var(--text-xl)",
             "line_height": "tight",
             "letter_spacing": "normal",
             "case": "none",
@@ -814,7 +817,7 @@
             "corner_radius": 0,
             "padding-block-start": 0,
             "padding-block-end": 0,
-            "padding-inline-start": 40,
+            "padding-inline-start": 0,
             "padding-inline-end": 0
           },
           "blocks": {}
@@ -1169,7 +1172,7 @@
           "type": "bundle",
           "settings": {
             "title": "Inflammation Relief",
-            "subtitle": "Turmeric + Moringa",
+            "subtitle": "Turmeric + Moringa · 300 g",
             "link": "/products/inflammation-relief",
             "image_asset": "bundle-inflammation-relief.webp",
             "product": "inflammation-relief"
@@ -1214,7 +1217,7 @@
       ],
       "settings": {
         "color_scheme": "scheme-neem",
-        "kicker": "Shop by Benefits",
+        "kicker": "",
         "heading": "Blends With",
         "heading_accent": "a Purpose"
       }
@@ -1222,9 +1225,9 @@
   },
   "order": [
     "custom_liquid_CjPRme",
+    "bundles_brand",
     "product_list_wE8meU",
     "marquee_images_zXx6fE",
-    "bundles_brand",
     "product_list_fa6P9H",
     "section_4D73dE",
     "section_PWFkyK",

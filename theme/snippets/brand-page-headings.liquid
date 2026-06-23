@@ -3,16 +3,17 @@
   snippets/brand.liquid (in source order). CSS only.
 {% enddoc %}
   /* ── Batch 4: tighten homepage section headings to 1–2 lines, smaller. ──
-     The Horizon core text-block headings ("Boring Foods, Your Way" and
-     "How We Are Different") are plain h2 elements with no custom class —
-     we target them via their shopify-section ID attribute. The bundles and
-     judge.me headings have their own classes. CSS only for Horizon-core
-     headings; markup accent-span added to bundles.liquid (our section). */
+     The Horizon core text-block headings are plain h2 elements with no custom
+     class. The bundles and judge.me headings have their own classes (sized
+     below). CSS only for Horizon-core headings; markup accent-span added to
+     bundles.liquid (our section). */
 
-  /* "Boring Foods, Your Way" (product_list_wE8meU) and "How We Are Different"
-     (section_PWFkyK): NO size override — they inherit the Horizon default so
-     they match the "Socials" h2 (section_HmpREz: 48px, Copperplate, ripe-orange)
-     along with their shared stars icon. (User: match these to the Socials h2.) */
+  /* The three matched homepage section headings — "Our Single Origin Spices and
+     Herbs" (product_list_wE8meU), "How We Are Different" (section_PWFkyK) and
+     "Socials" (section_HmpREz) — share one size and a stars icon. The size is
+     set per-block in templates/index.json (font_size var(--text-xl)); NO CSS
+     override here so the index.json value wins. (User: reduce all three; keep
+     them matched.) */
 
   /* The three "stars" decorations (beside "Boring Foods, Your Way", "How We Are
      Different", "Socials") all use the same 6% image width, but each sits in a
@@ -48,6 +49,24 @@
     letter-spacing: 0 !important;
     font-size: 1.2em !important;
     display: inline !important;
+  }
+
+  /* Match the three homepage section headings to the bundles title exactly —
+     same display font + size at every viewport. These are Horizon type_preset
+     "rte" text blocks, so their font/size settings don't reliably win; we force
+     it here. Targeted by stable block-id class suffix (text_djKiBH = "Our Single
+     Origin Spices and Herbs", text_cPbJmw = "How We Are Different",
+     text_JNgYY8 = "Socials"); !important beats Horizon's preset. (User: all H2s
+     same as .bfc-bundles__title.) */
+  [class*="text_djKiBH"] :is(h1, h2, h3, h4),
+  [class*="text_cPbJmw"] :is(h1, h2, h3, h4),
+  [class*="text_JNgYY8"] :is(h1, h2, h3, h4) {
+    font-family: var(--font-display) !important;
+    font-weight: 400 !important;
+    font-size: clamp(1.6rem, 1.2rem + 2.2vw, 2.4rem) !important;
+    line-height: 1.12 !important;
+    text-wrap: balance !important;
+    overflow-wrap: break-word !important;
   }
 
   /* "Let customers speak for us" — judge.me carousel title (third-party).
