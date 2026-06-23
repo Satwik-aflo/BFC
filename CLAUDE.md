@@ -10,11 +10,12 @@ same brand system (`Boring Foods Brand Book.pdf`, fonts in `Typography/`, art in
 
 1. **`site/`** — the original standalone static marketing site (Phase 1, complete). Pure
    HTML/CSS/JS, **no build step**. Scroll-driven, Imperiale-Bolgheri-style single page.
-2. **`theme/`** — a **Shopify Horizon 3.5.1** theme (Phase 2, in progress). This is the
-   *actual replacement* for the live store: a reskin of Horizon that keeps all existing
-   storefront functionality (cart, checkout, products, collections, search, accounts,
-   judge.me, apps) while applying the brand look. `site/` is the design reference / source
-   of brand CSS, JS, fonts, and assets to port into `theme/`.
+2. **`theme/`** — a **Shopify Horizon 3.5.1** theme (Phase 2; **published live 2026-06-23**).
+   This is now the live store: a reskin of Horizon that keeps all existing storefront
+   functionality (cart, checkout, products, collections, search, accounts, judge.me, apps)
+   while applying the brand look. `site/` is the design reference / source of brand CSS, JS,
+   fonts, and assets ported into `theme/`. (Ongoing work is now polish on the *live* theme —
+   see the CLI/push safety notes below; pushes hit production.)
 
 `PLAN.md` documents the Phase 1 static-site design system and page flow.
 
@@ -113,9 +114,13 @@ core sections.
 - Store permanent domain: **`d9v1pv-06.myshopify.com`** (vanity = boringfoodscompany.com).
   **Always use the permanent domain** with the CLI — passing the vanity domain makes the CLI
   append `.myshopify.com` and auth fails.
-- Working/preview theme: **`#151032561833`** ("Boring Foods — New Design", a pristine admin
-  duplicate of Horizon). Live theme must **NEVER** be pushed/published to without explicit
-  user approval.
+- **Live theme (MAIN) = `#151032561833`** ("Boring Foods — New Design"). **The reskin was
+  published on 2026-06-23** — this ID, formerly the safe draft, is now the live store. **Every
+  `theme push` to it reaches real customers**, so push only with explicit user approval and
+  verify by pulling back. The old live, **`#147961872553`** ("Horizon"), is now **UNPUBLISHED**
+  and kept as the rollback target (re-publish it from admin → Themes to revert; nothing is
+  deleted). There is no separate draft anymore — the local `shopify theme dev` server is the
+  only push-free preview.
 - **Always pass `--path theme`, run the CLI from the repo root, and remember `--only` pushes the
   *entire* file (a full replace, not a patch).** The theme lives in `theme/`, not the repo root.
   The Bash tool resets cwd to the repo root before every call (so `cd theme && …` doesn't
@@ -123,8 +128,8 @@ core sections.
   to `theme/theme` and the command **errors**; prepend `cd /…/BFC &&` to be safe. Conversely, a
   push/pull that matches **zero** files (wrong `--path`/`--only`) moves nothing — **yet still
   prints "pushed successfully."** And since `--only` is a full-file replace, the working-tree file
-  must be the newest version: with all work on `main` (and the draft mirroring `main`) it always
-  is, but re-verify after any `git stash`/`checkout`/pull of an older copy.
+  must be the newest version: with all work on `main` (and the live MAIN theme mirroring `main`)
+  it always is, but re-verify after any `git stash`/`checkout`/pull of an older copy.
 - **Never re-upload Horizon's core sections.** CLI 4.1.0's validation is stricter than
   Horizon 3.5.1's schema and rejects `product-list`/`product-recommendations` on a full
   push, breaking templates. Push **only our brand files** surgically:
@@ -149,27 +154,32 @@ core sections.
   setting or drop the section reference. (Hit with a new `image_asset` setting on bundle cards,
   and again wiring `bfc-footer` into `footer-group.json`.)
 - Pull pristine source if needed: `rm -rf theme && shopify theme pull --theme 151032561833`
-- Preview: `https://d9v1pv-06.myshopify.com?preview_theme_id=151032561833` (sets a preview
-  cookie in *your* browser only — real customers are unaffected; use incognito to see live).
+- Preview: `#151032561833` is now **live**, so `https://boringfoodscompany.com` *is* the reskin —
+  no preview cookie needed. To preview the **old** Horizon theme instead, use
+  `https://d9v1pv-06.myshopify.com?preview_theme_id=147961872553` (preview cookie, your browser
+  only). For safe iteration without touching live, use the local `shopify theme dev` server.
 - If auth returns 401 "Service is not valid for authentication": `shopify auth logout` then
   re-login as the store owner (interactive, in a real terminal).
 - **Read deployed theme files read-only with `shopify store execute`** (Admin GraphQL) — the
-  only way to see what's *actually live* (or to diff live vs preview, or confirm a value landed
-  server-side). Auth once (interactive): `shopify store auth --store d9v1pv-06.myshopify.com
-  --scopes read_themes`. Then:
+  only way to confirm what's *actually live* server-side (or to diff the live reskin against the
+  old Horizon backup). Auth once (interactive): `shopify store auth --store d9v1pv-06.myshopify.com
+  --scopes read_themes`. Then (note the live ID is now `151032561833`):
 
   ```bash
   shopify store execute --store d9v1pv-06.myshopify.com -j --query \
-    'query { theme(id:"gid://shopify/OnlineStoreTheme/147961872553"){ files(first:1, filenames:["config/settings_data.json"]){ nodes{ body{ ... on OnlineStoreThemeFileBodyText { content } } } } } }'
+    'query { theme(id:"gid://shopify/OnlineStoreTheme/151032561833"){ files(first:1, filenames:["config/settings_data.json"]){ nodes{ body{ ... on OnlineStoreThemeFileBodyText { content } } } } } }'
   ```
 
-  Live theme = **`#147961872553`** ("Horizon", role MAIN). Strip the leading `/* … */` comment
-  from theme JSON before parsing. `read_themes` covers theme files only (product/customer reads
-  need broader scopes — get purchasable variant ids from the public `/products.json` instead).
-- **Live and preview have diverged — the live theme is being hand-edited in admin** in parallel
-  with our preview reskin (different drawer/header schemes, transparent-header toggles, homepage
-  sections). Before publishing the preview theme, diff live vs preview (query above) so a publish
-  doesn't clobber live-only work, or vice-versa. Shopify exposes **no per-file version history via
+  Live theme (role MAIN) = **`#151032561833`** ("Boring Foods — New Design"); old Horizon backup
+  (UNPUBLISHED) = **`#147961872553`**. List all roles with `themes(first:25){ nodes{ id name role }}`.
+  Strip the leading `/* … */` comment from theme JSON before parsing. `read_themes` covers theme
+  files only (product/customer reads need broader scopes — get purchasable variant ids from the
+  public `/products.json` instead).
+- **Live now reflects our reskin (published 2026-06-23).** Before this, the old Horizon live was
+  hand-edited in admin in parallel with the reskin; that divergence was resolved by the publish.
+  The pre-reskin state is preserved in the UNPUBLISHED `#147961872553` — diff against it (query
+  above) to see exactly what the launch changed, or re-publish it to roll back. Shopify exposes
+  **no per-file version history via
   API**; the exact who/when of a live edit is only in admin → Themes → ⋯ → Version history.
 
 ### Validate before pushing (Shopify Dev MCP)
@@ -196,18 +206,20 @@ invisible until an admin step wires it up.
 Always confirm visually with headless Chromium + Playwright screenshots (desktop 1280 +
 mobile 390), comparing against `site/`. The QA harness lives in `/tmp/bfc-qa/`; Playwright
 resolves `playwright-core` from `/tmp/node_modules`, Chromium from the `ms-playwright` cache.
-Set the preview cookie by visiting `?preview_theme_id=151032561833` once, then navigate to
-the real URL and screenshot. When a page looks blank despite valid code, suspect an unbound
+Since `#151032561833` is now live, screenshot the real URL (`https://boringfoodscompany.com`)
+directly — no preview cookie needed (use the local `shopify theme dev` server to QA un-pushed
+local edits). When a page looks blank despite valid code, suspect an unbound
 template or a missing menu/page in admin — and hand the user an explicit admin checklist.
 (Storefront pages live store-wide at `/pages/<handle>`, independent of theme; a page set to
 **Hidden** returns 404 and is absent from `/sitemap.xml` — that's the usual "my new page
 404s" cause, not caching.)
 
 **Preview an unbound or alternate template without touching admin:** append `&view=<suffix>` to
-the URL — e.g. `…/pages/recipes?preview_theme_id=151032561833&view=recipes` renders that
-template for your request only, no page→template binding required. (Several pages — recipes,
-about-us — render the *default* template at their plain URL because the page isn't bound to its
-new template yet; that binding is an admin step that affects live, so flag it, don't flip it.)
+the URL — e.g. `https://boringfoodscompany.com/pages/recipes?view=recipes` renders that
+template for your request only, no page→template binding required. (Several pages — notably
+**recipes** (bound to the about-us template, confirmed 2026-06-23) and **about-us** — render the
+*wrong/default* template at their plain URL because the page isn't bound to its new template yet;
+that binding is an admin step that **now affects live immediately**, so flag it, don't flip it.)
 
 **Interactive components (cart drawer, search popover) need state to verify.** Drive them with
 Playwright: POST `/cart/add.js` `{items:[{id:<variantId>,quantity:1}]}` to populate (variant id
@@ -308,11 +320,12 @@ pattern is the model responsive transform · index hero CTA prominent above the 
 Remote `origin` = `https://github.com/Satwik-aflo/BFC.git` (private). Default branch `main`.
 
 **HARD RULE: all work happens directly on `main` — do NOT create feature branches.** This is a
-single-developer, non-production workflow; pages/sections are worked on independently, so there
-is no overlap to isolate and the overhead of branches/PRs isn't warranted. Critically, the
-**draft theme tracks `main`**: keeping everything on one branch guarantees the working tree always
-matches what the draft should be, so a surgical `--only` push can never revert unmerged work. (On
-2026-06-17, splitting work across `main` + a feature branch while the draft tracked the *feature*
-branch caused a `main`-based push to silently wipe the marquee announcement bar off the draft —
-single-branch eliminates this entire class of bug.) Commit straight to `main`; push to
-`origin/main` when the user asks.
+single-developer workflow; pages/sections are worked on independently, so there is no overlap to
+isolate and the overhead of branches/PRs isn't warranted. Critically, the **live MAIN theme now
+tracks `main`** (since the 2026-06-23 publish): keeping everything on one branch guarantees the
+working tree always matches what the live theme should be, so a surgical `--only` push can never
+revert unmerged work — but it also means **a stray push now hits production**, so confirm before
+pushing. (On 2026-06-17, splitting work across `main` + a feature branch while the then-draft
+tracked the *feature* branch caused a `main`-based push to silently wipe the marquee announcement
+bar off the theme — single-branch eliminates this entire class of bug.) Commit straight to
+`main`; push to `origin/main` when the user asks.
