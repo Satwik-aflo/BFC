@@ -48,7 +48,6 @@
         "heading",
         "page-content"
       ],
-      "disabled": false,
       "settings": {
         "content_direction": "column",
         "gap": 32,
