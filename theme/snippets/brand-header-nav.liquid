@@ -90,3 +90,39 @@
     opacity: 1 !important;
     color: var(--color-foreground) !important;
   }
+
+  /* Hamburger drawer: Horizon sizes top-level links at --menu-font-2xl--size
+     (1.75rem). In all-caps Copperplate that reads oversized on mobile, so dial
+     the top-level drawer links down to a calmer scale. Override in the brand
+     layer rather than editing Horizon's core menu-font-styles snippet. */
+  .menu-drawer__menu-item--mainlist {
+    font-size: 1.25rem !important;
+    line-height: 1.3 !important;
+  }
+
+  /* Drawer group headers vs leaf links: inside a section like "Shop", the
+     childlist parents ("Shop by products" / "Shop by benefits") and the
+     grandchildlist leaves ("Turmeric powder" ...) render in the same black
+     Copperplate caps and read as one ambiguous list. Style the group headers
+     as section labels (Neem Green, larger, letterspaced, underlined, spaced
+     above) and keep the leaf links plain black and subordinate, so the
+     heading/link hierarchy is obvious. */
+  .menu-drawer__menu--childlist > .menu-drawer__list-item > .menu-drawer__menu-item--parent {
+    color: var(--neem-green) !important;
+    font-size: 1.375rem !important;
+    letter-spacing: 0.06em !important;
+    margin-block-start: 0.75rem !important;
+    padding-block-end: 0.3rem !important;
+    border-block-end: 1px solid rgba(36, 79, 36, 0.28) !important;
+  }
+  .menu-drawer__menu--grandchildlist .menu-drawer__menu-item--child {
+    color: var(--kohl-black) !important;
+    font-size: 1rem !important;
+    padding-inline-start: 0.25rem !important;
+  }
+  /* "Shop All" is the catch-all link to /collections/shop, not a product; give
+     it the AA-safe ripe-orange ink so it reads as a distinct CTA among the
+     black product links. Targeted by its generated drawer id. */
+  #HeaderDrawer-shop-shop-by-products-shop-all.menu-drawer__menu-item--child {
+    color: var(--ripe-orange-ink) !important;
+  }
