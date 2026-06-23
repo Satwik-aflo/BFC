@@ -243,7 +243,7 @@
       color: #5d57c5;
       display: block;
       width: fit-content;
-      margin: 20px auto 0;
+      margin: 8px auto 0;
       border-bottom: 2px solid transparent;
       transition: border-color 0.3s ease;
     }
@@ -263,19 +263,29 @@
         text-align: center;
       }
 
-      .bc-section__image-wrap,
-      .bc-section__right-col {
+      .bc-section__image-wrap {
         max-width: 100%;
         flex: 1 1 auto;
       }
 
+      /* Cap the cloud column so it never out-grows the fixed-width ribbon
+         (above ~430px the blob ballooned wider than the 335px badge, opening
+         a gap between the ribbon and the cloud top). */
+      .bc-section__right-col {
+        max-width: 420px;
+        flex: 1 1 auto;
+      }
+
       .bc-section__text-blob {
-        padding: 120px 30px 50px 30px;
+        padding: 120px 30px 90px 30px;
         min-height: auto;
       }
       
       .bc-section__badge-container {
-          top: -30px;
+          /* Ribbon scales with viewport width but this offset is fixed, so it
+             must be small enough that even the shorter narrow-width ribbon still
+             reaches the cloud top (–30px left a gap below ~415px). */
+          top: -6px;
           width: 90%;
       }
 
@@ -291,15 +301,6 @@
         font-size: 16px;
       }
     }
-
-@media only screen 
-  and (min-width: 400px) 
-  and (max-width: 430px) {
-
-  .bc-section__badge-shape svg {
-    margin-top: 0rem;
-  }
-}
   </style>
 </section>
 
